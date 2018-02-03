@@ -9,22 +9,28 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 import entitites.Member;
+import entitites.Person;
 
 public class FileReader {
 	
 	public static void main(String args[]) {
 		
-		String fileName = "data/Persons.dat";
-		Scanner s = null;
+		String personFile = "data/Persons.dat";
+		Scanner p = null;
 		
 		try {
-			s = new Scanner(new File(fileName));
+			p = new Scanner(new File(personFile));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		Member[] members = new Member[];
+		Person person[] = new Person[20];
 		
+		System.out.println("Persons: ");
+		
+		for (Person i : person) {
+			System.out.println(i);
+		}
 		
 		
 		
