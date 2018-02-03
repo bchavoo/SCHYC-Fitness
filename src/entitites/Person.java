@@ -1,10 +1,10 @@
 package entitites;
 
-public class Name {
+public class Person {
 	String firstName;
 	String lastName;
 	
-	public Name(String firstName, String lastName) {
+	public Person(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
