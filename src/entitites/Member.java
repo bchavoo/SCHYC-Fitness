@@ -7,6 +7,7 @@ public class Member {
 	private String name;
 	private Address address;
 	
+	
 	//Constructor
 	public Member (String memberCode, Person contact, String name, Address address) {
 		super();
