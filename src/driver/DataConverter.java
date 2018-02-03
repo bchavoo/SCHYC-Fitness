@@ -5,9 +5,7 @@ public class DataConverter {
 	public static void main (String[] args) {
 		
 		//Create a FlatFileReader object
-		
-		System.out.prinln("Testing");
-		
+				
 		//Create JSON Writer Object
 		
 		//Create XML Writer Object
