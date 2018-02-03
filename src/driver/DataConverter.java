@@ -4,13 +4,11 @@ public class DataConverter {
 	
 	public static void main (String[] args) {
 		
-		System.out.println("This is the driver. I am using GitLab.");
+		//Create a FlatFileReader object
 		
-		System.out.println("Is this working?");
+		//Create JSON Writer Object
 		
-		System.out.println("This is Mohammad");
-		
-		System.out.println("This is Bryan");
+		//Create XML Writer Oject
 
 	
 	}
