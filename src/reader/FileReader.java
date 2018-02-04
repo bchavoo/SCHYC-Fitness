@@ -140,13 +140,17 @@ public class FileReader {
 			if(token[1].equals("R")) {
 				String equipment = token[2];
 				double equipmentCost = Double.parseDouble(token[3]);
+				System.out.println("Product Code: " + productCode);
+				System.out.println("Product Type: " + productType);
 				System.out.println("Equipment: " + equipment);
 				System.out.println("Equipment Cost: " + equipmentCost);
-				return;
+				System.out.println("-------------------------------------");
 			} else if (token[1].equals("P")) {
-				double parkingFee = Double.parseDouble(token[2]); 
+				double parkingFee = Double.parseDouble(token[2]);
+				System.out.println("Product Code: " + productCode);
+				System.out.println("Product Type: " + productType);
 				System.out.println("Parking Fee: " + parkingFee);
-				return;
+				System.out.println("-------------------------------------");
 			} else if (token[1].equals("Y")) {
 				String startDate = token[2];
 				String endDate = token[3];
@@ -165,25 +169,26 @@ public class FileReader {
 				System.out.println("Address: " + street + ", " + city + ", " + state + ", " + zip + ", " + country);
 				System.out.println("Group: " + membershipGroup);
 				System.out.println("Cost of Membership: " + costPerUnit);
-				return;
+				System.out.println("-------------------------------------");
 			} else {
 			
 			String dateTime = token[2];
 			String tokenAddress[] = token[3].split(",");
-			//String street = tokenAddress[0];
-			//String city = tokenAddress[1];
-			//String state = tokenAddress[2];
-			//String zip = tokenAddress[3];
-			//String country = tokenAddress[4];
-			String costPerUnit = token[3];
+			String street = tokenAddress[0];
+			String city = tokenAddress[1];
+			String state = tokenAddress[2];
+			String zip = tokenAddress[3];
+			String country = tokenAddress[4];
+			String costPerUnit = token[4];
 			
 			
 			
 			System.out.println("Product Code: " + productCode);
 			System.out.println("Product Type: " + productType);
 			System.out.println("Date & Time: " + dateTime);
-			//System.out.println("Address : " + street + ", " + ", " + state + ", " + zip + ", " + country);
+			System.out.println("Address : " + street + ", " + city + ", " + state + ", " + zip + ", " + country);
 			System.out.println("Membership Cost: " + costPerUnit);
+			System.out.println("-------------------------------------");
 			}
 					
 					
