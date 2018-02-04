@@ -3,19 +3,31 @@ package entitites;
 import java.util.ArrayList;
 
 public class Person {
+	private String personCode;
 	private String firstName;
 	private String lastName;
+	private Address address;
 	private ArrayList<String>email;
 	
 	//Constructor
-	public Person (String firstName, String lastName, ArrayList<String> email) {
+	public Person(String personCode, String firstName, String lastName, Address address, ArrayList<String> email) {
 		super();
+		this.personCode = personCode;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.address = address;
 		this.email = email;
 	}
 
 	//Getters and Setters
+	public String getPersonCode() {
+		return personCode;
+	}
+
+	public void setPersonCode(String personCode) {
+		this.personCode = personCode;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -32,6 +44,14 @@ public class Person {
 		this.lastName = lastName;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public ArrayList<String> getEmail() {
 		return email;
 	}
@@ -39,10 +59,6 @@ public class Person {
 	public void setEmail(ArrayList<String> email) {
 		this.email = email;
 	}
-
 	
 	
 }
-	
-	
-	
