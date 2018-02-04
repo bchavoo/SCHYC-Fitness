@@ -58,11 +58,16 @@ import entitites.Product;
 				String state = tokenAddress[2];
 				String zip = tokenAddress[3];
 				String country = tokenAddress[4];
-							
 				
+				//Can't figure out null (Person with no email address)
+				if(token[3].equals(null)) {
+					System.out.println("No email");
+				} else {
 				String email = token[3];
 				System.out.println(email);
-	
+
+				}
+					
 							
 				
 				Address a = new Address (street, city, state, zip, country);
