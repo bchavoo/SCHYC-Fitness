@@ -18,7 +18,7 @@ public class Person {
 		this.address = address;
 		this.email = email;
 	}
-
+	
 	//Getters and Setters
 	public String getPersonCode() {
 		return personCode;
