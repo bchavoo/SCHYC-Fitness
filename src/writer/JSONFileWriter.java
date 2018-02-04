@@ -32,7 +32,8 @@ public class JSONFileWriter {
 		JSONFileWriter student1 = new JSONFileWriter();
 	
 		student1.id = 1234;
-		student1.name = "Mohammad";
+		student1.name = "Mohammad"; 
+		//suh dude 
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
