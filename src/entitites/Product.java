@@ -119,7 +119,8 @@ public class Product {
 		//Constructor
 		public DayMemberships(String productCode, String productCode2, String productType, String dateTime, Address address, String cost) {
 			super(productCode);
-			productCode = productCode2;
+			//Do we need this? Does the Super below use productCode from its super class
+			this.productCode = productCode;
 			this.productType = productType;
 			this.dateTime = dateTime;
 			this.address = address;
@@ -173,7 +174,9 @@ public class Product {
 		//Constructor
 		public ParkingPass(String productCode, String productCode2, String productType, double parkingFee) {
 			super(productCode);
-			productCode = productCode2;
+			//Do we need this? Does the Super below use productCode from its super class
+			this.productCode = productCode;
+			//Do we need product type? (Assignment II Part I Slide 21)
 			this.productType = productType;
 			this.parkingFee = parkingFee;
 		}
@@ -209,24 +212,25 @@ public class Product {
 	
 	//Equipment-------------------------------------------------------------------------------------------------
 	public class Equipment extends Product {
-		private String prodructCode;
+		private String productCode;
 		private String productType;
 		private double cost;
 
 		//Constructor
 		public Equipment(String productCode, String prodructCode, String productType, double cost) {
 			super(productCode);
-			this.prodructCode = prodructCode;
+			//Do we need this? Does the Super below use productCode from its super class
+			this.productCode = prodructCode;
 			this.productType = productType;
 			this.cost = cost;
 		}
 		
 		//Getter and Setter
 		public String getProdructCode() {
-			return prodructCode;
+			return productCode;
 		}
 		public void setProdructCode(String prodructCode) {
-			this.prodructCode = prodructCode;
+			this.productCode = prodructCode;
 		}
 		public String getProductType() {
 			return productType;
