@@ -28,7 +28,6 @@ public class FileReader {
 		}
 		
 		
-		Person person[] = new Person [21];
 
 		
 		
@@ -51,8 +50,8 @@ public class FileReader {
 			String country = tokenAddress[4];
 			
 			
-			Address a = new Address (street, city, state, zip, country);
-			Person p = new Person(personCode, firstName, lastName, a, email??);
+			//Address a = new Address (street, city, state, zip, country);
+			//Person p = new Person(personCode, firstName, lastName, a, email??);
 			
 			//Add person to directory
 			//lib.addPerson(p);
@@ -68,41 +67,42 @@ public class FileReader {
 		
 		
 		//Member File
-		String personFile = "data/Persons.dat";
-		Scanner s = null;
+		String memberFile = "data/Members.dat";
+		Scanner m = null;
 				
 		try {
-			s = new Scanner(new File(personFile));
+			m = new Scanner(new File(memberFile));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 				
 				
-		Person person[] = new Person [21];
-
 				
 				
-		int n = Integer.parseInt(s.nextLine());
+		int j = Integer.parseInt(m.nextLine());
 				
-		System.out.println("The value of n is: " + n);
+		System.out.println("The value of j is: " + j);
 				
-		while(s.hasNext()) {
-			String line = s.nextLine();
+		while(m.hasNext()) {
+			String line = m.nextLine();
 			String tokenCode[] = line.split(";");
-			String personCode = tokenCode[0];
-			String tokenName[] = tokenCode[1].split(",");
-			String lastName = tokenName[0];
-			String firstName = tokenName[1];
-			String tokenAddress[] = tokenCode[2].split(",");
+			String memberCode = tokenCode[0];
+			String memberType = tokenCode[1];
+			String personCode = tokenCode[2];
+			String memberName = tokenCode[3];
+			String tokenAddress[] = tokenCode[4].split(",");
 			String street = tokenAddress[0];
 			String city = tokenAddress[1];
 			String state = tokenAddress[2];
 			String zip = tokenAddress[3];
 			String country = tokenAddress[4];
 					
-					
+			System.out.println("Member Code: " + memberCode + " Member type: " + memberType + " Person code: " + personCode + " Member Name: " + memberName 
+					+ "Address : " + street + ", " + state + ", " + zip + ", " + country);
+			
+			
 			Address a = new Address (street, city, state, zip, country);
-			Person p = new Person(personCode, firstName, lastName, a, email??);
+			Member mem = new Member(memberCode, memberType, personCode, memberName, a);
 					
 			//Add person to directory
 			//lib.addPerson(p);

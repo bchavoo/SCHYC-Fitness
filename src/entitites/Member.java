@@ -3,16 +3,17 @@ package entitites;
 public class Member {
 	
 	private String memberCode;
-	private Person contact;
+	private String memberType;
+	private String personCode;
 	private String name;
 	private Address address;
 	
-	
 	//Constructor
-	public Member (String memberCode, Person contact, String name, Address address) {
+	public Member(String memberCode, String memberType, String personCode, String name, Address address) {
 		super();
 		this.memberCode = memberCode;
-		this.contact = contact;
+		this.memberType = memberType;
+		this.personCode = personCode;
 		this.name = name;
 		this.address = address;
 	}
@@ -26,12 +27,20 @@ public class Member {
 		this.memberCode = memberCode;
 	}
 
-	public Person getContact() {
-		return contact;
+	public String getMemberType() {
+		return memberType;
 	}
 
-	public void setContact(Person contact) {
-		this.contact = contact;
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+
+	public String getPersonCode() {
+		return personCode;
+	}
+
+	public void setPersonCode(String personCode) {
+		this.personCode = personCode;
 	}
 
 	public String getName() {
@@ -49,6 +58,7 @@ public class Member {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
 	
 	
 	
