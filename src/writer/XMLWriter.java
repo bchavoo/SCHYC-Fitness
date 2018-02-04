@@ -45,6 +45,9 @@ public class XMLWriter {
 		String xmlString = xstream.toXML(s1);
 		
 		
+		
+		
+
 		System.out.println(xmlString);
 			
 		}
