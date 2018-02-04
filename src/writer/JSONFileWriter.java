@@ -33,8 +33,8 @@ public class JSONFileWriter {
 	
 		student1.id = 1234;
 		student1.name = "Mohammad"; 
-		//suh dude 
 		
+		//Pretty Printing
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		String jsonString = gson.toJson(student1);
