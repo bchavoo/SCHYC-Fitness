@@ -1,6 +1,8 @@
 package driver;
 
 import reader.FileReader;
+import writer.JSONWriter;
+import writer.XMLWriter;
 
 public class DataConverter {
 	
@@ -10,9 +12,11 @@ public class DataConverter {
 		FileReader reader = new FileReader();		
 		
 		//Create JSON Writer Object
-		reader.JSONFileWriter();
+		JSONWriter PersonJSON = new JSONWriter();
 		
 		//Create XML Writer Object
+		XMLWriter PersonXML = new XMLWriter();
+		
 
 	
 	}

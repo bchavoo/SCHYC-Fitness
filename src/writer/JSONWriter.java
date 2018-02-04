@@ -5,8 +5,7 @@ import entitites.Person;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import entitites.Address;
 import entitites.Product;
 
-public class JSONFileWriter {
+public class JSONWriter {
 
 	int id = 0;
 	String name = "";
@@ -29,7 +28,7 @@ public class JSONFileWriter {
 	//private final List<Member> finalmemberExport= new ArrayList<Member>();
 	//private final List<Product> finalproductExport= new ArrayList<Product>();
 
-		JSONFileWriter student1 = new JSONFileWriter();
+		JSONWriter student1 = new JSONWriter();
 	
 		student1.id = 1234;
 		student1.name = "Mohammad"; 
