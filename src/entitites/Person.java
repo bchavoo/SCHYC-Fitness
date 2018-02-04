@@ -8,7 +8,7 @@ public class Person {
 	private ArrayList<String>email;
 	
 	//Constructor
-	public Person(String firstName, String lastName, ArrayList<String> email) {
+	public Person (String firstName, String lastName, ArrayList<String> email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

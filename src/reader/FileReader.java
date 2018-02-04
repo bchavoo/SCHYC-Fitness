@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import entitites.Member;
 import entitites.Person;
+import entitites.Address;
 
 public class FileReader {
 	
@@ -24,14 +25,32 @@ public class FileReader {
 			e.printStackTrace();
 		}
 		
-		Person person[] = new Person[20];
+		String person = "";
 		
-		System.out.println("Persons: ");
 		
+		int i = 0;
+		while(p.hasNextLine()) {
+			String line = p.nextLine();
+						
+			System.out.println(line);
+			
+ 		}
+		
+		System.out.println(person);
+		
+		
+		
+		
+		
+		
+		//Person person[] = new Person[20];
+		
+		/*
 		for (Person i : person) {
+			person[i] = person;
 			System.out.println(i);
 		}
-		
+		*/
 		
 		
 	}
