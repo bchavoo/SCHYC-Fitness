@@ -22,10 +22,7 @@ public class Product {
 	
 	
 	
-	
-	
-	
-	//Year Long Memberships
+	//Year Long Memberships-------------------------------------------------------------------------------------------------
 	public class YearMemberships extends Product {
 
 		private String productCode;
@@ -48,7 +45,7 @@ public class Product {
 			this.membershipName = membershipName;
 			this.pricePerUnit = pricePerUnit;
 		}
-		// setter and getter 
+		//Getter and Setter
 		public String getProductCode() {
 			return productCode;
 		}
@@ -109,7 +106,7 @@ public class Product {
 	
 	
 	
-	//Day Memberships
+	//Day Memberships-------------------------------------------------------------------------------------------------
 	public class DayMemberships extends Product {
 		
 
@@ -166,7 +163,7 @@ public class Product {
 	
 	
 	
-	//ParkingPass
+	//ParkingPass-------------------------------------------------------------------------------------------------
 	public class ParkingPass extends Product {
 		
 		private String productCode;
@@ -210,7 +207,7 @@ public class Product {
 	}
 	
 	
-	//Equipment
+	//Equipment-------------------------------------------------------------------------------------------------
 	public class Equipment extends Product {
 		private String prodructCode;
 		private String productType;

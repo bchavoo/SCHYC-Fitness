@@ -17,7 +17,7 @@ public class FileReader {
 	public static void main(String args[]) {
 		
 		
-		//Person File
+		//Person File-------------------------------------------------------------------------------------------------
 		String personFile = "data/Persons.dat";
 		Scanner s = null;
 		
@@ -37,12 +37,12 @@ public class FileReader {
 		
 		while(s.hasNext()) {
 			String line = s.nextLine();
-			String tokenCode[] = line.split(";");
-			String personCode = tokenCode[0];
-			String tokenName[] = tokenCode[1].split(",");
+			String token[] = line.split(";");
+			String personCode = token[0];
+			String tokenName[] = token[1].split(",");
 			String lastName = tokenName[0];
 			String firstName = tokenName[1];
-			String tokenAddress[] = tokenCode[2].split(",");
+			String tokenAddress[] = token[2].split(",");
 			String street = tokenAddress[0];
 			String city = tokenAddress[1];
 			String state = tokenAddress[2];
@@ -66,7 +66,7 @@ public class FileReader {
 		
 		
 		
-		//Member File
+		//Member File-------------------------------------------------------------------------------------------------
 		String memberFile = "data/Members.dat";
 		Scanner m = null;
 				
@@ -85,12 +85,12 @@ public class FileReader {
 				
 		while(m.hasNext()) {
 			String line = m.nextLine();
-			String tokenCode[] = line.split(";");
-			String memberCode = tokenCode[0];
-			String memberType = tokenCode[1];
-			String personCode = tokenCode[2];
-			String memberName = tokenCode[3];
-			String tokenAddress[] = tokenCode[4].split(",");
+			String token[] = line.split(";");
+			String memberCode = token[0];
+			String memberType = token[1];
+			String personCode = token[2];
+			String memberName = token[3];
+			String tokenAddress[] = token[4].split(",");
 			String street = tokenAddress[0];
 			String city = tokenAddress[1];
 			String state = tokenAddress[2];
@@ -117,33 +117,74 @@ public class FileReader {
 		
 		
 		
-		//Products File
+		//Products File-------------------------------------------------------------------------------------------------
 		String productFile = "data/Products.dat";
-		Scanner s = null;
+		Scanner pr = null;
 		
 		try {
-			s = new Scanner(new File(personFile));
+			pr = new Scanner(new File(productFile));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 				
-		int k = Integer.parseInt(s.nextLine());
+		int k = Integer.parseInt(pr.nextLine());
 				
 		System.out.println("The value of n is: " + n);
 				
-		while(s.hasNext()) {
-			String line = s.nextLine();
-			String tokenCode[] = line.split(";");
-			String personCode = tokenCode[0];
-			String tokenName[] = tokenCode[1].split(",");
-			String lastName = tokenName[0];
-			String firstName = tokenName[1];
-			String tokenAddress[] = tokenCode[2].split(",");
-			String street = tokenAddress[0];
-			String city = tokenAddress[1];
-			String state = tokenAddress[2];
-			String zip = tokenAddress[3];
-			String country = tokenAddress[4];
+		while(pr.hasNext()) {
+			String line = pr.nextLine();
+			String token[] = line.split(";");
+			String productCode = token[0];
+			String productType = token[1];
+			
+			if(token[1].equals("R")) {
+				String equipment = token[2];
+				double equipmentCost = Double.parseDouble(token[3]);
+				System.out.println("Equipment: " + equipment);
+				System.out.println("Equipment Cost: " + equipmentCost);
+				return;
+			} else if (token[1].equals("P")) {
+				double parkingFee = Double.parseDouble(token[2]); 
+				System.out.println("Parking Fee: " + parkingFee);
+				return;
+			} else if (token[1].equals("Y")) {
+				String startDate = token[2];
+				String endDate = token[3];
+				String tokenAddress[] = token[4].split(",");
+				String street = tokenAddress[0];
+				String city = tokenAddress[1];
+				String state = tokenAddress[2];
+				String zip = tokenAddress[3];
+				String country = tokenAddress[4];
+				String membershipGroup = token[5];
+				double costPerUnit = Double.parseDouble(token[6]);
+				System.out.println("Product Code: " + productCode);
+				System.out.println("Product Type: " + productType);
+				System.out.println("Start Date: " + startDate);
+				System.out.println("End Date: " + endDate);
+				System.out.println("Address: " + street + ", " + city + ", " + state + ", " + zip + ", " + country);
+				System.out.println("Group: " + membershipGroup);
+				System.out.println("Cost of Membership: " + costPerUnit);
+				return;
+			} else {
+			
+			String dateTime = token[2];
+			String tokenAddress[] = token[3].split(",");
+			//String street = tokenAddress[0];
+			//String city = tokenAddress[1];
+			//String state = tokenAddress[2];
+			//String zip = tokenAddress[3];
+			//String country = tokenAddress[4];
+			String costPerUnit = token[3];
+			
+			
+			
+			System.out.println("Product Code: " + productCode);
+			System.out.println("Product Type: " + productType);
+			System.out.println("Date & Time: " + dateTime);
+			//System.out.println("Address : " + street + ", " + ", " + state + ", " + zip + ", " + country);
+			System.out.println("Membership Cost: " + costPerUnit);
+			}
 					
 					
 			//Address a = new Address (street, city, state, zip, country);
