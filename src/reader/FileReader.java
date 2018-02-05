@@ -59,20 +59,26 @@ import entitites.Product;
 				String zip = tokenAddress[3];
 				String country = tokenAddress[4];
 				
-				//Can't figure out null (Person with no email address)
-				if(token[3].equals(null)) {
+				if(token.length == 4) {
+					String tokenEmail[] = token[3].split(",");
+					if(tokenEmail.length == 1) {
+						String email = token[3];
+						System.out.println("Email 1: " + email);
+					} else if (tokenEmail.length == 2) {
+						String email1 = tokenEmail[0];
+						String email2 = tokenEmail[1];
+						System.out.println("Email 1: " + email1);
+						System.out.println("Email 2: " + email2);
+					}
+				} else if (token.length == 3){
 					System.out.println("No email");
-				} else {
-				String email = token[3];
-				System.out.println(email);
-
 				}
 					
 							
 				
 				Address a = new Address (street, city, state, zip, country);
-				//Email email = new Email ();
-				//Person p = new Person(personCode, firstName, lastName, a, email);
+				Email email = new Email ();
+				Person p = new Person(personCode, firstName, lastName, a, email);
 				
 				//Add person
 				//personList.add(p);

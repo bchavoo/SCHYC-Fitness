@@ -20,29 +20,27 @@ import entitites.Product;
 
 public class XMLWriter {
 	
+	private String memberCode;
+	private String memberType;
+	private String personCode;
+	private String name;
+	private Address address;
 	
 	///private final List<Person> finalPersonList = new ArrayList<Person>();
-	///private final List<Member> finalMemberList = new ArrayList<Member>();
+	private final List<Member> finalMemberList = new ArrayList<Member>();
 	///private final List<Product> finalProductList = new ArrayList<Product>();
 	
-	int id = 0;
-	String name = "";
+
 	
 	public static void main(String[] args) {
 		
-		XMLWriter s1 = new XMLWriter();
-		
-		s1.id = 123;
-		s1.name = "Bryan";
-		System.out.println(s1.id);
-		System.out.println(s1.name);
-		
+		XMLWriter member1 = new XMLWriter();
 		
 		XStream xstream = new XStream();
 		
-		xstream.alias("person", XMLWriter.class);
+		xstream.alias("Member", XMLWriter.class);
 		
-		String xmlString = xstream.toXML(s1);
+		String xmlString = xstream.toXML(member1);
 		
 		
 		
