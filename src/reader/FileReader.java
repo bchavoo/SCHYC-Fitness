@@ -40,9 +40,7 @@ import entitites.Product;
 			
 			
 			int n = Integer.parseInt(s.nextLine());
-			
-			System.out.println("The value of n is: " + n);
-			
+						
 			ArrayList<Person> personList = new ArrayList<Person>();
 			
 			while(s.hasNext()) {
@@ -88,9 +86,8 @@ import entitites.Product;
 				//Add person to person List?
 				personList.add(p);
 			}
-			//Return personList?
 			return personList;
-		}
+			}
 			
 		
 	
@@ -134,9 +131,6 @@ import entitites.Product;
 				String state = tokenAddress[2];
 				String zip = tokenAddress[3];
 				String country = tokenAddress[4];
-						
-				System.out.println("Member Code: " + memberCode + " Member type: " + memberType + " Person code: " + personCode + " Member Name: " + memberName 
-						+ "Address : " + street + ", " + state + ", " + zip + ", " + country);
 				
 				
 				Address a = new Address (street, city, state, zip, country);
@@ -223,14 +217,10 @@ import entitites.Product;
 				//Add product	
 				ArrayList<Product> productList = new ArrayList<Product>();
 				productList.add(prod);
-			}
+				}
 			return productList;
 		}
-		
-		
-		
-	//End of Class
-	}
+		}
 			
 			
 	
