@@ -214,8 +214,9 @@ import entitites.Product;
 				Address a = new Address (street, city, state, zip, country);
 				Product prod = new Product(productCode);
 						
-				//Add product	
+				//Add product (Take out of while loop to declare
 				ArrayList<Product> productList = new ArrayList<Product>();
+				
 				productList.add(prod);
 				}
 			return productList;
