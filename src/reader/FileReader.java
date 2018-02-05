@@ -198,6 +198,10 @@ import entitites.Product;
 					country = tokenAddress[4];
 					membershipGroup = token[5];
 					costPerUnit = Double.parseDouble(token[6]);
+					
+					Address address = new Address(street, city, state, zip, country);
+					
+					//Product yearType = new YearMemberships extends Product (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
 				
 				} else if (token[1].equals("D")){			
 				String dateTime = token[2];

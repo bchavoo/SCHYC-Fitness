@@ -31,11 +31,11 @@ public class Product {
 		private String endDate;
 		private Address address;
 		private String membershipName;
-		private String pricePerUnit;
+		private Double pricePerUnit;
 
 		//Constructor
 		public YearMemberships(String productCode, String productCode2, String productType, String startDate,
-				String endDate, Address address, String membershipName, String pricePerUnit) {
+				String endDate, Address address, String membershipName, Double pricePerUnit) {
 			super(productCode);
 			productCode = productCode2;
 			this.productType = productType;
@@ -94,11 +94,11 @@ public class Product {
 			this.membershipName = membershipName;
 		}
 
-		public String getPricePerUnit() {
+		public Double getPricePerUnit() {
 			return pricePerUnit;
 		}
 
-		public void setPricePerUnit(String pricePerUnit) {
+		public void setPricePerUnit(Double pricePerUnit) {
 			this.pricePerUnit = pricePerUnit;
 		}
 		
