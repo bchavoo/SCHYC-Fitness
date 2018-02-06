@@ -18,25 +18,20 @@ import entitites.Address;
 import entitites.Product;
 
 public class JSONWriter {
-
-	int id = 0;
-	String name = "";
 	
 	
-		public static void main(String[] args){
-	//private final List<Person> finalpersonExport= new ArrayList<Person>();
+		//public static void main(String[] args){
 	//private final List<Member> finalmemberExport= new ArrayList<Member>();
 	//private final List<Product> finalproductExport= new ArrayList<Product>();
 
-		JSONWriter student1 = new JSONWriter();
 	
-		student1.id = 1234;
-		student1.name = "Mohammad"; 
+	public static void createPersonJSON(List<Person> personList) {
+		
 		
 		//Pretty Printing
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
-		String jsonString = gson.toJson(student1);
+		String jsonString = gson.toJson(personList);
 				
 		System.out.println(jsonString);
 		

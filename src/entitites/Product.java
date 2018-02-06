@@ -10,7 +10,7 @@ public class Product {
 		this.productCode = productCode;
 	}
 
-	
+
 	//Getters and Setters
 	public String getProductCode() {
 		return productCode;
@@ -19,9 +19,9 @@ public class Product {
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
-	
-	
-	
+
+
+
 	//Year Long Memberships-------------------------------------------------------------------------------------------------
 	public class YearMemberships extends Product {
 
@@ -101,21 +101,21 @@ public class Product {
 		public void setPricePerUnit(Double pricePerUnit) {
 			this.pricePerUnit = pricePerUnit;
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 	//Day Memberships-------------------------------------------------------------------------------------------------
 	public class DayMemberships extends Product {
-		
+
 
 		private String productCode;
 		private String productType;
 		private String dateTime;
 		private Address address;
 		private String cost;
-		
+
 		//Constructor
 		public DayMemberships(String productCode, String productCode2, String productType, String dateTime, Address address, String cost) {
 			super(productCode);
@@ -125,8 +125,8 @@ public class Product {
 			this.dateTime = dateTime;
 			this.address = address;
 			this.cost = cost;
-			}
-		
+		}
+
 		//Getter and Setter
 		public String getProductCode() {
 			return productCode;
@@ -158,19 +158,19 @@ public class Product {
 		public void setCost(String cost) {
 			this.cost = cost;
 		}
-	
-		
+
+
 	}
-	
-	
-	
+
+
+
 	//ParkingPass-------------------------------------------------------------------------------------------------
 	public class ParkingPass extends Product {
-		
+
 		private String productCode;
 		private String productType;
 		private double parkingFee;
-		
+
 		//Constructor
 		public ParkingPass(String productCode, String productCode2, String productType, double parkingFee) {
 			super(productCode);
@@ -205,11 +205,11 @@ public class Product {
 		public void setParkingFee(double parkingFee) {
 			this.parkingFee = parkingFee;
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 	//Equipment-------------------------------------------------------------------------------------------------
 	public class Equipment extends Product {
 		private String productCode;
@@ -224,7 +224,7 @@ public class Product {
 			this.productType = productType;
 			this.cost = cost;
 		}
-		
+
 		//Getter and Setter
 		public String getProdructCode() {
 			return productCode;
@@ -246,6 +246,6 @@ public class Product {
 		}
 	}
 
-	
-	
+
+
 }
