@@ -69,19 +69,11 @@ public class FileReader {
 			//Instead make more generic with loop for email(larger size);
 			if(token.length == 4) {
 				String tokenEmail[] = token[3].split(",");
-
-				if(tokenEmail.length == 1) {
-					String email = token[3];
+				for(int i = 0; i < tokenEmail.length; i++) {
+					String email = tokenEmail[i];
 					emailArray.add(email);
-				} else if (tokenEmail.length == 2) {
-					String email1 = tokenEmail[0];
-					String email2 = tokenEmail[1];
-					emailArray.add(email1);
-					emailArray.add(email2);
 				}
-
 			}
-
 
 
 
