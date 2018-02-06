@@ -33,7 +33,18 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(personList);
 
+		//System.out.println(jsonString);
+		
+	}
+	
+	public static void createMemberJSON(List<Member> memberList) {
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		String jsonString = gson.toJson(memberList);
+		
 		System.out.println(jsonString);
+	}
 
 
 
@@ -66,7 +77,7 @@ public class JSONWriter {
 
 
 
-	}
+	
 }
 //public static void main(String[] args){
 /*
