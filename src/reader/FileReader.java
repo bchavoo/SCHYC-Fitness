@@ -174,6 +174,8 @@ public class FileReader {
 		}
 
 		int k = Integer.parseInt(pr.nextLine());
+		
+		 Product prod = null;
 
 		while(pr.hasNext()) {
 			String line = pr.nextLine();
@@ -189,7 +191,6 @@ public class FileReader {
 			String membershipGroup = "";
 			double costPerUnit = 0;
 
-			Product prod = null;
 
 			if(token[1].equals("R")) {
 				String equipment = token[2];
@@ -212,8 +213,8 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				prod = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
-				productList.add(prod);
+				YearMemberships productList = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
+				productList.add(productList);
 
 			} else if (token[1].equals("D")){			
 				String dateTime = token[2];
@@ -227,13 +228,14 @@ public class FileReader {
 			}
 
 
-			Address a = new Address (street, city, state, zip, country);
-			Product newProd = new Product(productCode);
 
-			productList.add(rod);
 		}
 		return productList;
 	}
+	
+	
+	
+	
 }
 
 
