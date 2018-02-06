@@ -143,7 +143,8 @@ public class FileReader {
 
 
 			Address a = new Address (street, city, state, zip, country);
-			Member mem = new Member(memberCode, memberType, personCode, memberName, a);
+			//FIND AND ADD PERSON
+			Member mem = new Member(memberCode, personContact, memberName, a);
 
 			//Add member	
 			memberList.add(mem);
@@ -213,8 +214,8 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				YearMemberships productList = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
-				productList.add(productList);
+				//YearMemberships productList = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
+				//productList.add(productList);
 
 			} else if (token[1].equals("D")){			
 				String dateTime = token[2];
