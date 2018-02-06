@@ -25,19 +25,18 @@ public class Product {
 	//Year Long Memberships-------------------------------------------------------------------------------------------------
 	public class YearMemberships extends Product {
 
-		private String productCode;
-		private String productType;
-		private String startDate;
-		private String endDate;
-		private Address address;
-		private String membershipName;
-		private Double pricePerUnit;
+		public String productCode;
+		public String productType;
+		public String startDate;
+		public String endDate;
+		public Address address;
+		public String membershipName;
+		public double pricePerUnit;
 
 		//Constructor
-		public YearMemberships(String productCode, String productCode2, String productType, String startDate,
-				String endDate, Address address, String membershipName, Double pricePerUnit) {
+		public YearMemberships(String productCode, String productType, String startDate,
+				String endDate, Address address, String membershipName, double pricePerUnit) {
 			super(productCode);
-			productCode = productCode2;
 			this.productType = productType;
 			this.startDate = startDate;
 			this.endDate = endDate;
@@ -45,7 +44,8 @@ public class Product {
 			this.membershipName = membershipName;
 			this.pricePerUnit = pricePerUnit;
 		}
-		//Getter and Setter
+
+		//Getters and Setters
 		public String getProductCode() {
 			return productCode;
 		}
@@ -94,13 +94,14 @@ public class Product {
 			this.membershipName = membershipName;
 		}
 
-		public Double getPricePerUnit() {
+		public double getPricePerUnit() {
 			return pricePerUnit;
 		}
 
-		public void setPricePerUnit(Double pricePerUnit) {
+		public void setPricePerUnit(double pricePerUnit) {
 			this.pricePerUnit = pricePerUnit;
 		}
+
 
 	}
 

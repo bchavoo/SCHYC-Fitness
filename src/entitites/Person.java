@@ -8,7 +8,7 @@ public class Person {
 	private String lastName;
 	private Address address;
 	private ArrayList<String>email;
-	
+
 	//Constructor
 	public Person(String personCode, String firstName, String lastName, Address address, ArrayList<String> email) {
 		super();
@@ -18,7 +18,7 @@ public class Person {
 		this.address = address;
 		this.email = email;
 	}
-	
+
 	//Getters and Setters
 	public String getPersonCode() {
 		return personCode;
@@ -59,6 +59,6 @@ public class Person {
 	public void setEmail(ArrayList<String> email) {
 		this.email = email;
 	}
-	
-	
+
+
 }

@@ -19,70 +19,70 @@ import entitites.Address;
 import entitites.Product;
 
 public class XMLWriter {
-	
+
 	private String memberCode;
 	private String memberType;
 	private String personCode;
 	private String name;
 	private Address address;
-	
+
 	///private final List<Person> finalPersonList = new ArrayList<Person>();
 	private final List<Member> finalMemberList = new ArrayList<Member>();
 	///private final List<Product> finalProductList = new ArrayList<Product>();
-	
 
-	
+
+
 	public static void main(String[] args) {
-		
+
 		XMLWriter member1 = new XMLWriter();
-		
+
 		XStream xstream = new XStream();
-		
+
 		xstream.alias("Member", XMLWriter.class);
-		
+
 		String xmlString = xstream.toXML(member1);
-		
-		
-		
-		
+
+
+
+
 
 		System.out.println(xmlString);
-			
-		}
-		
-		
-		
-		
-		
-		
-		
+
 	}
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //		public List<Person> exportFinalPersonList() {
 //			
 //			
@@ -104,7 +104,7 @@ public class XMLWriter {
 //		
 //			return finalProductList;
 //		}
-		
-		
-	
+
+
+
 

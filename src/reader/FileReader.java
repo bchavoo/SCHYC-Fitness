@@ -15,6 +15,13 @@ import entitites.Member;
 import entitites.Person;
 import entitites.Address;
 import entitites.Product;
+import entitites.Product.YearMemberships;
+import entitites.Product.DayMemberships;
+import entitites.Product.ParkingPass;
+import entitites.Product.Equipment;
+
+
+
 
 public class FileReader {			
 
@@ -22,10 +29,10 @@ public class FileReader {
 
 	//Person File-------------------------------------------------------------------------------------------------
 	public static List<Person> createPersonList() {
-		
+
 		List<Person> personList = new ArrayList<Person>();
 
-		
+
 		String personFile = "data/Persons.dat";
 		Scanner s = null;
 
@@ -57,8 +64,8 @@ public class FileReader {
 
 			ArrayList<String> emailArray = new ArrayList<String>();
 
-			
-			
+
+
 			//Instead make more generic with loop for email(larger size);
 			if(token.length == 4) {
 				String tokenEmail[] = token[3].split(",");
@@ -100,7 +107,7 @@ public class FileReader {
 
 	//Member File-------------------------------------------------------------------------------------------------
 	public static List<Member> createMemberList() {
-		
+
 		List<Member> memberList = new ArrayList<Member>();
 
 
@@ -183,7 +190,7 @@ public class FileReader {
 			double costPerUnit = 0;
 
 			Product prod = null;
-			
+
 			if(token[1].equals("R")) {
 				String equipment = token[2];
 				double equipmentCost = Double.parseDouble(token[3]);
@@ -205,7 +212,8 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				prod = YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
+				prod = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
+				productList.add(prod);
 
 			} else if (token[1].equals("D")){			
 				String dateTime = token[2];
@@ -220,9 +228,9 @@ public class FileReader {
 
 
 			Address a = new Address (street, city, state, zip, country);
-			Product prod = new Product(productCode);
+			Product newProd = new Product(productCode);
 
-			productList.add(prod);
+			productList.add(rod);
 		}
 		return productList;
 	}

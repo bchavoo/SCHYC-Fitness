@@ -1,13 +1,13 @@
 package entitites;
 
 public class Member {
-	
+
 	private String memberCode;
 	private String memberType;
 	private String personCode;
 	private String name;
 	private Address address;
-	
+
 	//Constructor
 	public Member(String memberCode, String memberType, String personCode, String name, Address address) {
 		super();
@@ -58,10 +58,10 @@ public class Member {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }
