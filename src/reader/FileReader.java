@@ -21,8 +21,6 @@ import entitites.Product.ParkingPass;
 import entitites.Product.Equipment;
 
 
-
-
 public class FileReader {			
 
 	private final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("MM-dd-yyyy");
@@ -33,7 +31,7 @@ public class FileReader {
 	public static int numberOfMembers = 0;
 	public static int numberOfProducts = 0;
 
-	
+
 
 
 
@@ -139,22 +137,24 @@ public class FileReader {
 
 
 			Address a = new Address (street, city, state, zip, country);
-			
+
 			//FIND AND ADD PERSON
+
+
 			Person match = null;
 			for(int i = 0; i < numberOfPersons; i++) {
-				if(personList.get(i).getPersonCode() == memberCode) {
-					match = personList.get(i).;
+				if(personList.get(i).getPersonCode().equals(personCode)) {
+					match = personList.get(i);
 				}
 			}
 
-			Member mem = new Member(memberCode, match, memberName, a);
+			Member mem = new Member(memberCode, memberType, match, memberName, a);
 
 			//Add member	
 			memberList.add(mem);
 		}
 
-		
+
 		return memberList;
 	}
 
