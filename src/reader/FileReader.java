@@ -26,11 +26,20 @@ import entitites.Product.Equipment;
 public class FileReader {			
 
 	private final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("MM-dd-yyyy");
+	public static List<Person> personList = new ArrayList<Person>();
+	public static List<Member> memberList = new ArrayList<Member>();
+	public static List<Product> productList = new ArrayList<Product>();
+	public static int numberOfPersons = 0;
+	public static int numberOfMembers = 0;
+	public static int numberOfProducts = 0;
+
+	
+
+
+
 
 	//Person File-------------------------------------------------------------------------------------------------
 	public static List<Person> createPersonList() {
-
-		List<Person> personList = new ArrayList<Person>();
 
 
 		String personFile = "data/Persons.dat";
@@ -46,7 +55,7 @@ public class FileReader {
 
 
 
-		int n = Integer.parseInt(s.nextLine());
+		numberOfPersons = Integer.parseInt(s.nextLine());
 
 		while(s.hasNext()) {
 			String line = s.nextLine();
@@ -100,9 +109,6 @@ public class FileReader {
 	//Member File-------------------------------------------------------------------------------------------------
 	public static List<Member> createMemberList() {
 
-		List<Member> memberList = new ArrayList<Member>();
-
-
 		String memberFile = "data/Members.dat";
 		Scanner m = null;
 
@@ -115,9 +121,7 @@ public class FileReader {
 
 
 
-		int j = Integer.parseInt(m.nextLine());
-
-		System.out.println("The value of j is: " + j);
+		numberOfMembers = Integer.parseInt(m.nextLine());
 
 		while(m.hasNext()) {
 			String line = m.nextLine();
@@ -135,13 +139,22 @@ public class FileReader {
 
 
 			Address a = new Address (street, city, state, zip, country);
+			
 			//FIND AND ADD PERSON
-			Member mem = new Member(memberCode, personContact, memberName, a);
+			Person match = null;
+			for(int i = 0; i < numberOfPersons; i++) {
+				if(personList.get(i).getPersonCode() == memberCode) {
+					match = personList.get(i).;
+				}
+			}
+
+			Member mem = new Member(memberCode, match, memberName, a);
 
 			//Add member	
 			memberList.add(mem);
 		}
 
+		
 		return memberList;
 	}
 
@@ -155,8 +168,6 @@ public class FileReader {
 	//Products File-------------------------------------------------------------------------------------------------
 	public static List<Product> createProductList() {
 
-		List<Product> productList = new ArrayList<Product>();
-
 		String productFile = "data/Products.dat";
 		Scanner pr = null;
 
@@ -166,9 +177,9 @@ public class FileReader {
 			e.printStackTrace();
 		}
 
-		int k = Integer.parseInt(pr.nextLine());
-		
-		 Product prod = null;
+		numberOfProducts = Integer.parseInt(pr.nextLine());
+
+		Product prod = null;
 
 		while(pr.hasNext()) {
 			String line = pr.nextLine();
@@ -225,10 +236,10 @@ public class FileReader {
 		}
 		return productList;
 	}
-	
-	
-	
-	
+
+
+
+
 }
 
 
