@@ -7,7 +7,7 @@ public class Parkingpass {
 		private String productCode;
 		private String productType;
 		private double parkingFee;
-
+//Constructor
 		//Constructor
 		public ParkingPass(String productCode, String productCode2, String productType, double parkingFee) {
 			super(productCode);

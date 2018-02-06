@@ -2,7 +2,7 @@ package entitites;
 
 public class YearMemberShip {
 	public class YearMemberships extends Product {
-
+//Year Membership
 		private String productCode;
 		private String productType;
 		private String startDate;

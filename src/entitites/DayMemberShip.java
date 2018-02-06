@@ -3,7 +3,7 @@ package entitites;
 public class DayMemberShip {
 	
 	public class DayMemberships extends Product {
-
+//Day membership
 
 		private String productCode;
 		private String productType;

@@ -15,7 +15,7 @@ public class Equipments {
 			this.productType = productType;
 			this.cost = cost;
 		}
-
+//Getters
 		//Getter and Setter
 		public String getProdructCode() {
 			return productCode;
