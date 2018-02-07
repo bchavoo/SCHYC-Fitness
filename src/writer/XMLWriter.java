@@ -8,8 +8,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.Writer;
 
-
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 
 
@@ -20,39 +20,22 @@ import entitites.Product;
 
 public class XMLWriter {
 
-	private String memberCode;
-	private String memberType;
-	private String personCode;
-	private String name;
-	private Address address;
+	public static void createPersonXML(List<Person> personList) {
 
-	///private final List<Person> finalPersonList = new ArrayList<Person>();
-	private final List<Member> finalMemberList = new ArrayList<Member>();
-	///private final List<Product> finalProductList = new ArrayList<Product>();
+		//XStream person = new XStream();
+		//person.alias("Person", XMLWriter.class);
+		//String xmlPerson = person.toXML(person);
+		
+		//System.out.println(xmlPerson);
+	}
 
-
-
-	public static void main(String[] args) {
-
-		XMLWriter member1 = new XMLWriter();
-
-		XStream xstream = new XStream();
-
-		xstream.alias("Member", XMLWriter.class);
-
-		String xmlString = xstream.toXML(member1);
-
-
-
-
-
-		System.out.println(xmlString);
+	public static void createMemberXML(List<Member> memberList) {
 
 	}
 
-
-
-
+	public static void createProductJSON(List<Product> productList) {
+	
+	}
 
 
 

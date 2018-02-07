@@ -1,5 +1,7 @@
 package entitites;
 
+import org.joda.time.DateTime;
+
 public class Product {
 
 	private String productCode;
@@ -25,17 +27,17 @@ public class Product {
 	//Year Long Memberships-------------------------------------------------------------------------------------------------
 	public class YearMemberships extends Product {
 
-		public String productCode;
+		
 		public String productType;
-		public String startDate;
-		public String endDate;
+		public DateTime startDate;
+		public DateTime endDate;
 		public Address address;
 		public String membershipName;
 		public double pricePerUnit;
-
+		
 		//Constructor
-		public YearMemberships(String productCode, String productType, String startDate,
-				String endDate, Address address, String membershipName, double pricePerUnit) {
+		public YearMemberships(String productCode, String productType, DateTime startDate, DateTime endDate,
+				Address address, String membershipName, double pricePerUnit) {
 			super(productCode);
 			this.productType = productType;
 			this.startDate = startDate;
@@ -46,14 +48,6 @@ public class Product {
 		}
 
 		//Getters and Setters
-		public String getProductCode() {
-			return productCode;
-		}
-
-		public void setProductCode(String productCode) {
-			this.productCode = productCode;
-		}
-
 		public String getProductType() {
 			return productType;
 		}
@@ -62,19 +56,19 @@ public class Product {
 			this.productType = productType;
 		}
 
-		public String getStartDate() {
+		public DateTime getStartDate() {
 			return startDate;
 		}
 
-		public void setStartDate(String startDate) {
+		public void setStartDate(DateTime startDate) {
 			this.startDate = startDate;
 		}
 
-		public String getEndDate() {
+		public DateTime getEndDate() {
 			return endDate;
 		}
 
-		public void setEndDate(String endDate) {
+		public void setEndDate(DateTime endDate) {
 			this.endDate = endDate;
 		}
 
@@ -101,7 +95,10 @@ public class Product {
 		public void setPricePerUnit(double pricePerUnit) {
 			this.pricePerUnit = pricePerUnit;
 		}
+		
+		
 
+		
 
 	}
 
@@ -110,55 +107,56 @@ public class Product {
 	//Day Memberships-------------------------------------------------------------------------------------------------
 	public class DayMemberships extends Product {
 
-
-		private String productCode;
 		private String productType;
 		private String dateTime;
 		private Address address;
 		private String cost;
-
+		
 		//Constructor
-		public DayMemberships(String productCode, String productCode2, String productType, String dateTime, Address address, String cost) {
+		public DayMemberships(String productCode, String productType, String dateTime, Address address, String cost) {
 			super(productCode);
-			//Do we need this? Does the Super below use productCode from its super class
-			this.productCode = productCode;
 			this.productType = productType;
 			this.dateTime = dateTime;
 			this.address = address;
 			this.cost = cost;
 		}
 
-		//Getter and Setter
-		public String getProductCode() {
-			return productCode;
-		}
-		public void setProductCode(String productCode) {
-			this.productCode = productCode;
-		}
+		//Getters and Setters
 		public String getProductType() {
 			return productType;
 		}
+
 		public void setProductType(String productType) {
 			this.productType = productType;
 		}
+
 		public String getDateTime() {
 			return dateTime;
 		}
+
 		public void setDateTime(String dateTime) {
 			this.dateTime = dateTime;
 		}
+
 		public Address getAddress() {
 			return address;
 		}
+
 		public void setAddress(Address address) {
 			this.address = address;
 		}
+
 		public String getCost() {
 			return cost;
 		}
+
 		public void setCost(String cost) {
 			this.cost = cost;
 		}
+		
+		
+
+		
 
 
 	}
@@ -168,29 +166,17 @@ public class Product {
 	//ParkingPass-------------------------------------------------------------------------------------------------
 	public class ParkingPass extends Product {
 
-		private String productCode;
 		private String productType;
 		private double parkingFee;
 
 		//Constructor
-		public ParkingPass(String productCode, String productCode2, String productType, double parkingFee) {
+		public ParkingPass(String productCode, String productType, double parkingFee) {
 			super(productCode);
-			//Do we need this? Does the Super below use productCode from its super class
-			this.productCode = productCode;
-			//Do we need product type? (Assignment II Part I Slide 21)
 			this.productType = productType;
 			this.parkingFee = parkingFee;
 		}
 
 		//Getters and Setters
-		public String getProductCode() {
-			return productCode;
-		}
-
-		public void setProductCode(String productCode) {
-			this.productCode = productCode;
-		}
-
 		public String getProductType() {
 			return productType;
 		}
@@ -213,26 +199,17 @@ public class Product {
 
 	//Equipment-------------------------------------------------------------------------------------------------
 	public class Equipment extends Product {
-		private String productCode;
 		private String productType;
 		private double cost;
 
 		//Constructor
-		public Equipment(String productCode, String prodructCode, String productType, double cost) {
+		public Equipment(String prodructCode, String productType, double cost) {
 			super(productCode);
-			//Do we need this? Does the Super below use productCode from its super class
-			this.productCode = prodructCode;
 			this.productType = productType;
 			this.cost = cost;
 		}
 
-		//Getter and Setter
-		public String getProdructCode() {
-			return productCode;
-		}
-		public void setProdructCode(String prodructCode) {
-			this.productCode = prodructCode;
-		}
+		//Getter and Setters
 		public String getProductType() {
 			return productType;
 		}

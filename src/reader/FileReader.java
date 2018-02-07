@@ -167,7 +167,7 @@ public class FileReader {
 
 	//Products File-------------------------------------------------------------------------------------------------
 	public static List<Product> createProductList() {
-
+		
 		String productFile = "data/Products.dat";
 		Scanner pr = null;
 
@@ -179,8 +179,7 @@ public class FileReader {
 
 		numberOfProducts = Integer.parseInt(pr.nextLine());
 
-		Product prod = null;
-
+		
 		while(pr.hasNext()) {
 			String line = pr.nextLine();
 			String token[] = line.split(";");
@@ -197,15 +196,26 @@ public class FileReader {
 
 
 			if(token[1].equals("R")) {
+				productCode = token[1];
 				String equipment = token[2];
 				double equipmentCost = Double.parseDouble(token[3]);
+				
+				//Equipment product = new Equipment (productCode, productType, equipmentCost);
+				//productList.add(product);
 
 			} else if (token[1].equals("P")) {
+				productCode = token[1];
 				double parkingFee = Double.parseDouble(token[2]);
+				//ParkingPass product = new ParkingPass (productCode, productType, parkingFee);
+				//productList.add(product);
 
-			} else if (token[1].equals("Y")) {
-				String startDate = token[2];
-				String endDate = token[3];
+			} else if (token[1].equals("Y")) {				
+				productCode = token[1];
+				
+				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+				DateTime startDate = dateFormat.parseDateTime(token[2]);
+				DateTime endDate = dateFormat.parseDateTime(token[3]);
+				
 				String tokenAddress[] = token[4].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -217,10 +227,12 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				//YearMemberships productList = new YearMemberships (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
-				//productList.add(productList);
+				//YearMemberships Product = new Product (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
+				
+				//productList.add();
 
-			} else if (token[1].equals("D")){			
+			} else if (token[1].equals("D")){
+				productCode = token[1];
 				String dateTime = token[2];
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];

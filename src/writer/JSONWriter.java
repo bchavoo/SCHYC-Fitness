@@ -46,7 +46,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(productList);
 
-		System.out.println(jsonString);
+		//System.out.println(jsonString);
 	}
 }
 
