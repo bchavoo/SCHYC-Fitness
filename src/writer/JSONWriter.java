@@ -23,7 +23,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(personList);
 
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/persons.json");
+		FileWriter fileWriter = new FileWriter("data/persons.json");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(jsonString);
 		printWriter.close();
@@ -35,7 +35,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(memberList);
 
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/members.json");
+		FileWriter fileWriter = new FileWriter("data/members.json");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(jsonString);
 		printWriter.close();	}
@@ -46,7 +46,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(productList);
 	
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/products.json");
+		FileWriter fileWriter = new FileWriter("data/products.json");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(jsonString);
 		printWriter.close();
