@@ -20,7 +20,7 @@ public class ParkingPass extends Product {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-
+	
 	public String getProductType() {
 		return productType;
 	}

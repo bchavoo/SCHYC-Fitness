@@ -157,7 +157,8 @@ public class FileReader {
 			double costPerUnit = 0;
 
 			if (token[1].equals("R")) {
-				productCode = token[1];
+				productCode = token[0];
+				productType = token[1];
 				String equipment = token[2];
 				double cost = Double.parseDouble(token[3]);
 
@@ -165,17 +166,19 @@ public class FileReader {
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
-				productCode = token[1];
+				productCode = token[0];
+				productType = token[1];
 				double cost = Double.parseDouble(token[2]);
 				ParkingPass product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("Y")) {
-				productCode = token[1];
+				productCode = token[0];
+				productType = token[1];
 
-				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-				DateTime startDate = dateFormat.parseDateTime(token[2]);
-				DateTime endDate = dateFormat.parseDateTime(token[3]);
+				//DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+				//DateTime startDate = dateFormat.parseDateTime(token[2]);
+				//DateTime endDate = dateFormat.parseDateTime(token[3]);
 
 				String tokenAddress[] = token[4].split(",");
 				street = tokenAddress[0];
@@ -188,16 +191,16 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost,
-						productCode, productType);
+				//YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
-				productList.add(product);
+				//productList.add(product);
 
 			} else if (token[1].equals("D")) {
-				productCode = token[1];
+				productCode = token[0];
+				productType = token[1];
 				
-				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-				DateTime startDate = dateFormat.parseDateTime(token[2]);
+				//DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+				//DateTime startDate = dateFormat.parseDateTime(token[2]);
 				
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
@@ -209,9 +212,9 @@ public class FileReader {
 				
 				Address address = new Address(street, city, state, zip, country);
 
-				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
+				//DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
 
-				productList.add(product);
+				//productList.add(product);
 			}
 
 		
