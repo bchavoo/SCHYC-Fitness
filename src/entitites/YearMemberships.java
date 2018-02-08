@@ -1,18 +1,16 @@
 package entitites;
 
-import org.joda.time.DateTime;
-
 public class YearMemberships extends Product {
 
-	public DateTime startDate;
-	public DateTime endDate;
+	public String startDate;
+	public String endDate;
 	public Address address;
 	public String membershipName;
 	public double cost;
 	public String productType;
 	
 	//Constructor
-	public YearMemberships(DateTime startDate, DateTime endDate, Address address,
+	public YearMemberships(String startDate, String endDate, Address address,
 			String membershipName, double cost, String productCode, String productType) {
 		super(productCode);
 		this.startDate = startDate;
@@ -24,19 +22,19 @@ public class YearMemberships extends Product {
 	}
 
 	//Getters and Setters
-	public DateTime getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(DateTime startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public DateTime getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(DateTime endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

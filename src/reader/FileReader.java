@@ -5,11 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import entitites.Address;
 import entitites.DayMemberships;
 import entitites.Equipment;
@@ -154,7 +149,6 @@ public class FileReader {
 			String zip = "";
 			String country = "";
 			String membershipGroup = "";
-			double costPerUnit = 0;
 
 			if (token[1].equals("R")) {
 				productCode = token[0];
@@ -175,11 +169,8 @@ public class FileReader {
 			} else if (token[1].equals("Y")) {
 				productCode = token[0];
 				productType = token[1];
-
-				//DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-				//DateTime startDate = dateFormat.parseDateTime(token[2]);
-				//DateTime endDate = dateFormat.parseDateTime(token[3]);
-
+				String startDate = token[2];
+				String endDate = token[3];
 				String tokenAddress[] = token[4].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -191,17 +182,14 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				//YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
+				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
-				//productList.add(product);
+				productList.add(product);
 
 			} else if (token[1].equals("D")) {
 				productCode = token[0];
 				productType = token[1];
-				
-				//DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-				//DateTime startDate = dateFormat.parseDateTime(token[2]);
-				
+				String startDate = token[2];
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -212,9 +200,9 @@ public class FileReader {
 				
 				Address address = new Address(street, city, state, zip, country);
 
-				//DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
+				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
 
-				//productList.add(product);
+				productList.add(product);
 			}
 
 		
