@@ -3,9 +3,15 @@ package writer;
 
 import java.util.List;
 import com.thoughtworks.xstream.XStream;
+
+import entitites.DayMemberships;
+import entitites.Equipment;
 import entitites.Member;
+import entitites.ParkingPass;
 import entitites.Person;
 import entitites.Product;
+import entitites.YearMemberships;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +47,13 @@ public class XMLWriter {
 	public static void createProductXML(List<Product> productList) throws IOException {
 		XStream product = new XStream();
 		product.alias("product", Product.class);
+		product.alias("day-long-memberships", YearMemberships.class);
+		product.alias("year-long-memberships", DayMemberships.class);
+		product.alias("rentals", Equipment.class);
+		product.alias("parkingpass", ParkingPass.class);
+
+
+		
 		String xmlProductString = product.toXML(productList);
 		
 		FileWriter fileWriter = new FileWriter("data/products.xml");
