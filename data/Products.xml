@@ -1,0 +1,101 @@
+<list>
+  <day-long-memberships>
+    <productCode>gd29</productCode>
+    <startDate>2017-01-13</startDate>
+    <endDate>2018-01-12</endDate>
+    <address>
+      <street>179 West Lane</street>
+      <city>Lincoln</city>
+      <state>NE</state>
+      <zip>68588-0115</zip>
+      <country>USA</country>
+    </address>
+    <membershipName>Gold Ulitimate Package</membershipName>
+    <cost>450.0</cost>
+    <productType>Y</productType>
+  </day-long-memberships>
+  <rentals>
+    <productCode>sb07</productCode>
+    <equipment>Soccer Ball</equipment>
+    <cost>24.99</cost>
+    <productType>R</productType>
+  </rentals>
+  <year-long-memberships>
+    <productCode>dd33</productCode>
+    <startDate>2016-05-24 17:10</startDate>
+    <address>
+      <street>363 North Pine St</street>
+      <city>Grand Island</city>
+      <state> NE</state>
+      <zip> 68803</zip>
+      <country> USA</country>
+    </address>
+    <cost>25.0</cost>
+    <productType>D</productType>
+  </year-long-memberships>
+  <parkingpass>
+    <productCode>90fa</productCode>
+    <cost>25.0</cost>
+    <productType>P</productType>
+  </parkingpass>
+  <year-long-memberships>
+    <productCode>612</productCode>
+    <startDate>2018-01-29 10:00</startDate>
+    <address>
+      <street>6123 College Ave</street>
+      <city> Seattle</city>
+      <state> WA</state>
+      <zip> 81231</zip>
+      <country> USA</country>
+    </address>
+    <cost>12.5</cost>
+    <productType>D</productType>
+  </year-long-memberships>
+  <rentals>
+    <productCode>bb24</productCode>
+    <equipment>Basket Ball</equipment>
+    <cost>15.5</cost>
+    <productType>R</productType>
+  </rentals>
+  <parkingpass>
+    <productCode>88bc</productCode>
+    <cost>20.0</cost>
+    <productType>P</productType>
+  </parkingpass>
+  <rentals>
+    <productCode>yp23</productCode>
+    <equipment>Hiking Gear</equipment>
+    <cost>69.99</cost>
+    <productType>R</productType>
+  </rentals>
+  <day-long-memberships>
+    <productCode>si29</productCode>
+    <startDate>2015-05-13</startDate>
+    <endDate>2016-05-12</endDate>
+    <address>
+      <street>123 North Oak</street>
+      <city>Grand Island</city>
+      <state>NE</state>
+      <zip>68802</zip>
+      <country>USA</country>
+    </address>
+    <membershipName>Silver Ulitimate Package</membershipName>
+    <cost>350.0</cost>
+    <productType>Y</productType>
+  </day-long-memberships>
+  <day-long-memberships>
+    <productCode>br29</productCode>
+    <startDate>2016-08-25</startDate>
+    <endDate>2017-08-24</endDate>
+    <address>
+      <street>682 South Broadway</street>
+      <city>Los Angeles</city>
+      <state>CA</state>
+      <zip>90210</zip>
+      <country>USA</country>
+    </address>
+    <membershipName>BronzeUlitimate Package</membershipName>
+    <cost>250.0</cost>
+    <productType>Y</productType>
+  </day-long-memberships>
+</list>
