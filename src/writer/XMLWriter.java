@@ -17,7 +17,7 @@ public class XMLWriter {
 		person.alias("person", Person.class);
 		String xmlPersonString = person.toXML(personList);
 		
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myPersons.xml");
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/persons.xml");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(xmlPersonString);
 		printWriter.close();
@@ -31,7 +31,7 @@ public class XMLWriter {
 		member.alias("member", Member.class);
 		String xmlMemberString = member.toXML(memberList);
 		
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myMembers.xml");
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/members.xml");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(xmlMemberString);
 		printWriter.close();
@@ -43,7 +43,7 @@ public class XMLWriter {
 		product.alias("member", Product.class);
 		String xmlProductString = product.toXML(productList);
 		
-		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myProducts.xml");
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/products.xml");
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.print(xmlProductString);
 		printWriter.close();
