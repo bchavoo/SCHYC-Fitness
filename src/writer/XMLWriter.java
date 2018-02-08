@@ -40,7 +40,7 @@ public class XMLWriter {
 
 	public static void createProductXML(List<Product> productList) throws IOException {
 		XStream product = new XStream();
-		product.alias("member", Product.class);
+		product.alias("product", Product.class);
 		String xmlProductString = product.toXML(productList);
 		
 		FileWriter fileWriter = new FileWriter("data/products.xml");
