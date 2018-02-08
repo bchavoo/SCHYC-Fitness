@@ -1,54 +1,53 @@
 package writer;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.Writer;
-
-
 import com.thoughtworks.xstream.XStream;
-
-
 import entitites.Member;
 import entitites.Person;
 import entitites.Product;
-
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-//import com.datacontainers.Person;
 
 public class XMLWriter {
 
-	public static void createPersonXML(List<Person> personList) {
+	public static void createPersonXML(List<Person> personList) throws IOException {
 		XStream person = new XStream();
-		
 		person.alias("person", Person.class);
-		
 		String xmlPersonString = person.toXML(personList);
 		
-		System.out.println(xmlPersonString);
-	
-
-				
-			}
-		
-		//XStream person = new XStream();
-		//person.alias("Person", XMLWriter.class);
-		//String xmlPerson = person.toXML(person);
-		
-		//System.out.println(xmlPerson);
-	
-
-	public static void createMemberXML(List<Member> memberList) {
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myPersons.xml");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(xmlPersonString);
+		printWriter.close();
 
 	}
 
-	public static void createProductJSON(List<Product> productList) {
-	
+
+
+	public static void createMemberXML(List<Member> memberList) throws IOException {
+		XStream member = new XStream();
+		member.alias("member", Member.class);
+		String xmlMemberString = member.toXML(memberList);
+		
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myMembers.xml");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(xmlMemberString);
+		printWriter.close();
+
+	}
+
+	public static void createProductXML(List<Product> productList) throws IOException {
+		XStream product = new XStream();
+		product.alias("member", Product.class);
+		String xmlProductString = product.toXML(productList);
+		
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myProducts.xml");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(xmlProductString);
+		printWriter.close();
+		
 	}
 
 

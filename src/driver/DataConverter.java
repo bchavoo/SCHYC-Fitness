@@ -28,7 +28,10 @@ public class DataConverter {
 
 
 		//Create XML Writer Object
-		//XMLWriter.createPersonXML(personList);
+		XMLWriter.createPersonXML(personList);
+		XMLWriter.createMemberXML(memberList);
+		XMLWriter.createProductXML(productList);
+
 
 
 
