@@ -21,7 +21,6 @@ import entitites.YearMemberships;
 
 public class FileReader {
 
-	private final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("MM-dd-yyyy");
 	public static List<Person> personList = new ArrayList<Person>();
 	public static List<Member> memberList = new ArrayList<Member>();
 	public static List<Product> productList = new ArrayList<Product>();
@@ -197,7 +196,10 @@ public class FileReader {
 
 			} else if (token[1].equals("D")) {
 				productCode = token[1];
-			    dateTime = token[2];
+				
+				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+				DateTime day = dateFormat.parseDateTime(token[2]);
+				
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -205,13 +207,15 @@ public class FileReader {
 				zip = tokenAddress[3];
 				country = tokenAddress[4];
 				costPerUnit = Double.parseDouble(token[4]);
+				
+				Address address = new Address(street, city, state, zip, country);
+
+				DayMemberships product = new DayMemberships(productCode, productType, day, address, costPerUnit);
+
+				productList.add(product);
 			}
 
-			Address address = new Address(street, city, state, zip, country);
-
-			DayMemberships product = new DayMemberships(productCode, productType, dateTime, address, costPerUnit);
-
-			productList.add(product);
+		
 		}
 		return productList;
 	}

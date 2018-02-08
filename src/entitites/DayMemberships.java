@@ -1,14 +1,16 @@
 package entitites;
 
+import org.joda.time.DateTime;
+
 public class DayMemberships extends Product {
 
 	private String productType;
-	private String dateTime;
+	private DateTime dateTime;
 	private Address address;
 	private double cost;
 	
 	//Constructor
-	public DayMemberships(String productCode, String productType, String dateTime, Address address, double cost) {
+	public DayMemberships(String productCode, String productType, DateTime dateTime, Address address, double cost) {
 		super(productCode);
 		this.productType = productType;
 		this.dateTime = dateTime;
@@ -25,11 +27,11 @@ public class DayMemberships extends Product {
 		this.productType = productType;
 	}
 
-	public String getDateTime() {
+	public DateTime getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(String dateTime) {
+	public void setDateTime(DateTime dateTime) {
 		this.dateTime = dateTime;
 	}
 
