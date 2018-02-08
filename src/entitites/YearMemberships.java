@@ -4,35 +4,26 @@ import org.joda.time.DateTime;
 
 public class YearMemberships extends Product {
 
-	
-	public String productType;
 	public DateTime startDate;
 	public DateTime endDate;
 	public Address address;
 	public String membershipName;
-	public double pricePerUnit;
+	public double cost;
+	public String productType;
 	
 	//Constructor
-	public YearMemberships(String productCode, String productType, DateTime startDate, DateTime endDate,
-			Address address, String membershipName, double pricePerUnit) {
+	public YearMemberships(DateTime startDate, DateTime endDate, Address address,
+			String membershipName, double cost, String productCode, String productType) {
 		super(productCode);
-		this.productType = productType;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.address = address;
 		this.membershipName = membershipName;
-		this.pricePerUnit = pricePerUnit;
-	}
-
-	//Getters and Setters
-	public String getProductType() {
-		return productType;
-	}
-
-	public void setProductType(String productType) {
+		this.cost = cost;
 		this.productType = productType;
 	}
 
+	//Getters and Setters
 	public DateTime getStartDate() {
 		return startDate;
 	}
@@ -65,18 +56,24 @@ public class YearMemberships extends Product {
 		this.membershipName = membershipName;
 	}
 
-	public double getPricePerUnit() {
-		return pricePerUnit;
+	public double getCost() {
+		return cost;
 	}
 
-	public void setPricePerUnit(double pricePerUnit) {
-		this.pricePerUnit = pricePerUnit;
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 	
 	
-
 	
 
+	
 }
-
-

@@ -184,12 +184,12 @@ public class FileReader {
 				zip = tokenAddress[3];
 				country = tokenAddress[4];
 				membershipGroup = token[5];
-				costPerUnit = Double.parseDouble(token[6]);
+				double cost = Double.parseDouble(token[6]);
 
 				Address address = new Address(street, city, state, zip, country);
 
-				YearMemberships product = new YearMemberships(productCode, productType, startDate, endDate, address,
-						membershipGroup, costPerUnit);
+				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost,
+						productCode, productType);
 
 				productList.add(product);
 
@@ -197,7 +197,7 @@ public class FileReader {
 				productCode = token[1];
 				
 				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-				DateTime day = dateFormat.parseDateTime(token[2]);
+				DateTime startDate = dateFormat.parseDateTime(token[2]);
 				
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
@@ -205,11 +205,11 @@ public class FileReader {
 				state = tokenAddress[2];
 				zip = tokenAddress[3];
 				country = tokenAddress[4];
-				costPerUnit = Double.parseDouble(token[4]);
+				double cost = Double.parseDouble(token[4]);
 				
 				Address address = new Address(street, city, state, zip, country);
 
-				DayMemberships product = new DayMemberships(productCode, productType, day, address, costPerUnit);
+				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
 			}
