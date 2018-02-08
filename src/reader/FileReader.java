@@ -154,21 +154,20 @@ public class FileReader {
 			String zip = "";
 			String country = "";
 			String membershipGroup = "";
-			String dateTime = "";
 			double costPerUnit = 0;
 
 			if (token[1].equals("R")) {
 				productCode = token[1];
 				String equipment = token[2];
-				double equipmentCost = Double.parseDouble(token[3]);
+				double cost = Double.parseDouble(token[3]);
 
-				Equipment product = new Equipment(productCode, productType, equipmentCost);
+				Equipment product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
 				productCode = token[1];
-				double parkingFee = Double.parseDouble(token[2]);
-				ParkingPass product = new ParkingPass(productCode, productType, parkingFee);
+				double cost = Double.parseDouble(token[2]);
+				ParkingPass product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("Y")) {

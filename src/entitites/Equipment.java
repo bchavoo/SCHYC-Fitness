@@ -1,29 +1,52 @@
 package entitites;
 
 public class Equipment extends Product {
-	private String productType;
+	
+	private String equipment;
 	private double cost;
-
+	private String productType;
+	
 	//Constructor
-	public Equipment(String productCode, String productType, double cost) {
+	public Equipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode);
-		this.productType = productType;
+		this.equipment = equipment;
 		this.cost = cost;
+		this.productType = productType;
 	}
 
-	//Getter and Setters
-	public String getProductType() {
-		return productType;
+	//Getters and Setters
+	public String getEquipment() {
+		return equipment;
 	}
-	public void setProductType(String productType) {
-		this.productType = productType;
+
+	public void setEquipment(String equipment) {
+		this.equipment = equipment;
 	}
+
 	public double getCost() {
 		return cost;
 	}
+
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+	
+	
+
+	
+	
+
+	
+
+	
 }
 
 
