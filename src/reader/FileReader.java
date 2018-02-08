@@ -2,26 +2,24 @@ package reader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import entitites.Member;
-import entitites.Person;
 import entitites.Address;
+import entitites.DayMemberships;
+import entitites.Equipment;
+import entitites.Member;
+import entitites.ParkingPass;
+import entitites.Person;
 import entitites.Product;
-import entitites.Product.YearMemberships;
-import entitites.Product.DayMemberships;
-import entitites.Product.ParkingPass;
-import entitites.Product.Equipment;
+import entitites.YearMemberships;
 
-
-public class FileReader {			
+public class FileReader {
 
 	private final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("MM-dd-yyyy");
 	public static List<Person> personList = new ArrayList<Person>();
@@ -31,14 +29,9 @@ public class FileReader {
 	public static int numberOfMembers = 0;
 	public static int numberOfProducts = 0;
 
-
-
-
-
-
-	//Person File-------------------------------------------------------------------------------------------------
+	// Person
+	// File-------------------------------------------------------------------------------------------------
 	public static List<Person> createPersonList() {
-
 
 		String personFile = "data/Persons.dat";
 		Scanner s = null;
@@ -49,13 +42,9 @@ public class FileReader {
 			e.printStackTrace();
 		}
 
-
-
-
-
 		numberOfPersons = Integer.parseInt(s.nextLine());
 
-		while(s.hasNext()) {
+		while (s.hasNext()) {
 			String line = s.nextLine();
 			String token[] = line.split(";");
 			String personCode = token[0];
@@ -71,40 +60,27 @@ public class FileReader {
 
 			ArrayList<String> emailArray = new ArrayList<String>();
 
-
-
-			//Instead make more generic with loop for email(larger size);
-			if(token.length == 4) {
+			// Instead make more generic with loop for email(larger size);
+			if (token.length == 4) {
 				String tokenEmail[] = token[3].split(",");
-				for(int i = 0; i < tokenEmail.length; i++) {
+				for (int i = 0; i < tokenEmail.length; i++) {
 					String email = tokenEmail[i];
 					emailArray.add(email);
 				}
 			}
 
-
-
-			Address a = new Address (street, city, state, zip, country);
+			Address a = new Address(street, city, state, zip, country);
 
 			Person p = new Person(personCode, firstName, lastName, a, emailArray);
 
-			//Add person to person List?
+			// Add person to person List?
 			personList.add(p);
 		}
 		return personList;
 	}
 
-
-
-
-
-
-
-
-
-
-
-	//Member File-------------------------------------------------------------------------------------------------
+	// Member
+	// File-------------------------------------------------------------------------------------------------
 	public static List<Member> createMemberList() {
 
 		String memberFile = "data/Members.dat";
@@ -116,12 +92,9 @@ public class FileReader {
 			e.printStackTrace();
 		}
 
-
-
-
 		numberOfMembers = Integer.parseInt(m.nextLine());
 
-		while(m.hasNext()) {
+		while (m.hasNext()) {
 			String line = m.nextLine();
 			String token[] = line.split(";");
 			String memberCode = token[0];
@@ -135,39 +108,30 @@ public class FileReader {
 			String zip = tokenAddress[3];
 			String country = tokenAddress[4];
 
+			Address a = new Address(street, city, state, zip, country);
 
-			Address a = new Address (street, city, state, zip, country);
-
-			//FIND AND ADD PERSON
-
+			// FIND AND ADD PERSON
 
 			Person match = null;
-			for(int i = 0; i < numberOfPersons; i++) {
-				if(personList.get(i).getPersonCode().equals(personCode)) {
+			for (int i = 0; i < numberOfPersons; i++) {
+				if (personList.get(i).getPersonCode().equals(personCode)) {
 					match = personList.get(i);
 				}
 			}
 
 			Member mem = new Member(memberCode, memberType, match, memberName, a);
 
-			//Add member	
+			// Add member
 			memberList.add(mem);
 		}
-
 
 		return memberList;
 	}
 
-
-
-
-
-
-
-
-	//Products File-------------------------------------------------------------------------------------------------
+	// Products
+	// File-------------------------------------------------------------------------------------------------
 	public static List<Product> createProductList() {
-		
+
 		String productFile = "data/Products.dat";
 		Scanner pr = null;
 
@@ -179,8 +143,7 @@ public class FileReader {
 
 		numberOfProducts = Integer.parseInt(pr.nextLine());
 
-		
-		while(pr.hasNext()) {
+		while (pr.hasNext()) {
 			String line = pr.nextLine();
 			String token[] = line.split(";");
 
@@ -192,30 +155,30 @@ public class FileReader {
 			String zip = "";
 			String country = "";
 			String membershipGroup = "";
+			String dateTime = "";
 			double costPerUnit = 0;
 
-
-			if(token[1].equals("R")) {
+			if (token[1].equals("R")) {
 				productCode = token[1];
 				String equipment = token[2];
 				double equipmentCost = Double.parseDouble(token[3]);
-				
-				//Equipment product = new Equipment (productCode, productType, equipmentCost);
-				//productList.add(product);
+
+				Equipment product = new Equipment(productCode, productType, equipmentCost);
+				productList.add(product);
 
 			} else if (token[1].equals("P")) {
 				productCode = token[1];
 				double parkingFee = Double.parseDouble(token[2]);
-				//ParkingPass product = new ParkingPass (productCode, productType, parkingFee);
-				//productList.add(product);
+				ParkingPass product = new ParkingPass(productCode, productType, parkingFee);
+				productList.add(product);
 
-			} else if (token[1].equals("Y")) {				
+			} else if (token[1].equals("Y")) {
 				productCode = token[1];
-				
+
 				DateTimeFormatter dateFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
 				DateTime startDate = dateFormat.parseDateTime(token[2]);
 				DateTime endDate = dateFormat.parseDateTime(token[3]);
-				
+
 				String tokenAddress[] = token[4].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -227,13 +190,14 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				//YearMemberships Product = new Product (productCode, productType, startDate, endDate, address, membershipGroup, costPerUnit);
-				
-				//productList.add();
+				YearMemberships product = new YearMemberships(productCode, productType, startDate, endDate, address,
+						membershipGroup, costPerUnit);
 
-			} else if (token[1].equals("D")){
+				productList.add(product);
+
+			} else if (token[1].equals("D")) {
 				productCode = token[1];
-				String dateTime = token[2];
+			    dateTime = token[2];
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -243,27 +207,13 @@ public class FileReader {
 				costPerUnit = Double.parseDouble(token[4]);
 			}
 
+			Address address = new Address(street, city, state, zip, country);
 
+			DayMemberships product = new DayMemberships(productCode, productType, dateTime, address, costPerUnit);
 
+			productList.add(product);
 		}
 		return productList;
 	}
 
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
