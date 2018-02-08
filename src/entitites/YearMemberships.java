@@ -8,10 +8,9 @@ public class YearMemberships extends Product {
 	public String membershipName;
 	public double cost;
 	public String productType;
-	
+
 	//Constructor
-	public YearMemberships(String startDate, String endDate, Address address,
-			String membershipName, double cost, String productCode, String productType) {
+	public YearMemberships(String startDate, String endDate, Address address, String membershipName, double cost, String productCode, String productType) {
 		super(productCode);
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -69,9 +68,9 @@ public class YearMemberships extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-	
-	
-	
 
-	
+
+
+
+
 }

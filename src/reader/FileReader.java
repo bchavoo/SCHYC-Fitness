@@ -197,7 +197,7 @@ public class FileReader {
 				zip = tokenAddress[3];
 				country = tokenAddress[4];
 				double cost = Double.parseDouble(token[4]);
-				
+
 				Address address = new Address(street, city, state, zip, country);
 
 				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
@@ -205,9 +205,10 @@ public class FileReader {
 				productList.add(product);
 			}
 
-		
+
 		}
 		return productList;
+
 	}
 
 }

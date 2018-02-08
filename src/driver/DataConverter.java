@@ -1,6 +1,7 @@
 package driver;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import entitites.Member;
@@ -12,7 +13,7 @@ import writer.XMLWriter;
 
 public class DataConverter {
 
-	public static void main (String[] args) {
+	public static void main (String[] args) throws IOException {
 
 		//Returns Person, Member, and Product List
 		List<Person> personList = FileReader.createPersonList();
@@ -24,8 +25,8 @@ public class DataConverter {
 		JSONWriter.createPersonJSON(personList);
 		JSONWriter.createMemberJSON(memberList);
 		JSONWriter.createProductJSON(productList);
-		
-		
+
+
 		//Create XML Writer Object
 		//XMLWriter.createPersonXML(personList);
 

@@ -2,24 +2,20 @@ package writer;
 
 import entitites.Member;
 import entitites.Person;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 
 import java.util.List;
-import java.util.ArrayList;
 
-import entitites.Address;
 import entitites.Product;
 
 public class JSONWriter {
 
-	public static void createPersonJSON(List<Person> personList) {
+	public static void createPersonJSON(List<Person> personList) throws IOException {
 
 
 		//Pretty Printing
@@ -27,26 +23,34 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(personList);
 
-		//System.out.println(jsonString);
-
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myPersons.json");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(jsonString);
+		printWriter.close();
 	}
 
-	public static void createMemberJSON(List<Member> memberList) {
+	public static void createMemberJSON(List<Member> memberList) throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		String jsonString = gson.toJson(memberList);
 
-		//System.out.println(jsonString);
-	}
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myMembers.json");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(jsonString);
+		printWriter.close();	}
 
-	public static void createProductJSON(List<Product> productList) {
+	public static void createProductJSON(List<Product> productList) throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		String jsonString = gson.toJson(productList);
+	
+		FileWriter fileWriter = new FileWriter("/Users/bryanchavez/downloads/myProducts.json");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(jsonString);
+		printWriter.close();
 
-		System.out.println(jsonString);
 	}
 }
 

@@ -1,11 +1,11 @@
 package entitites;
 
 public class Equipment extends Product {
-	
+
 	private String equipment;
 	private double cost;
 	private String productType;
-	
+
 	//Constructor
 	public Equipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode);
@@ -38,15 +38,15 @@ public class Equipment extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-	
-	
 
-	
-	
 
-	
 
-	
+
+
+
+
+
+
 }
 
 

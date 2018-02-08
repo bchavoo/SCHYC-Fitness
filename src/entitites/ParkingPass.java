@@ -4,7 +4,7 @@ public class ParkingPass extends Product {
 
 	private double cost;
 	private String productType;
-	
+
 	//Constructor
 	public ParkingPass(double cost, String productCode, String productType) {
 		super(productCode);
@@ -20,7 +20,7 @@ public class ParkingPass extends Product {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
+
 	public String getProductType() {
 		return productType;
 	}
@@ -28,9 +28,9 @@ public class ParkingPass extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-	
-	
-	
+
+
+
 
 
 
