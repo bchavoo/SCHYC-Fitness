@@ -8,6 +8,7 @@ import java.util.Scanner;
 import entitites.Address;
 import entitites.DayMemberships;
 import entitites.Equipment;
+import entitites.Invoice;
 import entitites.Member;
 import entitites.ParkingPass;
 import entitites.Person;
@@ -210,5 +211,59 @@ public class FileReader {
 		return productList;
 
 	}
+	
+	
+	// Person
+		// File-------------------------------------------------------------------------------------------------
+		public static List<Invoice> createInvoiceList() {
+
+			String invoiceFile = "data/Invoices.dat";
+			Scanner iv = null;
+
+			try {
+				iv = new Scanner(new File(invoiceFile));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			numberOfPersons = Integer.parseInt(iv.nextLine());
+
+			while (s.hasNext()) {
+				String line = s.nextLine();
+				String token[] = line.split(";");
+				String personCode = token[0];
+				String tokenName[] = token[1].split(",");
+				String lastName = tokenName[0];
+				String firstName = tokenName[1];
+				String tokenAddress[] = token[2].split(",");
+				String street = tokenAddress[0];
+				String city = tokenAddress[1];
+				String state = tokenAddress[2];
+				String zip = tokenAddress[3];
+				String country = tokenAddress[4];
+
+				ArrayList<String> emailArray = new ArrayList<String>();
+
+				// Instead make more generic with loop for email(larger size);
+				if (token.length == 4) {
+					String tokenEmail[] = token[3].split(",");
+					for (int i = 0; i < tokenEmail.length; i++) {
+						String email = tokenEmail[i];
+						emailArray.add(email);
+					}
+				}
+
+				Address a = new Address(street, city, state, zip, country);
+
+				Person p = new Person(personCode, firstName, lastName, a, emailArray);
+
+				// Add person to person List?
+				invoiceList.add(p);
+			}
+			return invoiceList;
+		}
+	
+	
+	
 
 }
