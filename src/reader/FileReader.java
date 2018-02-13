@@ -23,6 +23,7 @@ public class FileReader {
 	public static int numberOfPersons = 0;
 	public static int numberOfMembers = 0;
 	public static int numberOfProducts = 0;
+	public static int numberOfInvoices = 0;
 
 	// Person
 	// File-------------------------------------------------------------------------------------------------
@@ -226,7 +227,7 @@ public class FileReader {
 				e.printStackTrace();
 			}
 
-			numberOfPersons = Integer.parseInt(iv.nextLine());
+			numberOfInvoices = Integer.parseInt(iv.nextLine());
 
 			while (s.hasNext()) {
 				String line = s.nextLine();
