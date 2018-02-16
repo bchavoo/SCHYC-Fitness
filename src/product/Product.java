@@ -20,5 +20,6 @@ public abstract class Product {
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
+	
 
 }

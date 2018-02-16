@@ -1,6 +1,6 @@
 package product;
 
-public class Service extends Product {
+public abstract class Service extends Product {
 	
 	private double cost;
 	private String productType;
@@ -24,8 +24,9 @@ public class Service extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-
-		
 	
-
+	//Abstract Methods
+	public abstract double getTax();
+	public abstract double getTotal();
+		
 }
