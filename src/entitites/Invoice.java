@@ -1,22 +1,27 @@
 package entitites;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import product.Product;
+
 public class Invoice {
 	
 	private String invoiceCode;
 	private Member memberCode;
 	private String personalTrainerCode;
 	private Integer invoiceDate;
-	private String productsList;
+	private ArrayList<InvoiceProducts>invoiceProducts();
 	
 	
 	public Invoice(String invoiceCode, Member memberCode, String personalTrainerCode, Integer invoiceDate,
-			String productsList) {
+			List<Product> productsList) {
 		super();
 		this.invoiceCode = invoiceCode;
 		this.memberCode = memberCode;
 		this.personalTrainerCode = personalTrainerCode;
 		this.invoiceDate = invoiceDate;
-		this.productsList = productsList;
+		this.invoiceProducts = productsList;
 	}
 	public String getInvoiceCode() {
 		return invoiceCode;
@@ -42,11 +47,11 @@ public class Invoice {
 	public void setInvoiceDate(Integer invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public String getProductsList() {
-		return productsList;
+	public List<Product> getProductsList() {
+		return invoiceProducts;
 	}
-	public void setProductsList(String productsList) {
-		this.productsList = productsList;
+	public void setProductsList(List<Product> productsList) {
+		this.invoiceProducts = productsList;
 	}
 	
 	

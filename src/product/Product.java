@@ -20,5 +20,9 @@ public abstract class Product {
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
+	
+	public abstract double getTax();
+	public abstract double getTotal();
+
 
 }

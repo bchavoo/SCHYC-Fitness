@@ -71,6 +71,21 @@ public abstract class YearMemberships extends Membership {
 		this.productType = productType;
 	}
 
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		double totalCost = ;
+		
+		return 0.06 * totalCost;
+	}
+
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		double cost = 450;
+		 
+		return cost;
+	}
 
 
 

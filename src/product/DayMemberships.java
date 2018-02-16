@@ -68,6 +68,7 @@ public abstract class DayMemberships extends Membership {
 	@Override
 	public double getTotal() {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 

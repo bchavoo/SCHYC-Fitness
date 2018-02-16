@@ -24,6 +24,16 @@ public class Service extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 		
 	
