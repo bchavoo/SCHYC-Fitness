@@ -6,18 +6,17 @@ public class Invoice {
 	private Member memberCode;
 	private String personalTrainerCode;
 	private Integer invoiceDate;
-	private String productsBought;
+	private String productsList;
 	
 	
-		
 	public Invoice(String invoiceCode, Member memberCode, String personalTrainerCode, Integer invoiceDate,
-			String productsBought) {
+			String productsList) {
 		super();
 		this.invoiceCode = invoiceCode;
 		this.memberCode = memberCode;
 		this.personalTrainerCode = personalTrainerCode;
 		this.invoiceDate = invoiceDate;
-		this.productsBought = productsBought;
+		this.productsList = productsList;
 	}
 	public String getInvoiceCode() {
 		return invoiceCode;
@@ -43,12 +42,13 @@ public class Invoice {
 	public void setInvoiceDate(Integer invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public String getProductsBought() {
-		return productsBought;
+	public String getProductsList() {
+		return productsList;
 	}
-	public void setProductsBought(String productsBought) {
-		this.productsBought = productsBought;
+	public void setProductsList(String productsList) {
+		this.productsList = productsList;
 	}
 	
 	
+
 }
