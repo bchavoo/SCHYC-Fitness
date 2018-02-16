@@ -1,6 +1,6 @@
 package product;
 
-public class Equipment extends Product {
+public class Equipment extends Service {
 
 	private String equipment;
 	private double cost;
@@ -8,7 +8,7 @@ public class Equipment extends Product {
 
 	//Constructor
 	public Equipment(String equipment, double cost, String productCode, String productType) {
-		super(productCode);
+		super(productCode, cost, productType);
 		this.equipment = equipment;
 		this.cost = cost;
 		this.productType = productType;

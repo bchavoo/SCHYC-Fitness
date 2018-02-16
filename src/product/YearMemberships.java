@@ -2,7 +2,7 @@ package product;
 
 import entitites.Address;
 
-public class YearMemberships extends Product {
+public abstract class YearMemberships extends Membership {
 
 	public String startDate;
 	public String endDate;
@@ -13,7 +13,7 @@ public class YearMemberships extends Product {
 
 	//Constructor
 	public YearMemberships(String startDate, String endDate, Address address, String membershipName, double cost, String productCode, String productType) {
-		super(productCode);
+		super(productCode, startDate, address, productType);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.address = address;

@@ -2,7 +2,7 @@ package product;
 
 import entitites.Address;
 
-public class DayMemberships extends Product {
+public abstract class DayMemberships extends Membership {
 
 	private String startDate;
 	private Address address;
@@ -12,7 +12,7 @@ public class DayMemberships extends Product {
 
 	//Constructor
 	public DayMemberships(String startDate, Address address, double cost, String productCode, String productType) {
-		super(productCode);
+		super(productCode, startDate, address, productType);
 		this.startDate = startDate;
 		this.address = address;
 		this.cost = cost;
@@ -59,6 +59,19 @@ public class DayMemberships extends Product {
 		this.productType = productType;
 	}
 
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0.06;
+	}
+
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 
 
