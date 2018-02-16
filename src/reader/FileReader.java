@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import entitites.Address;
+import entitites.General;
 import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
+import entitites.Student;
 import product.DayMemberships;
 import product.Equipment;
 import product.ParkingPass;
@@ -106,7 +108,6 @@ public class FileReader {
 			Address a = new Address(street, city, state, zip, country);
 
 			// FIND AND ADD PERSON
-
 			Person match = null;
 			for (int i = 0; i < numberOfPersons; i++) {
 				if (personList.get(i).getPersonCode().equals(personCode)) {
@@ -114,10 +115,14 @@ public class FileReader {
 				}
 			}
 
-			Member mem = new Member(memberCode, memberType, match, memberName, a);
+			if(memberType.equals("G")) {
+				Member mem = new General(memberCode, memberType, match, memberName, a);
+				memberList.add(mem);
+			} else if (memberType.equals("S")) {
+				Member mem = new Student(memberCode, memberType, match, memberName, a);
+				memberList.add(mem);
+			}
 
-			// Add member
-			memberList.add(mem);
 		}
 
 		return memberList;
@@ -260,7 +265,7 @@ public class FileReader {
 				// Add person to person List?
 				//invoiceList.add(p);
 			}
-			//return invoiceList;
+			return null;
 		}
 	
 	

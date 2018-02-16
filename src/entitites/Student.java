@@ -1,6 +1,6 @@
 package entitites;
 
-public abstract class Student extends Member {
+public class Student extends Member {
 
 	public Student(String memberCode, String memberType, Person contact, String name, Address address) {
 		super(memberCode, memberType, contact, name, address);
