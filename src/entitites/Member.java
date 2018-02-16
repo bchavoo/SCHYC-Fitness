@@ -1,6 +1,6 @@
 package entitites;
 
-public class Member {
+public abstract class Member {
 
 	private String memberCode;
 	private String memberType;
@@ -68,6 +68,10 @@ public class Member {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
+	public abstract double getTax();
+	public abstract double getDiscount();
+	public abstract double additionalFee();
 
 
 }
