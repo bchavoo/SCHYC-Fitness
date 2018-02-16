@@ -69,6 +69,7 @@ public abstract class Member {
 		this.address = address;
 	}
 	
+	//Abstract Methods
 	public abstract double getTax();
 	public abstract double getDiscount();
 	public abstract double additionalFee();

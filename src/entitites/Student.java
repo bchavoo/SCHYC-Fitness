@@ -7,16 +7,23 @@ public abstract class Student extends Member {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	@Override
 	public double getTax() {
-		return 0;
+
+		return 0.06;
 	}
 
+	@Override
 	public double getDiscount() {
+
 		return 0.08;
 	}
-	
+
+	@Override
 	public double additionalFee() {
+
 		return 10.50;
 	}
+
+	
 }
