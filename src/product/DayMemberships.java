@@ -1,4 +1,6 @@
-package entitites;
+package product;
+
+import entitites.Address;
 
 public class DayMemberships extends Product {
 

@@ -1,7 +1,6 @@
 package writer;
 
 import entitites.Invoice;
-import entitites.Member;
 import entitites.Person;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +11,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
-import entitites.Product;
+import member.Member;
+import product.Product;
 
 public class JSONWriter {
 

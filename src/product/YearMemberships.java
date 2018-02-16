@@ -1,5 +1,6 @@
-package entitites;
+package product;
 
+import entitites.Address;
 
 public class YearMemberships extends Product {
 
