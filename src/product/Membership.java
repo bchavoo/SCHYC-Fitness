@@ -9,7 +9,7 @@ public abstract class Membership extends Product {
 	private Address address;
 	public String productType;
 	
-	
+
 	
 	
 	public Membership(String productCode, String startDate, Address address, String productType) {

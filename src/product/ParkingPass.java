@@ -4,7 +4,7 @@ public class ParkingPass extends Service {
 
 	private double cost;
 	private String productType;
-
+//yo
 	//Constructor
 	public ParkingPass(double cost, String productCode, String productType) {
 		super(productCode, cost, productType);

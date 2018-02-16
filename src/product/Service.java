@@ -5,7 +5,7 @@ public class Service extends Product {
 	private double cost;
 	private String productType;
 	
-	
+
 	
 	public Service(String productCode, double cost, String productType) {
 		super(productCode);

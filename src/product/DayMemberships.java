@@ -58,7 +58,7 @@ public abstract class DayMemberships extends Membership {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
-
+	
 	@Override
 	public double getTax() {
 		// TODO Auto-generated method stub

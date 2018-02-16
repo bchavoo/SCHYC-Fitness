@@ -6,6 +6,7 @@ public class Equipment extends Service {
 	private double cost;
 	private String productType;
 
+	
 	//Constructor
 	public Equipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode, cost, productType);
