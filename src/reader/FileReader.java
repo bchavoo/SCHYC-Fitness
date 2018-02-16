@@ -243,6 +243,30 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
+				ArrayList<String> productArray = new ArrayList<String>();
+				
+				
+				
+				
+				
+				ArrayList<String> emailArray = new ArrayList<String>();
+
+				// Instead make more generic with loop for email(larger size);
+				if (token.length == 4) {
+					String tokenEmail[] = token[3].split(",");
+					for (int i = 0; i < tokenEmail.length; i++) {
+						String email = tokenEmail[i];
+						emailArray.add(email);
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
+				
 				for(int i = 0; i < tokenProducts.length; i++) {
 					int quantity = 0;
 					String tokenType[] = tokenProducts[i].split(":");
@@ -256,13 +280,9 @@ public class FileReader {
 						}
 				}
 
-				//ArrayList<String> emailArray = new ArrayList<String>();
+				Invoice v = new Invoice(invoiceNumber, memberCode, personalTrainerCode, invoiceDate, productCode);
 
-				//Address a = new Address(street, city, state, zip, country);
-
-				//Person p = new Person(personCode, firstName, lastName, a, emailArray);
-
-				// Add person to person List?
+				// Add Invoice
 				//invoiceList.add(p);
 			}
 			return null;
