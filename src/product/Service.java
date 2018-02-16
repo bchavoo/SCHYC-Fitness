@@ -1,6 +1,6 @@
 package product;
 
-public class Service extends Product {
+public abstract class Service extends Product {
 	
 	private double cost;
 	private String productType;
@@ -24,6 +24,7 @@ public class Service extends Product {
 	public void setProductType(String productType) {
 		this.productType = productType;
 	}
+<<<<<<< HEAD
 	@Override
 	public double getTax() {
 		// TODO Auto-generated method stub
@@ -36,6 +37,11 @@ public class Service extends Product {
 	}
 
 		
+=======
+>>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
 	
-
+	//Abstract Methods
+	public abstract double getTax();
+	public abstract double getTotal();
+		
 }

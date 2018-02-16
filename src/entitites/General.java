@@ -1,6 +1,6 @@
 package entitites;
 
-public abstract class General extends Member {
+public class General extends Member {
 
 	
 	

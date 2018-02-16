@@ -4,7 +4,8 @@ public class ParkingPass extends Service {
 
 	private double cost;
 	private String productType;
-//yo
+	
+	
 	//Constructor
 	public ParkingPass(double cost, String productCode, String productType) {
 		super(productCode, cost, productType);
@@ -27,6 +28,18 @@ public class ParkingPass extends Service {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+
+	@Override
+	public double getTax() {
+		
+		return 0.06;
+	}
+
+	@Override
+	public double getTotal() {
+		
+		return 0;
 	}
 
 

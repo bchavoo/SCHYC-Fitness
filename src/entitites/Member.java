@@ -2,11 +2,11 @@ package entitites;
 
 public abstract class Member {
 
-	private String memberCode;
-	private String memberType;
-	private Person contact;
-	private String name;
-	private Address address;
+	public String memberCode;
+	public String memberType;
+	public Person contact;
+	public String name;
+	public Address address;
 
 
 	//Constructor

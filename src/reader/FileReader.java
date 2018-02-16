@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import entitites.Address;
+import entitites.General;
 import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
+import entitites.Student;
 import product.DayMemberships;
 import product.Equipment;
 import product.ParkingPass;
@@ -106,7 +108,6 @@ public class FileReader {
 			Address a = new Address(street, city, state, zip, country);
 
 			// FIND AND ADD PERSON
-
 			Person match = null;
 			for (int i = 0; i < numberOfPersons; i++) {
 				if (personList.get(i).getPersonCode().equals(personCode)) {
@@ -114,10 +115,14 @@ public class FileReader {
 				}
 			}
 
-			Member mem = new Member(memberCode, memberType, match, memberName, a);
+			if(memberType.equals("G")) {
+				Member mem = new General(memberCode, memberType, match, memberName, a);
+				memberList.add(mem);
+			} else if (memberType.equals("S")) {
+				Member mem = new Student(memberCode, memberType, match, memberName, a);
+				memberList.add(mem);
+			}
 
-			// Add member
-			memberList.add(mem);
 		}
 
 		return memberList;
@@ -238,6 +243,30 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
+				ArrayList<String> productArray = new ArrayList<String>();
+				
+				
+				
+				
+				
+				ArrayList<String> emailArray = new ArrayList<String>();
+
+				// Instead make more generic with loop for email(larger size);
+				if (token.length == 4) {
+					String tokenEmail[] = token[3].split(",");
+					for (int i = 0; i < tokenEmail.length; i++) {
+						String email = tokenEmail[i];
+						emailArray.add(email);
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
+				
 				for(int i = 0; i < tokenProducts.length; i++) {
 					int quantity = 0;
 					String tokenType[] = tokenProducts[i].split(":");
@@ -251,16 +280,12 @@ public class FileReader {
 						}
 				}
 
-				//ArrayList<String> emailArray = new ArrayList<String>();
+				Invoice v = new Invoice(invoiceNumber, memberCode, personalTrainerCode, invoiceDate, productCode);
 
-				//Address a = new Address(street, city, state, zip, country);
-
-				//Person p = new Person(personCode, firstName, lastName, a, emailArray);
-
-				// Add person to person List?
+				// Add Invoice
 				//invoiceList.add(p);
 			}
-			//return invoiceList;
+			return null;
 		}
 	
 	

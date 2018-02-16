@@ -21,8 +21,11 @@ public abstract class Product {
 		this.productCode = productCode;
 	}
 	
+<<<<<<< HEAD
 	public abstract double getTax();
 	public abstract double getTotal();
 
+=======
+>>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
 
 }
