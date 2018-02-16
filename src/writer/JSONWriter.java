@@ -3,7 +3,7 @@ package writer;
 import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
-import entitites.Product;
+import product.Product;
 
 import java.io.FileWriter;
 import java.io.IOException;

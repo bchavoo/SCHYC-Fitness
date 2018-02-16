@@ -1,4 +1,4 @@
-package entitites;
+package product;
 
 public class ParkingPass extends Product {
 

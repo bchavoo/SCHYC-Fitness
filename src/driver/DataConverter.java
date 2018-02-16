@@ -6,7 +6,7 @@ import java.util.List;
 
 import entitites.Member;
 import entitites.Person;
-import entitites.Product;
+import product.Product;
 import reader.FileReader;
 import writer.JSONWriter;
 import writer.XMLWriter;

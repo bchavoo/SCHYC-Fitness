@@ -1,4 +1,4 @@
-package entitites;
+package product;
 
 
 public abstract class Product {
