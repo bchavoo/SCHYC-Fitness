@@ -25,8 +25,7 @@ public class FileReader {
 	public static int numberOfProducts = 0;
 	public static int numberOfInvoices = 0;
 
-	// Person
-	// File-------------------------------------------------------------------------------------------------
+	// Person File-------------------------------------------------------------------------------------------------
 	public static List<Person> createPersonList() {
 
 		String personFile = "data/Persons.dat";
@@ -75,8 +74,7 @@ public class FileReader {
 		return personList;
 	}
 
-	// Member
-	// File-------------------------------------------------------------------------------------------------
+	// Member File-------------------------------------------------------------------------------------------------
 	public static List<Member> createMemberList() {
 
 		String memberFile = "data/Members.dat";
@@ -124,8 +122,7 @@ public class FileReader {
 		return memberList;
 	}
 
-	// Products
-	// File-------------------------------------------------------------------------------------------------
+	// Products File-------------------------------------------------------------------------------------------------
 	public static List<Product> createProductList() {
 
 		String productFile = "data/Products.dat";
@@ -214,8 +211,7 @@ public class FileReader {
 	}
 	
 	
-	// Person
-		// File-------------------------------------------------------------------------------------------------
+	// Invoice File-------------------------------------------------------------------------------------------------
 		public static List<Invoice> createInvoiceList() {
 
 			String invoiceFile = "data/Invoices.dat";
@@ -229,39 +225,38 @@ public class FileReader {
 
 			numberOfInvoices = Integer.parseInt(iv.nextLine());
 
-			while (s.hasNext()) {
-				String line = s.nextLine();
+			while (iv.hasNext()) {
+				String line = iv.nextLine();
 				String token[] = line.split(";");
-				String personCode = token[0];
-				String tokenName[] = token[1].split(",");
-				String lastName = tokenName[0];
-				String firstName = tokenName[1];
-				String tokenAddress[] = token[2].split(",");
-				String street = tokenAddress[0];
-				String city = tokenAddress[1];
-				String state = tokenAddress[2];
-				String zip = tokenAddress[3];
-				String country = tokenAddress[4];
+				String invoiceNumber = token[0];
+				String memberCode = token[1];
+				String personalTrainerCode = token[2];
+				String invoiceDate = token[3];
+				
+				for(int i = 0; i < token[4].length(); i++) {
+					String tokenProducts[] = token[4].split(",");
+					String token
+				}
 
-				ArrayList<String> emailArray = new ArrayList<String>();
+				//ArrayList<String> emailArray = new ArrayList<String>();
 
 				// Instead make more generic with loop for email(larger size);
 				if (token.length == 4) {
 					String tokenEmail[] = token[3].split(",");
 					for (int i = 0; i < tokenEmail.length; i++) {
 						String email = tokenEmail[i];
-						emailArray.add(email);
+						//emailArray.add(email);
 					}
 				}
 
-				Address a = new Address(street, city, state, zip, country);
+				//Address a = new Address(street, city, state, zip, country);
 
-				Person p = new Person(personCode, firstName, lastName, a, emailArray);
+				//Person p = new Person(personCode, firstName, lastName, a, emailArray);
 
 				// Add person to person List?
-				invoiceList.add(p);
+				//invoiceList.add(p);
 			}
-			return invoiceList;
+			//return invoiceList;
 		}
 	
 	

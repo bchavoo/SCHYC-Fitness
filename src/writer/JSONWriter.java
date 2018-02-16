@@ -1,5 +1,6 @@
 package writer;
 
+import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
 import java.io.FileWriter;
@@ -45,6 +46,19 @@ public class JSONWriter {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		String jsonString = gson.toJson(productList);
+	
+		FileWriter fileWriter = new FileWriter("data/Products.json");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(jsonString);
+		printWriter.close();
+
+	}
+	
+	public static void createInvoiceList(List<Invoice> invoiceList) throws IOException {
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		String jsonString = gson.toJson(invoiceList);
 	
 		FileWriter fileWriter = new FileWriter("data/Products.json");
 		PrintWriter printWriter = new PrintWriter(fileWriter);

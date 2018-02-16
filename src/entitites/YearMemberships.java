@@ -1,5 +1,6 @@
 package entitites;
 
+
 public class YearMemberships extends Product {
 
 	public String startDate;
