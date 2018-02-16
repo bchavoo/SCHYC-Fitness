@@ -4,9 +4,9 @@ package driver;
 import java.io.IOException;
 import java.util.List;
 
+import entitites.Member;
 import entitites.Person;
-import member.Member;
-import product.Product;
+import entitites.Product;
 import reader.FileReader;
 import writer.JSONWriter;
 import writer.XMLWriter;

@@ -4,13 +4,13 @@ package writer;
 import java.util.List;
 import com.thoughtworks.xstream.XStream;
 
+import entitites.DayMemberships;
+import entitites.Equipment;
+import entitites.Member;
+import entitites.ParkingPass;
 import entitites.Person;
-import member.Member;
-import product.DayMemberships;
-import product.Equipment;
-import product.ParkingPass;
-import product.Product;
-import product.YearMemberships;
+import entitites.Product;
+import entitites.YearMemberships;
 
 import java.io.FileWriter;
 import java.io.IOException;

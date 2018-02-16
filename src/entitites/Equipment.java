@@ -1,4 +1,4 @@
-package product;
+package entitites;
 
 public class Equipment extends Product {
 

@@ -1,7 +1,4 @@
-package member;
-
-import entitites.Address;
-import entitites.Person;
+package entitites;
 
 public class Member {
 

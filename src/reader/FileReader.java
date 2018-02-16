@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import entitites.Address;
+import entitites.DayMemberships;
+import entitites.Equipment;
 import entitites.Invoice;
+import entitites.Member;
+import entitites.ParkingPass;
 import entitites.Person;
-import member.Member;
-import product.DayMemberships;
-import product.Equipment;
-import product.ParkingPass;
-import product.Product;
-import product.YearMemberships;
+import entitites.Product;
+import entitites.YearMemberships;
 
 public class FileReader {
 

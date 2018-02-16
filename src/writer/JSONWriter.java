@@ -1,7 +1,10 @@
 package writer;
 
 import entitites.Invoice;
+import entitites.Member;
 import entitites.Person;
+import entitites.Product;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,9 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.List;
-
-import member.Member;
-import product.Product;
 
 public class JSONWriter {
 
