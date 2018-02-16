@@ -5,15 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import entitites.Address;
-import entitites.DayMemberships;
-import entitites.Equipment;
 import entitites.Invoice;
 import entitites.Member;
-import entitites.ParkingPass;
 import entitites.Person;
-import entitites.Product;
-import entitites.YearMemberships;
+import product.DayMemberships;
+import product.Equipment;
+import product.ParkingPass;
+import product.Product;
+import product.YearMemberships;
 
 public class FileReader {
 
@@ -232,22 +233,25 @@ public class FileReader {
 				String memberCode = token[1];
 				String personalTrainerCode = token[2];
 				String invoiceDate = token[3];
+				String productCode = "";
+				String personCode = "";
 				
-				for(int i = 0; i < token[4].length(); i++) {
-					String tokenProducts[] = token[4].split(",");
-					String token
+				String tokenProducts[] = token[4].split(",");
+				
+				for(int i = 0; i < tokenProducts.length; i++) {
+					int quantity = 0;
+					String tokenType[] = tokenProducts[i].split(":");
+						if(tokenType.length == 2) {
+							productCode = tokenType[0];
+							quantity = Integer.parseInt(tokenType[1]);
+						} else if (tokenType.length == 3) {
+							productCode = tokenType[0];
+							quantity = Integer.parseInt(tokenType[1]);
+							personCode = tokenType[2];
+						}
 				}
 
 				//ArrayList<String> emailArray = new ArrayList<String>();
-
-				// Instead make more generic with loop for email(larger size);
-				if (token.length == 4) {
-					String tokenEmail[] = token[3].split(",");
-					for (int i = 0; i < tokenEmail.length; i++) {
-						String email = tokenEmail[i];
-						//emailArray.add(email);
-					}
-				}
 
 				//Address a = new Address(street, city, state, zip, country);
 
