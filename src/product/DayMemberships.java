@@ -2,7 +2,7 @@ package product;
 
 import entitites.Address;
 
-public abstract class DayMemberships extends Membership {
+public class DayMemberships extends Membership {
 
 	private String startDate;
 	private Address address;

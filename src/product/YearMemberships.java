@@ -2,7 +2,7 @@ package product;
 
 import entitites.Address;
 
-public abstract class YearMemberships extends Membership {
+public class YearMemberships extends Membership {
 
 	public String startDate;
 	public String endDate;
@@ -69,6 +69,18 @@ public abstract class YearMemberships extends Membership {
 
 	public void setProductType(String productType) {
 		this.productType = productType;
+	}
+
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
