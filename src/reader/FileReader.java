@@ -245,7 +245,7 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
-				
+				System.out.println(invoiceNumber);
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
 				
@@ -257,6 +257,7 @@ public class FileReader {
 							quantity = Integer.parseInt(tokenType[1]);
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+							System.out.println("Number of products: " + ip);
 							invoiceProductArray.add(ip);
 							
 						} else if (tokenType.length == 3) {
@@ -265,6 +266,7 @@ public class FileReader {
 							personCode = tokenType[2];
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+							System.out.println("Number of products: " + ip);
 							invoiceProductArray.add(ip);
 						}
 				}
