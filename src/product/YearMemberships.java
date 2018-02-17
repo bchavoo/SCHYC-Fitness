@@ -73,31 +73,18 @@ public class YearMemberships extends Membership {
 
 	@Override
 	public double getTax() {
-		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		double totalCost = ;
-		
-		return 0.06 * totalCost;
+		// TODO Auto-generated method stub		
+		return 0.06;
 	}
 
 	@Override
 	public double getTotal() {
-		// TODO Auto-generated method stub
-		double cost = 450;
 		 
-		return cost;
-	}
-=======
 		return 0;
 	}
 
-	@Override
-	public double getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
->>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
+
 
 
 

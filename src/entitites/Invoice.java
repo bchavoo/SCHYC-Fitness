@@ -3,7 +3,7 @@ package entitites;
 import java.util.ArrayList;
 import java.util.List;
 
-import product.Product;
+import product.InvoiceProducts;
 
 public class Invoice {
 	
@@ -11,17 +11,17 @@ public class Invoice {
 	private Member memberCode;
 	private String personalTrainerCode;
 	private Integer invoiceDate;
-	private ArrayList<InvoiceProducts>invoiceProducts();
+	private List<InvoiceProducts> invoiceProducts;
 	
 	
 	public Invoice(String invoiceCode, Member memberCode, String personalTrainerCode, Integer invoiceDate,
-			List<Product> productsList) {
+			ArrayList<InvoiceProducts> invoiceProducts) {
 		super();
 		this.invoiceCode = invoiceCode;
 		this.memberCode = memberCode;
 		this.personalTrainerCode = personalTrainerCode;
 		this.invoiceDate = invoiceDate;
-		this.invoiceProducts = productsList;
+		this.invoiceProducts = invoiceProducts;
 	}
 	public String getInvoiceCode() {
 		return invoiceCode;
@@ -47,11 +47,11 @@ public class Invoice {
 	public void setInvoiceDate(Integer invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public List<Product> getProductsList() {
+	public List<InvoiceProducts> getProductsList() {
 		return invoiceProducts;
 	}
-	public void setProductsList(List<Product> productsList) {
-		this.invoiceProducts = productsList;
+	public void setProductsList(List<InvoiceProducts> invoiceProducts) {
+		this.invoiceProducts = invoiceProducts;
 	}
 	
 	
