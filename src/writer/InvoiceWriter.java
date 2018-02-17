@@ -39,7 +39,7 @@ public class InvoiceWriter {
 		
 		
 		
-		InvoiceWriter.createExcutiveReport(null, null, null, null);
+		InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
 		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, null);
 		i++;
 		}
@@ -47,12 +47,12 @@ public class InvoiceWriter {
 	
 	
 	
-	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerName) {
+	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerLastName, String trainerFistName) {
 		
 		System.out.println("Executive Summary Report");
 		System.out.println("===========================");
-		System.out.println("Invoice            Member                           Personal Trainer               Subtotal           Fees          Taxes           Discount        Total");
-		System.out.println(invoiceNumber + "             " + memberName + " [" + memberType + "]                          "  +  trainerName );
+		System.out.println("Invoice            Member                                              Personal Trainer               Subtotal           Fees          Taxes           Discount        Total");
+		System.out.println(invoiceNumber + "             " + memberName + " [" + memberType + "]                          "  +  trainerLastName + "," + trainerFistName);
 	}
 	
 	
