@@ -241,25 +241,24 @@ public class FileReader {
 				String invoiceNumber = token[0];
 				
 				String memberCode = token[1];
-				//Find and store Member
-				System.out.println("Before ForLoop");
 				
+				List<Member> memberList = FileReader.createMemberList();
+				
+				//Find and store Member
 				for(int i = 0; i < numberOfMembers; i++) {
-					System.out.println("Inside ForLoop----------------------------------------");
 					if(memberList.get(i).memberCode.equals(memberCode)) {
-						System.out.println("Insdie IF Statement");
 						m = memberList.get(i);
-						System.out.println("This is the LIST ----------------->\n" + memberList);
 					}
 				}
 				
 				String personalTrainerCode = token[2];
-				System.out.println("After ForLoops" + personalTrainerCode);
+				
+				List<Person> personList = FileReader.createPersonList();
+				
 				//Find and store Person
 				for(int i = 0; i < numberOfPersons; i++) {
 					if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
 						p = personList.get(i);
-						System.out.println(p);
 					}
 				}
 				
