@@ -111,6 +111,7 @@ public class FileReader {
 
 			// FIND AND ADD PERSON
 			Person match = null;
+			List<Person> personList = FileReader.createPersonList();
 			for (int i = 0; i < numberOfPersons; i++) {
 				if (personList.get(i).getPersonCode().equals(personCode)) {
 					match = personList.get(i);
@@ -241,6 +242,7 @@ public class FileReader {
 				String invoiceNumber = token[0];
 				
 				String memberCode = token[1];
+				
 				List<Member> memberList = FileReader.createMemberList();
 				
 				//Find and store Member
