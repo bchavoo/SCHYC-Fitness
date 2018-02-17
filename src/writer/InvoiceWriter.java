@@ -7,6 +7,7 @@ import entitites.Address;
 import entitites.Invoice;
 import entitites.InvoiceProducts;
 import entitites.Member;
+import entitites.Person;
 import reader.FileReader;
 
 public class InvoiceWriter {
@@ -30,8 +31,9 @@ public class InvoiceWriter {
 		}
 		
 		//These two below have the wrong names
-		String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-		String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+		String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+		String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+		
 		Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 		
 		//List<InvoiceProducts> productList
