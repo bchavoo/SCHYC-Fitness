@@ -6,7 +6,6 @@ import java.util.List;
 import entitites.Invoice;
 import reader.FileReader;
 import writer.InvoiceWriter;
-
 public class InvoiceReport {
 
 	public static void main(String[] args) throws IOException {
@@ -16,9 +15,7 @@ public class InvoiceReport {
 
 		//This will generate invoice report
 		InvoiceWriter.createInvoiceReport(invoiceList);
-		
-		System.out.println("These are all the INVOICES: " + invoiceList);
-		
+				
 		
 		
 		
