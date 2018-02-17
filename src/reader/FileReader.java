@@ -234,11 +234,38 @@ public class FileReader {
 			numberOfInvoices = Integer.parseInt(iv.nextLine());
 
 			while (iv.hasNext()) {
+				Member m = null;
+				Person p = null;
 				String line = iv.nextLine();
 				String token[] = line.split(";");
 				String invoiceNumber = token[0];
+				
 				String memberCode = token[1];
+				//Find and store Member
+				System.out.println("Before ForLoop");
+				
+				for(int i = 0; i < numberOfMembers; i++) {
+					System.out.println("Inside ForLoop----------------------------------------");
+					if(memberList.get(i).memberCode.equals(memberCode)) {
+						System.out.println("Insdie IF Statement");
+						m = memberList.get(i);
+						System.out.println("This is the LIST ----------------->\n" + memberList);
+					}
+				}
+				
 				String personalTrainerCode = token[2];
+				System.out.println("After ForLoops" + personalTrainerCode);
+				//Find and store Person
+				for(int i = 0; i < numberOfPersons; i++) {
+					if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
+						p = personList.get(i);
+						System.out.println(p);
+					}
+				}
+				
+				
+				
+				
 				String invoiceDate = token[3];
 				String productCode = "";
 				String personCode = "";
@@ -271,7 +298,7 @@ public class FileReader {
 						}
 				}
 
-				Invoice v = new Invoice(invoiceNumber, memberCode, personalTrainerCode, invoiceDate, invoiceProductArray);
+				Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
 
 				// Add Invoice
 				invoiceList.add(v);

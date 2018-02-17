@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Invoice {
 	
 	private String invoiceCode;
-	private String memberCode;
-	private String personalTrainerCode;
+	private Member memberCode;
+	private Person personalTrainerCode;
 	private String invoiceDate;
 	private ArrayList<InvoiceProducts> invoiceProducts;
 	
 	
-	public Invoice(String invoiceCode, String memberCode, String personalTrainerCode, String invoiceDate,
+	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate,
 			ArrayList<InvoiceProducts> invoiceProducts) {
 		super();
 		this.invoiceCode = invoiceCode;
@@ -26,16 +26,16 @@ public class Invoice {
 	public void setInvoiceCode(String invoiceCode) {
 		this.invoiceCode = invoiceCode;
 	}
-	public String getMemberCode() {
+	public Member getMemberCode() {
 		return memberCode;
 	}
-	public void setMemberCode(String memberCode) {
+	public void setMemberCode(Member memberCode) {
 		this.memberCode = memberCode;
 	}
-	public String getPersonalTrainerCode() {
+	public Person getPersonalTrainerCode() {
 		return personalTrainerCode;
 	}
-	public void setPersonalTrainerCode(String personalTrainerCode) {
+	public void setPersonalTrainerCode(Person personalTrainerCode) {
 		this.personalTrainerCode = personalTrainerCode;
 	}
 	public String getInvoiceDate() {
