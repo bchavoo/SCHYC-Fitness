@@ -256,13 +256,16 @@ public class FileReader {
 				List<Person> personList = FileReader.createPersonList();
 				
 				//Find and store Person(NOT WORKING)
+				System.out.println(numberOfPersons);
 				for(int i = 0; i < numberOfPersons; i++) {
+					System.out.println("This is person: " + personList.get(i).getPersonCode());
 					if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
 						p = personList.get(i);
+						System.out.println("This is person: " + personList.get(i));
 					}
 				}
 				
-				System.out.println("This is person: " + p);
+				
 				
 				
 				
