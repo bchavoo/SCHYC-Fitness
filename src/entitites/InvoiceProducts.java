@@ -1,4 +1,4 @@
-package product;
+package entitites;
 
 public class InvoiceProducts {
 	
@@ -31,5 +31,7 @@ public class InvoiceProducts {
 	public void setPersonCode(String personCode) {
 		this.personCode = personCode;
 	}
+
+
 
 }

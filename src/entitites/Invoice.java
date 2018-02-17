@@ -1,20 +1,17 @@
 package entitites;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import product.InvoiceProducts;
 
 public class Invoice {
 	
 	private String invoiceCode;
-	private Member memberCode;
+	private String memberCode;
 	private String personalTrainerCode;
-	private Integer invoiceDate;
-	private List<InvoiceProducts> invoiceProducts;
+	private String invoiceDate;
+	private ArrayList<InvoiceProducts> invoiceProducts;
 	
 	
-	public Invoice(String invoiceCode, Member memberCode, String personalTrainerCode, Integer invoiceDate,
+	public Invoice(String invoiceCode, String memberCode, String personalTrainerCode, String invoiceDate,
 			ArrayList<InvoiceProducts> invoiceProducts) {
 		super();
 		this.invoiceCode = invoiceCode;
@@ -29,10 +26,10 @@ public class Invoice {
 	public void setInvoiceCode(String invoiceCode) {
 		this.invoiceCode = invoiceCode;
 	}
-	public Member getMemberCode() {
+	public String getMemberCode() {
 		return memberCode;
 	}
-	public void setMemberCode(Member memberCode) {
+	public void setMemberCode(String memberCode) {
 		this.memberCode = memberCode;
 	}
 	public String getPersonalTrainerCode() {
@@ -41,16 +38,16 @@ public class Invoice {
 	public void setPersonalTrainerCode(String personalTrainerCode) {
 		this.personalTrainerCode = personalTrainerCode;
 	}
-	public Integer getInvoiceDate() {
+	public String getInvoiceDate() {
 		return invoiceDate;
 	}
-	public void setInvoiceDate(Integer invoiceDate) {
+	public void setInvoiceDate(String invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public List<InvoiceProducts> getProductsList() {
+	public ArrayList<InvoiceProducts> getProductsList() {
 		return invoiceProducts;
 	}
-	public void setProductsList(List<InvoiceProducts> invoiceProducts) {
+	public void setProductsList(ArrayList<InvoiceProducts> invoiceProducts) {
 		this.invoiceProducts = invoiceProducts;
 	}
 	

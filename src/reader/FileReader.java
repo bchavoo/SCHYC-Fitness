@@ -9,6 +9,7 @@ import java.util.Scanner;
 import entitites.Address;
 import entitites.General;
 import entitites.Invoice;
+import entitites.InvoiceProducts;
 import entitites.Member;
 import entitites.Person;
 import entitites.Student;
@@ -23,6 +24,7 @@ public class FileReader {
 	public static List<Person> personList = new ArrayList<Person>();
 	public static List<Member> memberList = new ArrayList<Member>();
 	public static List<Product> productList = new ArrayList<Product>();
+	public static List<Invoice> invoiceList = new ArrayList<Invoice>();
 	public static int numberOfPersons = 0;
 	public static int numberOfMembers = 0;
 	public static int numberOfProducts = 0;
@@ -243,28 +245,8 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
-				ArrayList<String> productArray = new ArrayList<String>();
 				
-				
-				
-				
-				
-				ArrayList<String> emailArray = new ArrayList<String>();
-
-				// Instead make more generic with loop for email(larger size);
-				if (token.length == 4) {
-					String tokenEmail[] = token[3].split(",");
-					for (int i = 0; i < tokenEmail.length; i++) {
-						String email = tokenEmail[i];
-						emailArray.add(email);
-					}
-				}
-				
-				
-				
-				
-				
-				
+				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
 				
 				for(int i = 0; i < tokenProducts.length; i++) {
@@ -273,19 +255,26 @@ public class FileReader {
 						if(tokenType.length == 2) {
 							productCode = tokenType[0];
 							quantity = Integer.parseInt(tokenType[1]);
+							
+							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+							invoiceProductArray.add(ip);
+							
 						} else if (tokenType.length == 3) {
 							productCode = tokenType[0];
 							quantity = Integer.parseInt(tokenType[1]);
 							personCode = tokenType[2];
+							
+							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+							invoiceProductArray.add(ip);
 						}
 				}
 
-				Invoice v = new Invoice(invoiceNumber, memberCode, personalTrainerCode, invoiceDate, productCode);
+				Invoice v = new Invoice(invoiceNumber, memberCode, personalTrainerCode, invoiceDate, invoiceProductArray);
 
 				// Add Invoice
-				//invoiceList.add(p);
+				invoiceList.add(v);
 			}
-			return null;
+			return invoiceList;
 		}
 	
 	
