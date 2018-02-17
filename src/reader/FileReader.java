@@ -118,6 +118,7 @@ public class FileReader {
 				}
 			}
 
+			//RUN TIME POLYMORPHISM
 			if(memberType.equals("G")) {
 				Member mem = new General(memberCode, memberType, match, memberName, a);
 				memberList.add(mem);

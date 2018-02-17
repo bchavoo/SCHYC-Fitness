@@ -21,12 +21,12 @@ public class DataConverter {
 //		List<Product> productList = FileReader.createProductList();
 //
 //
-//		//Create JSON Writer Object
+//		//Create JSON file for each of the lists
 //		JSONWriter.createPersonJSON(personList);
 //		JSONWriter.createMemberJSON(memberList);
 //		JSONWriter.createProductJSON(productList);
 //
-//		//Create XML Writer Object
+//		//Create XML file for each of the same lists 
 //		XMLWriter.createPersonXML(personList);
 //		XMLWriter.createMemberXML(memberList);
 //		XMLWriter.createProductXML(productList);

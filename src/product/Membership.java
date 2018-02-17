@@ -2,6 +2,7 @@ package product;
 
 import entitites.Address;
 
+//Abstract class of Membership
 public abstract class Membership extends Product {
 
 	
@@ -37,7 +38,7 @@ public abstract class Membership extends Product {
 		this.productType = productType;
 	}
 	
-	//Abstract Methods
+	//Abstract Methods to be overridden in General/Student memberships
 	public abstract double getTax();
 	public abstract double getTotal();
 
