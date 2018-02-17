@@ -6,20 +6,43 @@ import java.util.List;
 import entitites.Address;
 import entitites.Invoice;
 import entitites.InvoiceProducts;
+import entitites.Member;
+import reader.FileReader;
 
 public class InvoiceWriter {
 	
 
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
 		//Do all calculations and formatting here
+		int i = 0;
+		while(i < invoiceList.size()) {
+		String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+		String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+		String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+		Member temp = invoiceList.get(i).getMemberCode();
+		String memberName = temp.getName();
+		String memberCode = temp.getMemberCode();
+		String memberType = temp.getMemberType();
+		if(memberType.equals("G")) {
+			memberType = "General";
+		} else if (memberType.equals("S")) {
+			memberType = "Student";
+		}
+		//These two below have the wrong names
+		String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+		String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+		Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+		
+		//List<InvoiceProducts> productList
 		
 		
 		
 		
 		
 		InvoiceWriter.createExcutiveReport(null, null, null, null);
-		InvoiceWriter.createSingleInvoiceReport(null, null, null, null, null, null, null, null, null, null);
-		
+		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, null);
+		i++;
+		}
 	}
 	
 	
