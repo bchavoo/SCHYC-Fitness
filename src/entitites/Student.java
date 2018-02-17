@@ -8,21 +8,22 @@ public class Student extends Member {
 	}
 
 	@Override
-	public double getTax() {
-
-		return 0.06;
-	}
-
-	@Override
 	public double getDiscount() {
-
-		return 0.08;
+		double total = 0;
+		
+		return 0.08 * total;
 	}
 
 	@Override
 	public double additionalFee() {
 
 		return 10.50;
+	}
+
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

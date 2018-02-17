@@ -9,7 +9,7 @@ import entitites.InvoiceProducts;
 
 public class InvoiceWriter {
 	
-
+    
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
 		//Do all calculations and formatting here
 		
@@ -26,7 +26,10 @@ public class InvoiceWriter {
 	
 	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerName) {
 		
-		
+		System.out.println("Executive Summary Report");
+		System.out.println("===========================");
+		System.out.println("Invoice            Member                           Personal Trainer               Subtotal           Fees          Taxes           Discount        Total");
+		System.out.println(invoiceNumber + "             " + memberName + " [" + memberType + "]                          "  +  trainerName );
 	}
 	
 	

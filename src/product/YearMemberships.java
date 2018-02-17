@@ -73,19 +73,20 @@ public class YearMemberships extends Membership {
 
 	@Override
 	public double getTax() {
-		// TODO Auto-generated method stub		
-		return 0.06;
+		// TODO Auto-generated method stub
+		double totalCost = ;
+		
+		return 0.06 * totalCost;
 	}
 
 	@Override
 	public double getTotal() {
+		// TODO Auto-generated method stub
+		double cost = 450;
 		 
-		return 0;
+		return cost;
 	}
-
-
-
-
+		
 
 
 

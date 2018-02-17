@@ -10,6 +10,7 @@ public class Person {
 	private ArrayList<String>email;
 
 	//Constructor
+	
 	public Person(String personCode, String firstName, String lastName, Address address, ArrayList<String> email) {
 		super();
 		this.personCode = personCode;
