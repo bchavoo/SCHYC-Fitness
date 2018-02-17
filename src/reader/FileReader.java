@@ -241,7 +241,6 @@ public class FileReader {
 				String invoiceNumber = token[0];
 				
 				String memberCode = token[1];
-				
 				List<Member> memberList = FileReader.createMemberList();
 				
 				//Find and store Member
@@ -252,23 +251,14 @@ public class FileReader {
 				}
 				
 				String personalTrainerCode = token[2];
-				
 				List<Person> personList = FileReader.createPersonList();
 				
-				//Find and store Person(NOT WORKING)
-				System.out.println(numberOfPersons);
+				//Find and store Person
 				for(int i = 0; i < numberOfPersons; i++) {
-					System.out.println("This is person: " + personList.get(i).getPersonCode());
 					if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
 						p = personList.get(i);
-						System.out.println("This is person: " + personList.get(i));
 					}
 				}
-				
-				
-				
-				
-				
 				
 				String invoiceDate = token[3];
 				String productCode = "";
@@ -276,7 +266,7 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
-				System.out.println(invoiceNumber);
+				System.out.println("This is invoice: " + invoiceNumber);
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
 				
@@ -288,7 +278,7 @@ public class FileReader {
 							quantity = Integer.parseInt(tokenType[1]);
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("Number of products: " + ip);
+							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 							
 						} else if (tokenType.length == 3) {
@@ -297,7 +287,7 @@ public class FileReader {
 							personCode = tokenType[2];
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("Number of products: " + ip);
+							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 						}
 				}
