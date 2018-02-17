@@ -50,6 +50,7 @@ public class InvoiceWriter {
 	
 	
 	
+	
 	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerLastName, String trainerFistName) {
 		
 		System.out.println("Executive Summary Report");
