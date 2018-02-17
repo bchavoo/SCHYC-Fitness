@@ -28,6 +28,7 @@ public class InvoiceWriter {
 		} else if (memberType.equals("S")) {
 			memberType = "Student";
 		}
+		
 		//These two below have the wrong names
 		String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 		String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
