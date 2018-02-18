@@ -166,7 +166,7 @@ public class FileReader {
 				double cost = Double.parseDouble(token[3]);
 
 				//POLYMORPHISM 
-				Product product = new Equipment(equipment, cost, productCode, productType);
+				Equipment product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
@@ -175,7 +175,7 @@ public class FileReader {
 				double cost = Double.parseDouble(token[2]);
 				
 				//POLYMORPHISM 
-				Product product = new ParkingPass(cost, productCode, productType);
+				ParkingPass product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("Y")) {
@@ -195,7 +195,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				//POLYMORPHISM 
-				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
+				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
 
@@ -214,7 +214,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				//POLYMORPHISM 
-				Product product = new DayMemberships(startDate, address, cost, productCode, productType);
+				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
 			}
@@ -274,7 +274,6 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
-				System.out.println("This is invoice: " + invoiceNumber);
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
 				
@@ -286,7 +285,7 @@ public class FileReader {
 							quantity = Integer.parseInt(tokenType[1]);
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
+							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 							
 						} else if (tokenType.length == 3) {
@@ -295,7 +294,7 @@ public class FileReader {
 							personCode = tokenType[2];
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
+							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 						}
 				}

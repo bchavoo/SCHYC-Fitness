@@ -17,7 +17,7 @@ public class InvoiceReport {
 		//This will generate invoice report
 		InvoiceWriter.createInvoiceReport(invoiceList);
 		
-		JSONWriter.createInvoiceList(invoiceList);
+		//JSONWriter.createInvoiceList(invoiceList);
 		
 		
 		
