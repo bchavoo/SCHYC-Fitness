@@ -77,10 +77,12 @@ public class InvoiceWriter {
 		
 		List<Product> productFileList = FileReader.createProductList();
 		
-		for(int i = 0; i < productFileList.size(); i++) {
-			for(int j = 0; j < productList.size(); j++) {
-				if(productFileList.get(i).getProductCode().equals(productList.get(j).getProductCode())) {
-					System.out.println("HERE " + productFileList.get(i));
+		for(int i = 0; i < productList.size(); i++) {
+			for(int j = 0; j < productFileList.size(); j++) {
+				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
+					System.out.println("HERE " + productList.get(i).getProductCode());
+					System.out.println(productFileList.get(j).getProductCode());
+					break;
 				}
 			}
 		}

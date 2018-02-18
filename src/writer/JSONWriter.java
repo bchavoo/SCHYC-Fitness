@@ -41,24 +41,11 @@ public class JSONWriter {
 //		printWriter.print(jsonString);
 //		printWriter.close();	}
 //
-//	public static void createProductJSON(List<Product> productList) throws IOException {
-//
-//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//
-//		String jsonString = gson.toJson(productList);
-//	
-//		FileWriter fileWriter = new FileWriter("data/Products.json");
-//		PrintWriter printWriter = new PrintWriter(fileWriter);
-//		printWriter.print(jsonString);
-//		printWriter.close();
-//
-//	}
-	
-	public static void createInvoiceList(List<Invoice> invoiceList) throws IOException {
+	public static void createProductJSON(List<Product> productList) throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-		String jsonString = gson.toJson(invoiceList);
+		String jsonString = gson.toJson(productList);
 		
 		System.out.println(jsonString);
 	
@@ -68,6 +55,21 @@ public class JSONWriter {
 //		printWriter.close();
 
 	}
+	
+//	public static void createInvoiceList(List<Invoice> invoiceList) throws IOException {
+//
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//
+//		String jsonString = gson.toJson(invoiceList);
+//		
+//		System.out.println(jsonString);
+//	
+//		FileWriter fileWriter = new FileWriter("data/Products.json");
+//		PrintWriter printWriter = new PrintWriter(fileWriter);
+//		printWriter.print(jsonString);
+//		printWriter.close();
+//
+//	}
 }
 
 

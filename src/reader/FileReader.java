@@ -165,14 +165,14 @@ public class FileReader {
 				String equipment = token[2];
 				double cost = Double.parseDouble(token[3]);
 
-				Equipment product = new Equipment(equipment, cost, productCode, productType);
+				Product product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
 				productCode = token[0];
 				productType = token[1];
 				double cost = Double.parseDouble(token[2]);
-				ParkingPass product = new ParkingPass(cost, productCode, productType);
+				Product product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("Y")) {
@@ -191,7 +191,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
+				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
 
@@ -209,7 +209,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
+				Product product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
 			}
