@@ -105,6 +105,8 @@ public class InvoiceWriter {
 			}
 		}
 		
+		System.out.println("%-8s %-20s %6.2d %6.2d %6.2d");
+		
 		
 	}
 	
