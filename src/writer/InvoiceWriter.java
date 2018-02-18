@@ -29,12 +29,13 @@ public class InvoiceWriter {
 		} else if (memberType.equals("S")) {
 			memberType = "Student";
 		}
-		
-		//These two below have the wrong names
 		String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
 		String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
 		
 		Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+
+		List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+		
 		
 		//List<InvoiceProducts> productList
 		
@@ -43,7 +44,7 @@ public class InvoiceWriter {
 		
 		
 		InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
-		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, null);
+		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 		i++;
 		}
 	}
@@ -72,7 +73,9 @@ public class InvoiceWriter {
 		System.out.println("    " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
 		System.out.println("Code             Item                                         SubTotal                 Tax            Total");
-		System.out.println("");
+		for(int i = 0; i < productList.size(); i++) {
+		System.out.println(productList.get(i).getProductCode());
+		}
 		
 		
 	}
