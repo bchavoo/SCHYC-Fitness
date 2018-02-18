@@ -76,15 +76,20 @@ public class InvoiceWriter {
 		System.out.println("Code             Item                                         SubTotal                 Tax            Total");
 		
 		List<Product> productFileList = FileReader.createProductList();
-		
+
+
 		for(int i = 0; i < productFileList.size(); i++) {
 			for(int j = 0; j < productList.size(); j++) {
 				if(productFileList.get(i).getProductCode().equals(productList.get(j).getProductCode())) {
 					System.out.println("HERE " + productFileList.get(i));
+					
 				}
+				
+				
 			}
+
 		}
-		
+	
 		
 	}
 	
