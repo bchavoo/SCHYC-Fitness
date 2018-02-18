@@ -8,6 +8,7 @@ import entitites.Invoice;
 import entitites.InvoiceProducts;
 import entitites.Member;
 import entitites.Person;
+import product.Product;
 import reader.FileReader;
 
 public class InvoiceWriter {
@@ -73,8 +74,15 @@ public class InvoiceWriter {
 		System.out.println("    " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
 		System.out.println("Code             Item                                         SubTotal                 Tax            Total");
-		for(int i = 0; i < productList.size(); i++) {
-		System.out.println(productList.get(i).getProductCode());
+		
+		List<Product> productFileList = FileReader.createProductList();
+		
+		for(int i = 0; i < productFileList.size(); i++) {
+			for(int j = 0; j < productList.size(); j++) {
+				if(productFileList.get(i).getProductCode().equals(productList.get(j).getProductCode())) {
+					System.out.println("HERE " + productFileList.get(i));
+				}
+			}
 		}
 		
 		
