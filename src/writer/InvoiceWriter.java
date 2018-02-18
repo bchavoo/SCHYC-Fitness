@@ -116,7 +116,13 @@ public class InvoiceWriter {
 			}
 
 		}
+<<<<<<< HEAD
 	
+=======
+		
+		System.out.println("%-8s %-20s %6.2d %6.2d %6.2d");
+		
+>>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
 		
 	}
 	
