@@ -165,6 +165,7 @@ public class FileReader {
 				String equipment = token[2];
 				double cost = Double.parseDouble(token[3]);
 
+				//POLYMORPHISM 
 				Product product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
@@ -172,6 +173,8 @@ public class FileReader {
 				productCode = token[0];
 				productType = token[1];
 				double cost = Double.parseDouble(token[2]);
+				
+				//POLYMORPHISM 
 				Product product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
@@ -191,6 +194,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
+				//POLYMORPHISM 
 				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
@@ -209,6 +213,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
+				//POLYMORPHISM 
 				Product product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);

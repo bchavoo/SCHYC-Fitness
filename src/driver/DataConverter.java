@@ -18,13 +18,13 @@ public class DataConverter {
 		//Returns Person, Member, and Product List
 //		List<Person> personList = FileReader.createPersonList();
 //		List<Member> memberList = FileReader.createMemberList();
-		List<Product> productList = FileReader.createProductList();
+//		List<Product> productList = FileReader.createProductList();
 //
 //
 //		//Create JSON file for each of the lists
 //		JSONWriter.createPersonJSON(personList);
 //		JSONWriter.createMemberJSON(memberList);
-		JSONWriter.createProductJSON(productList);
+//		JSONWriter.createProductJSON(productList);
 //
 //		//Create XML file for each of the same lists 
 //		XMLWriter.createPersonXML(personList);
