@@ -22,7 +22,6 @@ public class InvoiceReport {
 		
 		
 		
-		
 		//Create JSON Writer Object
 		
 

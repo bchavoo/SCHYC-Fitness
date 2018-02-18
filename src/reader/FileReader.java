@@ -165,6 +165,7 @@ public class FileReader {
 				String equipment = token[2];
 				double cost = Double.parseDouble(token[3]);
 
+				//POLYMORPHISM 
 				Equipment product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
@@ -172,6 +173,8 @@ public class FileReader {
 				productCode = token[0];
 				productType = token[1];
 				double cost = Double.parseDouble(token[2]);
+				
+				//POLYMORPHISM 
 				ParkingPass product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
@@ -191,6 +194,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
+				//POLYMORPHISM 
 				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
@@ -209,6 +213,7 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
+				//POLYMORPHISM 
 				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
@@ -269,7 +274,6 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
-				System.out.println("This is invoice: " + invoiceNumber);
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
 				
@@ -281,7 +285,7 @@ public class FileReader {
 							quantity = Integer.parseInt(tokenType[1]);
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
+							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 							
 						} else if (tokenType.length == 3) {
@@ -290,7 +294,7 @@ public class FileReader {
 							personCode = tokenType[2];
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							System.out.println("These are the products in " + invoiceNumber + " : " + ip);
+							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 						}
 				}

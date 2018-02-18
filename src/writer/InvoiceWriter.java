@@ -8,7 +8,13 @@ import entitites.Invoice;
 import entitites.InvoiceProducts;
 import entitites.Member;
 import entitites.Person;
+import product.DayMemberships;
+import product.Equipment;
+import product.Membership;
+import product.ParkingPass;
 import product.Product;
+import product.Service;
+import product.YearMemberships;
 import reader.FileReader;
 
 public class InvoiceWriter {
@@ -37,12 +43,7 @@ public class InvoiceWriter {
 
 		List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
 		
-		
-		//List<InvoiceProducts> productList
-		
-		
-		
-		
+				
 		
 		InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
 		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
@@ -67,15 +68,16 @@ public class InvoiceWriter {
 		System.out.println("==================================================");
 		System.out.println("Personal Trainer: " + trainerLastName + ", " + trainerFirstName);
 		System.out.println("Member Info:");
-		System.out.println("    " + memberName + "  (" + memberCode + ")");
-		System.out.println("    [" + memberType + "]");
-		System.out.println("    " + personLastName + ", " + personFirstName);
-		System.out.println("    " + memberAddress.getStreet());
-		System.out.println("    " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
+		System.out.println("  " + memberName + "  (" + memberCode + ")");
+		System.out.println("  [" + memberType + "]");
+		System.out.println("  " + personLastName + ", " + personFirstName);
+		System.out.println("  " + memberAddress.getStreet());
+		System.out.println("  " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
-		System.out.println("Code             Item                                         SubTotal                 Tax            Total");
+		System.out.println("Code         Item                                         SubTotal                 Tax            Total");
 		
 		List<Product> productFileList = FileReader.createProductList();
+
 
 
 		for(int i = 0; i < productFileList.size(); i++) {
@@ -83,6 +85,31 @@ public class InvoiceWriter {
 				if(productFileList.get(i).getProductCode().equals(productList.get(j).getProductCode())) {
 					System.out.println("HERE " + productFileList.get(i));
 					
+
+		
+		//System.out.println(productFileList.get(0).getProductCode();
+		
+		for(int i = 0; i < productList.size(); i++) {
+			for(int j = 0; j < productFileList.size(); j++) {
+				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
+					
+					if(productFileList.get(j) instanceof YearMemberships) {
+						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
+						System.out.println(yProduct.getProductType());
+						
+					} else if (productFileList.get(j) instanceof DayMemberships) {
+						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
+						System.out.println(dProduct.getProductType());
+					
+					} else if (productFileList.get(j) instanceof ParkingPass) {
+						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
+						System.out.println(pProduct.getProductType());
+						
+					} else if (productFileList.get(j) instanceof Equipment) {
+						Equipment eProduct = (Equipment)productFileList.get(j);
+						System.out.println(eProduct.getProductType());
+					}
+					break;
 				}
 				
 				
