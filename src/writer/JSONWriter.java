@@ -64,10 +64,10 @@ public class JSONWriter {
 		
 		System.out.println(jsonString);
 	
-		FileWriter fileWriter = new FileWriter("data/Products.json");
-		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.print(jsonString);
-		printWriter.close();
+//		FileWriter fileWriter = new FileWriter("data/Products.json");
+//		PrintWriter printWriter = new PrintWriter(fileWriter);
+//		printWriter.print(jsonString);
+//		printWriter.close();
 
 	}
 }
