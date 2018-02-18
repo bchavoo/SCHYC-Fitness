@@ -151,19 +151,19 @@ public class InvoiceWriter {
 
 			}
 			if(productType.equals("Year-long membership")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("           " + startDate + " - " + endDate + "(" + quantity + " units @ $" + cost + ")");
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
+				System.out.printf("%10s %10s - %10s " + "(" + "%.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
 			
 			} else if (productType.equals("Day-long membership")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("           " + startDate.subSequence(0, 10) + "(" + quantity + " units @ " + cost + ")");
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
+				System.out.printf("%10s %10s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", startDate.subSequence(0, 10), quantity, cost);
 				
 			} else if (productType.equals("Parking Pass")) {
-				System.out.printf("%-9s %-18s" + "(" + quantity + "units @ $" + cost + ")" + "$%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.printf("%-9s %-13s" + "(" + "%-2.0f"+ " units @ " + "$" + "%.1f" + ")" + "%40s"+ "$%10d $%9d $%10d\n", productCode, productType, quantity, cost, "", 0, 0, 0);
 				
 			} else if (productType.equals("Rental Equipment")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("          " + "(" + quantity + " units @ $" + cost + "/unit" + ")");
+				System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + ")", "", quantity, cost);
 				
 			}
 		}
