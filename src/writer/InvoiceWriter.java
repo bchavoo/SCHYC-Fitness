@@ -122,15 +122,18 @@ public class InvoiceWriter {
 			}
 			if(productType.equals("Year-long membership")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.println("A date will go here----------");
 			
 			} else if (productType.equals("Day-long membership")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.println("A date will go here----------");
 				
 			} else if (productType.equals("Parking Pass")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
 				
 			} else if (productType.equals("Rental Equipment")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.println("A date will go here----------");
 				
 			}
 		}
