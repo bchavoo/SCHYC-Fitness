@@ -82,8 +82,17 @@ public class InvoiceWriter {
 		//System.out.println(productFileList.get(0).getProductCode();
 		String productType = "";
 		String productCode = "";
+		String startDate = "";
+		String endDate = "";
+		String address = "";
+		double quantity = 0;
+		double cost = 0;
+		String personWhoIsBuying = "";
+		
+		
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
+				
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
 					productType = "";
@@ -92,6 +101,11 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
+							startDate = yProduct.getStartDate();
+							endDate = yProduct.getEndDate();
+							address = yProduct.getAddress().getStreet();
+							cost = yProduct.getCost();
+							
 						}
 
 					} else if (productFileList.get(j) instanceof DayMemberships) {
@@ -99,6 +113,10 @@ public class InvoiceWriter {
 						if(dProduct.getProductType().equals("D")) {
 							productCode = dProduct.getProductCode();
 							productType = "Day-long membership";
+							startDate = dProduct.getStartDate();
+							address = dProduct.getAddress().getStreet();
+							cost = dProduct.getCost();
+							
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -106,6 +124,7 @@ public class InvoiceWriter {
 						if (pProduct.getProductType().equals("P")) {
 							productCode = pProduct.getProductCode();
 							productType = "Parking Pass";
+							cost = pProduct.getCost();
 						}
 
 					} else if (productFileList.get(j) instanceof Equipment) {
@@ -113,27 +132,38 @@ public class InvoiceWriter {
 						if (eProduct.getProductType().equals("R")) {
 							productCode = eProduct.getProductCode();
 							productType = "Rental Equipment";
+							cost = eProduct.getCost();
+							
+							
 						}
 					}
 					break;
 				}
+				
+				
+				
+				quantity = productList.get(i).getQuantity();
+				personWhoIsBuying = productList.get(i).getPersonCode();
+				
+				
+				
 
 
 			}
 			if(productType.equals("Year-long membership")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("A date will go here----------");
+				System.out.println("           " + startDate + " - " + endDate + "(" + quantity + " units @ $" + cost + ")");
 			
 			} else if (productType.equals("Day-long membership")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("A date will go here----------");
+				System.out.println("           " + startDate.subSequence(0, 10) + "(" + quantity + " units @ " + cost + ")");
 				
 			} else if (productType.equals("Parking Pass")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.printf("%-9s %-18s" + "(" + quantity + "units @ $" + cost + ")" + "$%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
 				
 			} else if (productType.equals("Rental Equipment")) {
 				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("A date will go here----------");
+				System.out.println("          " + "(" + quantity + " units @ $" + cost + "/unit" + ")");
 				
 			}
 		}
