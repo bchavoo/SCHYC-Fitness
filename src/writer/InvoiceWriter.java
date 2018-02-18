@@ -18,51 +18,51 @@ import product.YearMemberships;
 import reader.FileReader;
 
 public class InvoiceWriter {
-	
-    
+
+
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
 		//Do all calculations and formatting here
 		int i = 0;
 		while(i < invoiceList.size()) {
-		String invoiceNumber = invoiceList.get(i).getInvoiceCode();
-		String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-		String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-		Member temp = invoiceList.get(i).getMemberCode();
-		String memberName = temp.getName();
-		String memberCode = temp.getMemberCode();
-		String memberType = temp.getMemberType();
-		if(memberType.equals("G")) {
-			memberType = "General";
-		} else if (memberType.equals("S")) {
-			memberType = "Student";
-		}
-		String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
-		String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
-		
-		Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			Member temp = invoiceList.get(i).getMemberCode();
+			String memberName = temp.getName();
+			String memberCode = temp.getMemberCode();
+			String memberType = temp.getMemberType();
+			if(memberType.equals("G")) {
+				memberType = "General";
+			} else if (memberType.equals("S")) {
+				memberType = "Student";
+			}
+			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
 
-		List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
-		
-				
-		
-		InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
-		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
-		i++;
+			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+
+			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+
+
+
+			InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
+			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			i++;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerLastName, String trainerFistName) {
-		
+
 		System.out.println("Executive Summary Report");
 		System.out.println("===========================");
 		System.out.println("Invoice            Member                                              Personal Trainer               Subtotal           Fees          Taxes           Discount        Total");
 		System.out.println(invoiceNumber + "             " + memberName + " [" + memberType + "]                          "  +  trainerLastName + "," + trainerFistName);
 	}
-	
-	
+
+
 	public static void createSingleInvoiceReport(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
 		System.out.println("Invoice  " + invoiceNumber);
 		System.out.println("==================================================");
@@ -75,55 +75,42 @@ public class InvoiceWriter {
 		System.out.println("  " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
 		System.out.println("Code         Item                                         SubTotal                 Tax            Total");
-		
+
 		List<Product> productFileList = FileReader.createProductList();
 
 
-
-		for(int i = 0; i < productFileList.size(); i++) {
-			for(int j = 0; j < productList.size(); j++) {
-				if(productFileList.get(i).getProductCode().equals(productList.get(j).getProductCode())) {
-					System.out.println("HERE " + productFileList.get(i));
-					
-
-		
 		//System.out.println(productFileList.get(0).getProductCode();
-		
+
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
-					
+
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						System.out.println(yProduct.getProductType());
-						
+
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
 						System.out.println(dProduct.getProductType());
-					
+
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
 						System.out.println(pProduct.getProductType());
-						
+
 					} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
 						System.out.println(eProduct.getProductType());
 					}
 					break;
 				}
-				
-				
+
+
 			}
 
 		}
-<<<<<<< HEAD
-	
-=======
-		
+
 		System.out.println("%-8s %-20s %6.2d %6.2d %6.2d");
-		
->>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
-		
+
 	}
-	
+
 }
