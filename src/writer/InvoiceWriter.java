@@ -74,42 +74,55 @@ public class InvoiceWriter {
 		System.out.println("  " + memberAddress.getStreet());
 		System.out.println("  " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
-		System.out.println("Code         Item                                         SubTotal                 Tax            Total");
+		System.out.println("Code      Item                                                                      SubTotal        Tax       Total");
 
 		List<Product> productFileList = FileReader.createProductList();
 
 
 		//System.out.println(productFileList.get(0).getProductCode();
-
+		String productType = "";
+		String productCode = "";
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
+					productType = "";
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
-						System.out.println(yProduct.getProductType());
+						if(yProduct.getProductType().equals("Y")) {
+							productCode = yProduct.getProductCode();
+							productType = "Year-long membership";
+						}
 
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
-						System.out.println(dProduct.getProductType());
+						if(dProduct.getProductType().equals("D")) {
+							productCode = dProduct.getProductCode();
+							productType = "Day-long membership";
+						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
-						System.out.println(pProduct.getProductType());
+						if (pProduct.getProductType().equals("P")) {
+							productCode = pProduct.getProductCode();
+							productType = "Parking Pass";
+						}
 
 					} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
-						System.out.println(eProduct.getProductType());
+						if (eProduct.getProductType().equals("R")) {
+							productCode = eProduct.getProductCode();
+							productType = "Rental Equipment";
+						}
 					}
 					break;
 				}
 
 
 			}
-
+			System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, null, null, null);
 		}
 
-		System.out.println("%-8s %-20s %6.2d %6.2d %6.2d");
 
 	}
 
