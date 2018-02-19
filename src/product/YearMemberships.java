@@ -62,6 +62,12 @@ public class YearMemberships extends Membership {
 		return (0.06 * this.cost + this.cost);
 	}
 
+	@Override
+	public double getSubTotalDis() {
+		
+		return (this.cost * 0.85);
+	}
+
 		
 
 

@@ -38,11 +38,15 @@ public class DayMemberships extends Membership {
 
 	@Override
 	public double getTotal() {
-		// TODO Auto-generated method stub
-//		if(getStartDate().subSequence(5,6) == ""){
-//
-//		}
+		
+
 		return this.cost * 0.06 + this.cost;
+	}
+
+	@Override
+	public double getSubTotalDis() {
+		
+		return this.cost * 0.50;
 	}
 
 

@@ -43,7 +43,7 @@ public abstract class Membership extends Product {
 	public abstract double getSubTotal(int quantity);
 	public abstract double getTax();
 	public abstract double getTotal();
-
+	public abstract double getSubTotalDis();
 	
 	
 }
