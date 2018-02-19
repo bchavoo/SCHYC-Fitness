@@ -21,24 +21,24 @@ public class DayMemberships extends Membership {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
+
 	@Override
 	public double getTax() {
-		
+
 		return this.cost * 0.06;
 	}
 
 	@Override
 	public double getTotal() {
 		// TODO Auto-generated method stub
-		if(getStartDate().charAt(5,6) == ""){
-			
+		if(getStartDate().subSequence(5,6) == ""){
+
 		}
 		return this.cost * 0.06 + this.cost;
 	}
 
 
-	
+
 
 
 

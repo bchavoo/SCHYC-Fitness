@@ -17,7 +17,7 @@ public class ParkingPass extends Service {
 
 	@Override
 	public double getTotal() {
-		if()
+		//if()
 		
 		return( 0.06 * this.getCost() + this.getCost());
 	}

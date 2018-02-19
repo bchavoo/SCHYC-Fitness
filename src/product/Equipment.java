@@ -3,7 +3,7 @@ package product;
 public class Equipment extends Service {
 
 	private String equipment;
-	
+
 	//Constructor
 	public Equipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode, cost, productType);
@@ -17,7 +17,7 @@ public class Equipment extends Service {
 
 	public void setEquipment(String equipment) {
 		this.equipment = equipment;
-		
+
 	}
 
 	@Override
@@ -29,19 +29,15 @@ public class Equipment extends Service {
 	@Override
 	public double getTotal() {
 		if(getProductType() == "Y"){
-			
-		}
-		else if (this.equipment.equals(getProductType())){
-			
+
+		} else if (this.equipment.equals(getProductType())){
+
 			return (0.06 * this.getCost() + this.getCost() * 0.05);
-			
+		} else {
+
+			return (0.06 * this.getCost() + this.getCost());
 		}
-		else {
-		
-		return (0.06 * this.getCost() + this.getCost());
-		
-	
-	}
+		return 0;
 	}
 }
 

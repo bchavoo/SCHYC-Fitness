@@ -90,11 +90,11 @@ public class InvoiceWriter {
 		double quantity = 0;
 		double cost = 0;
 		String personWhoIsBuying = "";
-		
-		
+
+
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
-				
+
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
 					productType = "";
@@ -108,7 +108,7 @@ public class InvoiceWriter {
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
 							cost = yProduct.getCost();
-							
+
 						}
 
 					} else if (productFileList.get(j) instanceof DayMemberships) {
@@ -119,7 +119,7 @@ public class InvoiceWriter {
 							startDate = dProduct.getStartDate();
 							address = dProduct.getAddress().getStreet();
 							cost = dProduct.getCost();
-							
+
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -139,38 +139,46 @@ public class InvoiceWriter {
 							personCode = productList.get(i).getPersonCode();
 							productName = eProduct.getEquipment();
 							cost = eProduct.getCost();
-							
-							
+
+
 						}
 					}
 					break;
 				}
-				
-				
-				
+
+
+
 				quantity = productList.get(i).getQuantity();
 				personWhoIsBuying = productList.get(i).getPersonCode();
-				
-				
-				
+
+
+
 
 
 			}
 			if(productType.equals("Year-long membership")) {
-				System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
-				System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
-			
+				if (productName.equals("Gold Package") || productName.equals("Bronze Fit")) {
+					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+				} else if (productName.equals("Ultimate Workout")){
+					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+				}
 			} else if (productType.equals("Day-long membership")) {
 				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
 				System.out.printf("%9s %10s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", startDate.subSequence(0, 10), quantity, cost);
-				
+
 			} else if (productType.equals("Parking Pass")) {
 				System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10d $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", 0, 0, 0);
-				
+
 			} else if (productType.equals("Rental Equipment")) {
-				System.out.printf("%-9s %-16s - %-4s - %-44s $%10d $%9d $%10d\n", productCode, productType, personCode, productName, 0, 0, 0);
-				System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
-				
+				if(personCode.equals("")) {
+					System.out.printf("%-9s %-16s - %-51s $%10d $%9d $%10d\n", productCode, productType, productName, 0, 0, 0);
+					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
+				} else {
+					System.out.printf("%-9s %-16s - %-4s - %-44s $%10d $%9d $%10d\n", productCode, productType, personCode, productName, 0, 0, 0);
+					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
+				}
 			}
 		}
 

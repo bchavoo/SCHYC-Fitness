@@ -44,15 +44,12 @@ public class YearMemberships extends Membership {
 
 	@Override
 	public double getTax() {
-		// TODO Auto-generated method stub
 		
 		return 0.06 * this.cost;
 	}
 
 	@Override
-	public double getTotal() {
-		// TODO Auto-generated method stub
-		
+	public double getTotal() {		
 		 
 		return (0.06 * this.cost + this.cost);
 	}

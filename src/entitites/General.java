@@ -3,7 +3,7 @@ package entitites;
 public class General extends Member {
 
 	double cost;
-	
+
 	public double getCost() {
 		return cost;
 	}
@@ -19,7 +19,7 @@ public class General extends Member {
 	@Override
 	public double getTax() {
 		double totalT = 0.06 * this.getCost();
-		
+
 		return totalT;
 	}
 
@@ -37,12 +37,12 @@ public class General extends Member {
 
 	@Override
 	public double getTotal() {
-		
-	double totalT = 0.06 * this.getCost();
-	double totalG = this.getCost();
-		
+
+		double totalT = 0.06 * this.getCost();
+		double totalG = this.getCost();
+
 		return totalT + totalG;
 	}
 
-	
+
 }
