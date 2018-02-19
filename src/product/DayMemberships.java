@@ -24,16 +24,19 @@ public class DayMemberships extends Membership {
 	
 	@Override
 	public double getTax() {
-		// TODO Auto-generated method stub
-		return 0.06;
+		
+		return this.cost * 0.06;
 	}
 
 	@Override
 	public double getTotal() {
 		// TODO Auto-generated method stub
-		
-		return 0;
+		if(getStartDate().charAt(5,6) == ""){
+			
+		}
+		return this.cost * 0.06 + this.cost;
 	}
+
 
 	
 

@@ -12,13 +12,14 @@ public class ParkingPass extends Service {
 	@Override
 	public double getTax() {
 		
-		return 0.06;
+		return 0.06 * this.getCost();
 	}
 
 	@Override
 	public double getTotal() {
+		if()
 		
-		return 0;
+		return( 0.06 * this.getCost() + this.getCost());
 	}
 
 

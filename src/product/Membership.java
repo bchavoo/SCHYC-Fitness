@@ -12,7 +12,6 @@ public abstract class Membership extends Product {
 	
 
 	
-	
 	public Membership(String productCode, String startDate, Address address, String productType) {
 		super(productCode);
 		this.startDate = startDate;
@@ -41,7 +40,6 @@ public abstract class Membership extends Product {
 	//Abstract Methods to be overridden in General/Student memberships
 	public abstract double getTax();
 	public abstract double getTotal();
-
 	
 
 }

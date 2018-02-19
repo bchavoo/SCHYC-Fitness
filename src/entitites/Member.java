@@ -73,6 +73,6 @@ public abstract class Member {
 	public abstract double getTax();
 	public abstract double getDiscount();
 	public abstract double additionalFee();
-
+	public abstract double getTotal();
 
 }
