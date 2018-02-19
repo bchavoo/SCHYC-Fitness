@@ -173,7 +173,7 @@ public class FileReader {
 				double cost = Double.parseDouble(token[3]);
 
 				//POLYMORPHISM 
-				Equipment product = new Equipment(equipment, cost, productCode, productType);
+				Product product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
@@ -182,7 +182,7 @@ public class FileReader {
 				double cost = Double.parseDouble(token[2]);
 				
 				//POLYMORPHISM 
-				ParkingPass product = new ParkingPass(cost, productCode, productType);
+				Product product = new ParkingPass(cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("Y")) {
@@ -206,7 +206,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				//POLYMORPHISM 
-				YearMemberships product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
+				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
 
@@ -228,7 +228,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				//POLYMORPHISM 
-				DayMemberships product = new DayMemberships(startDate, address, cost, productCode, productType);
+				Product product = new DayMemberships(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
 			}
