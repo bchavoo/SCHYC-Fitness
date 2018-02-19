@@ -157,7 +157,10 @@ public class InvoiceWriter {
 
 			}
 			if(productType.equals("Year-long membership")) {
-				if (productName.equals("Gold Package") || productName.equals("Bronze Fit")) {
+				if (productName.equals("Bronze Fit")) {
+					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+				} else if (productName.equals("Gold Package")) {
 					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
 					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
 				} else if (productName.equals("Ultimate Workout")){
