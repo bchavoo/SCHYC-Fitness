@@ -37,7 +37,6 @@ public class Equipment extends Service {
 			
 		}
 		else {
-			
 		
 		return (0.06 * this.getCost() + this.getCost());
 		

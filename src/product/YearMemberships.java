@@ -42,7 +42,6 @@ public class YearMemberships extends Membership {
 	}
 	
 
-
 	@Override
 	public double getTax() {
 		// TODO Auto-generated method stub
