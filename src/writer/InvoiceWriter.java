@@ -169,7 +169,7 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
-					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+					System.out.printf("%-9s %-10s '%-12s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
 					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Ultimate Workout")){
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
@@ -196,15 +196,20 @@ public class InvoiceWriter {
 			} else if (productType.equals("Rental Equipment")) {
 				if(personCode.equals("")) {
 					System.out.printf("%-9s %-13s - %-51s $%10.2f $%9d $%10d\n", productCode, productType, productName, cost*quantity, 0, 0);
-					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
+					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
 				} else {
 					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9d $%10d\n", productCode, productType, personCode, productName, cost*quantity, 0, 0);
-					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
+					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"
+							+ "", "", quantity, cost);
 				}
 			}
 		}
-
-		System.out.println("\n\n                                       Thank you for your purchase!");
+		System.out.println("                                                                                ===================================");
+		System.out.printf("SUB-TOTALS  %68s $%10d $%9d $%10d\n","", 0, 0, 0);
+		System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
+		System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
+		System.out.printf("TOTAL %97s $%10d\n","" , 0);
+		System.out.printf("\n\n                                       Thank you for your purchase!");
 	}
 
 }
