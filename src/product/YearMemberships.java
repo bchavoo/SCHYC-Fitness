@@ -53,7 +53,7 @@ public class YearMemberships extends Membership {
 	@Override
 	public double getTax() {
 		
-		return 0.06 * this.cost;
+		return 0.06;
 	}
 
 	@Override

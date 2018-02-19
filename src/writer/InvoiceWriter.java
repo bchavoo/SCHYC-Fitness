@@ -94,7 +94,7 @@ public class InvoiceWriter {
 		double quantity = 0;
 		double cost = 0;
 		double tax = 0;
-		double discount = 0;
+		double costWithDiscount = 0;
 		double dayDiscount = 0;
 	
 
@@ -114,8 +114,14 @@ public class InvoiceWriter {
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
 							cost = yProduct.getCost();
-							tax = yProduct.getTax();
-							discount = yProduct.getSubTotalDis();
+							costWithDiscount = yProduct.getSubTotalDis();
+							
+							if(yProduct.getStartDate().getMonthOfYear() == 1) {
+								cost = costWithDiscount;
+							}
+							
+							tax = yProduct.getTax() * cost;
+							
 						
 
 						}
@@ -165,10 +171,10 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (quantity*discount), tax, 0);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, quantity*cost, tax, 0);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, tax, 0);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, cost*quantity, tax, 0);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				} else if (productName.equals("Gold Package")) {
@@ -177,10 +183,10 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (discount*quantity), 0, 0);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, quantity*cost, tax, 0);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, cost*quantity, tax, 0);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				} else if (productName.equals("Ultimate Workout")){
@@ -188,10 +194,10 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (discount*quantity), 0, 0);
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, quantity*cost, tax, 0);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, cost*quantity, tax, 0);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				}
