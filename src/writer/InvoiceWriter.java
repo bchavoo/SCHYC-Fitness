@@ -156,22 +156,36 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 
-					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					if(startDate.getMonthOfYear() == 1) {
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (quantity*cost)*0.85, 0, 0);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
+					} else if (startDate.getMonthOfYear() != 1) {
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					}
 				} else if (productName.equals("Gold Package")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 
-					System.out.printf("%-9s %-10s '%-12s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					if(startDate.getMonthOfYear() == 1) {
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (cost*quantity)*0.85, 0, 0);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
+					} else if (startDate.getMonthOfYear() != 1) {
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					}
 				} else if (productName.equals("Ultimate Workout")){
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
-
-					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					if(startDate.getMonthOfYear() == 1) {
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (cost*quantity)*0.85, 0, 0);
+						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, cost);
+					} else if (startDate.getMonthOfYear() != 1) {
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
+						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					}
 				}
 			} else if (productType.equals("Day-long membership")) {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
@@ -200,10 +214,12 @@ public class InvoiceWriter {
 		}
 		System.out.println("                                                                                ===================================");
 		System.out.printf("SUB-TOTALS  %68s $%10d $%9d $%10d\n","", 0, 0, 0);
-		System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
-		System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
+		if(memberType.equals("Student")) {
+			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
+			System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
+		}
 		System.out.printf("TOTAL %97s $%10d\n","" , 0);
-		System.out.printf("\n\n                                       Thank you for your purchase!");
+		System.out.printf("\n\n                                       Thank you for your purchase!\n");
 	}
 
 }

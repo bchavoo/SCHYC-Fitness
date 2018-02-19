@@ -23,6 +23,12 @@ public class DayMemberships extends Membership {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
+	
+	@Override
+	public double getSubTotal(int quantity) {
+
+		return this.cost * 0.06;
+	}
 
 	@Override
 	public double getTax() {

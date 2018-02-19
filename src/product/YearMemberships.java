@@ -45,6 +45,12 @@ public class YearMemberships extends Membership {
 	
 
 	@Override
+	public double getSubTotal(int quantity) {
+		
+		return this.cost*quantity;
+	}
+	
+	@Override
 	public double getTax() {
 		
 		return 0.06 * this.cost;
