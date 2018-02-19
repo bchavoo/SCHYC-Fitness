@@ -29,7 +29,7 @@ public class DataConverter {
 		//Create XML file for each of the same lists 
 		//XMLWriter.createPersonXML(personList);
 		//XMLWriter.createMemberXML(memberList);
-		//XMLWriter.createProductXML(productList);
+		XMLWriter.createProductXML(productList);
 
 
 	}
