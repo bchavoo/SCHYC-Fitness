@@ -116,19 +116,17 @@ public class InvoiceWriter {
 							cost = yProduct.getCost();
 							costWithDiscount = yProduct.getSubTotalDis();
 							
-<<<<<<< HEAD
 							//if(yProduct.getStartDate().getMonthOfYear() == 1) {
 							//	cost = costWithDiscount;
 							//}
 							
 							tax = yProduct.getTax() * cost;
-=======
+							
 							if (yProduct.getStartDate().getMonthOfYear() == 1) {
 								tax = yProduct.getTax() * costWithDiscount;
 							} else if (yProduct.getStartDate().getMonthOfYear() != 1) {
 								tax = yProduct.getTax() * cost;
 							}
->>>>>>> branch 'master' of ssh://git@git.unl.edu/chavezbryanr/SCHYC_Fitness.git
 							
 						
 
@@ -179,15 +177,9 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, (quantity*discount), tax, (quantity*discount) + tax);
-
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, quantity*cost, tax, 0);
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, (quantity*costWithDiscount)+(tax*quantity));
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, tax,  cost*quantity + tax);
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10d\n", productCode, productType, productName, address, cost*quantity, tax, 0);
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, (quantity*cost)+(tax*quantity));
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
@@ -219,27 +211,27 @@ public class InvoiceWriter {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1){
-				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.20f $%9.00d $%10.00d\n", productCode, productType, address, (dayDiscount*quantity), (tax*quantity),(dayDiscount*quantity) + (tax*quantity));
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (dayDiscount*quantity), (tax*quantity),(dayDiscount*quantity) + (tax*quantity));
 				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 				}else if (startDate.getMonthOfYear() != 1){
-					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.20f $%9.00d $%10.00d\n", productCode, productType, address, (cost*quantity), (tax * quantity), (cost*quantity) + (tax*quantity));
+					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), (cost*quantity) + (tax*quantity));
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 	
 				}
 
 			} else if (productType.equals("Parking Pass")) {
 				if(personCode.equals("")) {
-					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2.00f $%9.00d $%10.00d\n", productCode, productType, quantity, cost, "", cost*quantity, 0, 0);
+					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, "", cost*quantity, 0.00, 0.00);
 				} else {
-					System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0, 0);
+					System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0.00, 0.00);
 				}
 
 			} else if (productType.equals("Rental Equipment")) {
 				if(personCode.equals("")) {
-					System.out.printf("%-9s %-13s - %-51s $%10.2f $%9d $%10d\n", productCode, productType, productName, cost*quantity, 0, 0);
+					System.out.printf("%-9s %-13s - %-51s $%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, cost*quantity, 0.00, 0.00);
 					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
 				} else {
-					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9d $%10d\n", productCode, productType, personCode, productName, cost*quantity, 0, 0);
+					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, cost*quantity, 0.00, 0.00);
 					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"
 							+ "", "", quantity, cost);
 				}
