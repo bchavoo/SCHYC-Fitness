@@ -163,21 +163,21 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 					
 					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Gold Package")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
 					System.out.printf("%-9s %-10s '%-12s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Ultimate Workout")){
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
 					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
-					System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+					System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				}
 			} else if (productType.equals("Day-long membership")) {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
