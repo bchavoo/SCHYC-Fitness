@@ -300,7 +300,6 @@ public class FileReader {
 							quantity = Integer.parseInt(tokenType[1]);
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 							
 						} else if (tokenType.length == 3) {

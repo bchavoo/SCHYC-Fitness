@@ -3,10 +3,10 @@ package entitites;
 public class InvoiceProducts {
 	
 	private String productCode;
-	private double quantity;
+	private int quantity;
 	private String personCode;
 	
-	public InvoiceProducts(String productCode, double quantity, String personCode) {
+	public InvoiceProducts(String productCode, int quantity, String personCode) {
 		super();
 		this.productCode = productCode;
 		this.quantity = quantity;
@@ -19,10 +19,10 @@ public class InvoiceProducts {
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
-	public double getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	public String getPersonCode() {
