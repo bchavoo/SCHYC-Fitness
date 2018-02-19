@@ -31,6 +31,7 @@ public class General extends Member {
 
 	@Override
 	public double additionalFee() {
+		
 
 		return 0;
 	}

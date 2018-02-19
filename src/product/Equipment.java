@@ -17,6 +17,7 @@ public class Equipment extends Service {
 
 	public void setEquipment(String equipment) {
 		this.equipment = equipment;
+		
 	}
 
 	@Override

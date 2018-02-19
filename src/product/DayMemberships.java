@@ -34,6 +34,7 @@ public class DayMemberships extends Membership {
 		if(getStartDate().charAt(5,6) == ""){
 			
 		}
+		
 		return this.cost * 0.06 + this.cost;
 	}
 

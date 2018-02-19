@@ -35,6 +35,7 @@ public class Student extends Member {
 	public double getTax() {
 		
 		return 0;
+		
 	}
 
 	@Override
