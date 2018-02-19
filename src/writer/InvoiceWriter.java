@@ -138,7 +138,6 @@ public class InvoiceWriter {
 							productType = "Rental Equipment";
 							personCode = productList.get(i).getPersonCode();
 							productName = eProduct.getEquipment();
-							System.out.println("THIS IS THE NAME: " + productName);
 							cost = eProduct.getCost();
 							
 							
