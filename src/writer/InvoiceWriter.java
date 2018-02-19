@@ -162,39 +162,43 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
-					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
 					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Gold Package")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
-					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
 					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Ultimate Workout")){
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					
-					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9d $%10d\n", productCode, productType, productName, address, cost*quantity, 0, 0);
 					System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				}
 			} else if (productType.equals("Day-long membership")) {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				
-				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9d $%10d\n", productCode, productType, address, cost*quantity, 0, 0);
 				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 
 			} else if (productType.equals("Parking Pass")) {
-				System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10d $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", 0, 0, 0);
-
+				if(personCode.equals("")) {
+					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9d $%10d\n", productCode, productType, quantity, cost, "", cost*quantity, 0, 0);
+				} else {
+					System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0, 0);
+				}
+				
 			} else if (productType.equals("Rental Equipment")) {
 				if(personCode.equals("")) {
-					System.out.printf("%-9s %-16s - %-51s $%10d $%9d $%10d\n", productCode, productType, productName, 0, 0, 0);
+					System.out.printf("%-9s %-13s - %-51s $%10.2f $%9d $%10d\n", productCode, productType, productName, cost*quantity, 0, 0);
 					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
 				} else {
-					System.out.printf("%-9s %-16s - %-4s - %-44s $%10d $%9d $%10d\n", productCode, productType, personCode, productName, 0, 0, 0);
+					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9d $%10d\n", productCode, productType, personCode, productName, cost*quantity, 0, 0);
 					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
 				}
 			}
