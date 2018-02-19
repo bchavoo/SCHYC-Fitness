@@ -23,10 +23,12 @@ public class XMLWriter {
 		person.alias("person", Person.class);
 		String xmlPersonString = person.toXML(personList);
 		
-		FileWriter fileWriter = new FileWriter("data/Persons.xml");
-		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.print(xmlPersonString);
-		printWriter.close();
+		System.out.println(xmlPersonString);
+		
+//		FileWriter fileWriter = new FileWriter("data/Persons.xml");
+//		PrintWriter printWriter = new PrintWriter(fileWriter);
+//		printWriter.print(xmlPersonString);
+//		printWriter.close();
 
 	}
 
@@ -37,10 +39,12 @@ public class XMLWriter {
 		member.alias("member", Member.class);
 		String xmlMemberString = member.toXML(memberList);
 		
-		FileWriter fileWriter = new FileWriter("data/Members.xml");
-		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.print(xmlMemberString);
-		printWriter.close();
+		System.out.println(xmlMemberString);
+		
+//		FileWriter fileWriter = new FileWriter("data/Members.xml");
+//		PrintWriter printWriter = new PrintWriter(fileWriter);
+//		printWriter.print(xmlMemberString);
+//		printWriter.close();
 
 	}
 
@@ -56,10 +60,12 @@ public class XMLWriter {
 		
 		String xmlProductString = product.toXML(productList);
 		
-		FileWriter fileWriter = new FileWriter("data/Products.xml");
-		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.print(xmlProductString);
-		printWriter.close();
+		System.out.println(xmlProductString);
+		
+//		FileWriter fileWriter = new FileWriter("data/Products.xml");
+//		PrintWriter printWriter = new PrintWriter(fileWriter);
+//		printWriter.print(xmlProductString);
+//		printWriter.close();
 		
 	}
 

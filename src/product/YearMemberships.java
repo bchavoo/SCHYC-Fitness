@@ -1,15 +1,17 @@
 package product;
 
+import org.joda.time.DateTime;
+
 import entitites.Address;
 
 public class YearMemberships extends Membership {
 
-	public String endDate;
+	public DateTime endDate;
 	public String membershipName;
 	public double cost;
 
 	//Constructor
-	public YearMemberships(String startDate, String endDate, Address address, String membershipName, double cost, String productCode, String productType) {
+	public YearMemberships(DateTime startDate, DateTime endDate, Address address, String membershipName, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
 		this.endDate = endDate;
 		this.membershipName = membershipName;
@@ -17,11 +19,11 @@ public class YearMemberships extends Membership {
 	}
 
 	//Getters and Setters
-	public String getEndDate() {
+	public DateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(DateTime endDate) {
 		this.endDate = endDate;
 	}
 

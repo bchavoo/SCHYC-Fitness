@@ -2,9 +2,16 @@ package reader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import entitites.Address;
 import entitites.General;
@@ -181,8 +188,12 @@ public class FileReader {
 			} else if (token[1].equals("Y")) {
 				productCode = token[0];
 				productType = token[1];
-				String startDate = token[2];
-				String endDate = token[3];
+				
+			
+				DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd");
+				DateTime startDate = date.parseDateTime(token[2]);
+				DateTime endDate = date.parseDateTime(token[3]);
+								
 				String tokenAddress[] = token[4].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -202,7 +213,10 @@ public class FileReader {
 			} else if (token[1].equals("D")) {
 				productCode = token[0];
 				productType = token[1];
-				String startDate = token[2];
+				
+				DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+				DateTime startDate = date.parseDateTime(token[2]);
+				
 				String tokenAddress[] = token[3].split(",");
 				street = tokenAddress[0];
 				city = tokenAddress[1];
@@ -259,6 +273,7 @@ public class FileReader {
 				}
 				
 				String personalTrainerCode = token[2];
+				
 				List<Person> personList = FileReader.createPersonList();
 				
 				//Find and store Person

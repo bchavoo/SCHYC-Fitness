@@ -46,8 +46,9 @@ public class JSONWriter {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		String jsonString = gson.toJson(productList);
+		String output = jsonString.toString();
 		
-		System.out.println(jsonString);
+		System.out.println(output);
 	
 //		FileWriter fileWriter = new FileWriter("data/Products.json");
 //		PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -62,7 +63,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(invoiceList);
 		
-		System.out.println(jsonString);
+		//System.out.println(jsonString);
 	
 //		FileWriter fileWriter = new FileWriter("data/Products.json");
 //		PrintWriter printWriter = new PrintWriter(fileWriter);

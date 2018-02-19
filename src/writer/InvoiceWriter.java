@@ -3,6 +3,10 @@ package writer;
 //import java.io.IOException;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import entitites.Address;
 import entitites.Invoice;
 import entitites.InvoiceProducts;
@@ -84,13 +88,11 @@ public class InvoiceWriter {
 		String productType = "";
 		String personCode = "";
 		String productName = "";
-		String startDate = "";
-		String endDate = "";
+		DateTime startDate = null;
+		DateTime endDate = null;
 		String address = "";
 		double quantity = 0;
 		double cost = 0;
-		String personWhoIsBuying = "";
-
 
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
@@ -103,7 +105,7 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
-							productName = yProduct.membershipName;
+							productName = yProduct.membershipName;							
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
@@ -149,8 +151,6 @@ public class InvoiceWriter {
 
 
 				quantity = productList.get(i).getQuantity();
-				personWhoIsBuying = productList.get(i).getPersonCode();
-
 
 
 
@@ -158,18 +158,33 @@ public class InvoiceWriter {
 			}
 			if(productType.equals("Year-long membership")) {
 				if (productName.equals("Bronze Fit")) {
+					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
+					String sDate = dateOutput.print(startDate);
+					String eDate = dateOutput.print(endDate);
+					
 					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
-					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Gold Package")) {
+					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
+					String sDate = dateOutput.print(startDate);
+					String eDate = dateOutput.print(endDate);
+					
 					System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
-					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				} else if (productName.equals("Ultimate Workout")){
+					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
+					String sDate = dateOutput.print(startDate);
+					String eDate = dateOutput.print(endDate);
+					
 					System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
-					System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
+					System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 				}
 			} else if (productType.equals("Day-long membership")) {
+				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
+				String sDate = dateOutput.print(startDate);
+				
 				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
-				System.out.printf("%9s %10s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", startDate.subSequence(0, 10), quantity, cost);
+				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 
 			} else if (productType.equals("Parking Pass")) {
 				System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10d $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", 0, 0, 0);
