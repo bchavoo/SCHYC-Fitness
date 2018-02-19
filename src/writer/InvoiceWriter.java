@@ -45,7 +45,7 @@ public class InvoiceWriter {
 
 
 
-			InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
+			//InvoiceWriter.createExcutiveReport(invoiceNumber, memberName, memberType, trainerLastName, trainerFirstName );
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
 		}
@@ -80,8 +80,10 @@ public class InvoiceWriter {
 
 
 		//System.out.println(productFileList.get(0).getProductCode();
-		String productType = "";
 		String productCode = "";
+		String productType = "";
+		String personCode = "";
+		String productName = "";
 		String startDate = "";
 		String endDate = "";
 		String address = "";
@@ -101,6 +103,7 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
+							productName = yProduct.membershipName;
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
@@ -124,6 +127,7 @@ public class InvoiceWriter {
 						if (pProduct.getProductType().equals("P")) {
 							productCode = pProduct.getProductCode();
 							productType = "Parking Pass";
+							personCode = productList.get(i).getPersonCode();
 							cost = pProduct.getCost();
 						}
 
@@ -132,6 +136,9 @@ public class InvoiceWriter {
 						if (eProduct.getProductType().equals("R")) {
 							productCode = eProduct.getProductCode();
 							productType = "Rental Equipment";
+							personCode = productList.get(i).getPersonCode();
+							productName = eProduct.getEquipment();
+							System.out.println("THIS IS THE NAME: " + productName);
 							cost = eProduct.getCost();
 							
 							
@@ -151,19 +158,19 @@ public class InvoiceWriter {
 
 			}
 			if(productType.equals("Year-long membership")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("           " + startDate + " - " + endDate + "(" + quantity + " units @ $" + cost + ")");
+				System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10d $%9d $%10d\n", productCode, productType, productName, address, 0, 0, 0);
+				System.out.printf("%9s %10s - %10s " + "(" + "%-2.0f" + " units @ $" + "$%5.2f" + ")\n", "", startDate, endDate, quantity, cost);
 			
 			} else if (productType.equals("Day-long membership")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("           " + startDate.subSequence(0, 10) + "(" + quantity + " units @ " + cost + ")");
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10d $%9d $%10d\n", productCode, productType, address, 0, 0, 0);
+				System.out.printf("%9s %10s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", startDate.subSequence(0, 10), quantity, cost);
 				
 			} else if (productType.equals("Parking Pass")) {
-				System.out.printf("%-9s %-18s" + "(" + quantity + "units @ $" + cost + ")" + "$%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
+				System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10d $%9d $%10d\n", productCode, productType, personCode, quantity, cost, "", 0, 0, 0);
 				
 			} else if (productType.equals("Rental Equipment")) {
-				System.out.printf("%-9s %-70s $%10d $%9d $%10d\n", productCode, productType, 0, 0, 0);
-				System.out.println("          " + "(" + quantity + " units @ $" + cost + "/unit" + ")");
+				System.out.printf("%-9s %-16s - %-4s - %-44s $%10d $%9d $%10d\n", productCode, productType, personCode, productName, 0, 0, 0);
+				System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)", "", quantity, cost);
 				
 			}
 		}
