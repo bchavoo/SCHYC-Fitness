@@ -63,9 +63,9 @@ public class YearMemberships extends Membership {
 	}
 
 	@Override
-	public double getSubTotalDis() {
+	public double getDiscount() {
 		
-		return (this.cost * 0.85);
+		return this.cost * 0.85;
 	}
 
 		

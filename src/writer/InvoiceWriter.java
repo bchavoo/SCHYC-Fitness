@@ -94,12 +94,14 @@ public class InvoiceWriter {
 		double quantity = 0;
 		double cost = 0;
 		double tax = 0;
+		double subTotal = 0;
 		double costWithDiscount = 0;
-		double dayDiscount = 0;
 	
 
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
+				
+				quantity = productList.get(i).getQuantity();
 
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
@@ -113,20 +115,22 @@ public class InvoiceWriter {
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
+							
+							
+							
+							
 							cost = yProduct.getCost();
-							costWithDiscount = yProduct.getSubTotalDis();
-							
-							//if(yProduct.getStartDate().getMonthOfYear() == 1) {
-							//	cost = costWithDiscount;
-							//}
-							
-							tax = yProduct.getTax() * cost;
+							costWithDiscount = yProduct.getDiscount();							
 							
 							if (yProduct.getStartDate().getMonthOfYear() == 1) {
-								tax = yProduct.getTax() * costWithDiscount;
+								tax = (yProduct.getTax() * costWithDiscount) ;
+								subTotal = (tax + costWithDiscount);
 							} else if (yProduct.getStartDate().getMonthOfYear() != 1) {
-								tax = yProduct.getTax() * cost;
+								tax = (yProduct.getTax() * cost);
+								subTotal = (tax + cost);
 							}
+							
+							
 							
 						
 
@@ -141,7 +145,6 @@ public class InvoiceWriter {
 							address = dProduct.getAddress().getStreet();
 							cost = dProduct.getCost();
 							tax = dProduct.getTax();
-							dayDiscount = dProduct.getSubTotalDis();
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -167,9 +170,10 @@ public class InvoiceWriter {
 					}
 				}
 
-				quantity = productList.get(i).getQuantity();
+				
 
 			}
+			
 			if(productType.equals("Year-long membership")) {
 				if (productName.equals("Bronze Fit")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
@@ -177,10 +181,10 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, (quantity*costWithDiscount)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, (quantity*cost)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, subTotal*quantity);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				} else if (productName.equals("Gold Package")) {
@@ -189,10 +193,10 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, (quantity*costWithDiscount)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, (quantity*cost)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost, tax, subTotal*quantity);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				} else if (productName.equals("Ultimate Workout")){
@@ -200,10 +204,10 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, (quantity*costWithDiscount)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, cost);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, (quantity*cost)+(tax*quantity));
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, subTotal*quantity);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
 					}
 				}
@@ -211,7 +215,7 @@ public class InvoiceWriter {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1){
-				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (dayDiscount*quantity), (tax*quantity),(dayDiscount*quantity) + (tax*quantity));
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (0*quantity), (tax*quantity),(0*quantity) + (tax*quantity));
 				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 				}else if (startDate.getMonthOfYear() != 1){
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), (cost*quantity) + (tax*quantity));

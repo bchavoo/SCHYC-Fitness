@@ -33,7 +33,7 @@ public class DayMemberships extends Membership {
 	@Override
 	public double getTax() {
 
-		return this.cost * 0.06;
+		return 0.06;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class DayMemberships extends Membership {
 	}
 
 	@Override
-	public double getSubTotalDis() {
+	public double getDiscount() {
 		
 		return this.cost * 0.50;
 	}
