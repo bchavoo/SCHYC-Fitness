@@ -220,7 +220,6 @@ public class InvoiceWriter {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
-					//b29e      Year-long membership 'Gold Package' @ 179 West Lane                    $   8797.50 $   527.85 $   9325.35
 
 					if(startDate.getMonthOfYear() == 1) {
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount, tax, subTotal);
