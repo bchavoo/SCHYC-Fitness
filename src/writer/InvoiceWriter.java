@@ -263,5 +263,8 @@ public class InvoiceWriter {
 		System.out.printf("TOTAL %97s $%10d\n","" , 0);
 		System.out.printf("\n\n                                       Thank you for your purchase!\n");
 	}
+	
+	
+
 
 }
