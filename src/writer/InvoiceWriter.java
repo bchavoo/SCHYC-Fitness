@@ -96,8 +96,8 @@ public class InvoiceWriter {
 		double tax = 0;
 		double subTotal = 0;
 		double costWithDiscount = 0;
-		double noOfFreeParkingPassesYM = 0;
-		double noOfFreeParkingPassesDM = 0;
+		boolean freeParkingPassesYM = false;
+		boolean freeParkingPassesDM = false;
 		boolean YearMembership = false;
 
 
@@ -118,7 +118,7 @@ public class InvoiceWriter {
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
-							noOfFreeParkingPassesYM = quantity;
+							freeParkingPassesYM = true;
 							YearMembership = true;
 
 
@@ -144,7 +144,7 @@ public class InvoiceWriter {
 							productType = "Day-long membership";
 							startDate = dProduct.getStartDate();
 							address = dProduct.getAddress().getStreet();
-							noOfFreeParkingPassesDM = quantity;
+							freeParkingPassesDM = true;
 
 							cost = dProduct.getCost();
 							tax = dProduct.getTax();
@@ -243,9 +243,13 @@ public class InvoiceWriter {
 				}
 
 			} else if (productType.equals("Parking Pass")) {
-				double freePasses = noOfFreeParkingPassesYM + noOfFreeParkingPassesDM;
-				System.out.println("They get " + freePasses + " FREE PARKINGPASSES");
-				if(personCode.equals("")) {
+				if(freeParkingPassesYM == true) {
+					System.out.println("THEY GET 365 FREE PARKING PASSES");
+				} else if (freeParkingPassesDM == true) {
+					System.out.println("THEY ONLY GET 1 FREE PARKING PASS");
+				}
+					
+					if(personCode.equals("")) {
 					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, "", cost*quantity, 0.00, 0.00);
 				} else {
 					System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0.00, 0.00);
