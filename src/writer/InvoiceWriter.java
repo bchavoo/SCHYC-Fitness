@@ -129,10 +129,6 @@ public class InvoiceWriter {
 								tax = (yProduct.getTax() * cost);
 								subTotal = (tax + cost);
 							}
-							
-							
-							
-						
 
 						}
 
