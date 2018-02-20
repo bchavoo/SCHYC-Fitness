@@ -242,6 +242,7 @@ public class InvoiceWriter {
 
 			} else if (productType.equals("Parking Pass")) {
 				double freePasses = noOfFreeParkingPassesYM + noOfFreeParkingPassesDM;
+				System.out.println("They get " + freePasses + " FREE PARKINGPASSES");
 				if(personCode.equals("")) {
 					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, "", cost*quantity, 0.00, 0.00);
 				} else {
