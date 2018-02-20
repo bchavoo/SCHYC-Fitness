@@ -159,11 +159,6 @@ public class InvoiceWriter {
 							
 							
 							
-						
-
-						}
-							
-							
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -255,8 +250,7 @@ public class InvoiceWriter {
 					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
 				} else {
 					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, cost*quantity, 0.00, 0.00);
-					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"
-							+ "", "", quantity, cost);
+					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, cost);
 				}
 			}
 		}
