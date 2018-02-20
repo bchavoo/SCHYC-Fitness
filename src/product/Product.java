@@ -21,9 +21,6 @@ public abstract class Product {
 		this.productCode = productCode;
 	}
 	
-	//Abstract methods to be overridden in Membership and Service
-	public abstract double getTax();
-	public abstract double getTotal();
 
 
 }

@@ -21,24 +21,24 @@ public class Equipment extends Service {
 	}
 
 	@Override
-	public double getTax() {
+	public double getSubTotal(double cost, double quantity) {
 
-		return (0.06 * this.getCost());
+		return cost * quantity;
 	}
 
 	@Override
-	public double getTotal() {
-		if(getProductType() == "Y"){
+	public double getTax(double cost) {
 
-		} else if (this.equipment.equals(getProductType())){
-
-			return (0.06 * this.getCost() + this.getCost() * 0.05);
-		} else {
-
-			return (0.06 * this.getCost() + this.getCost());
-		}
-		return 0;
+		return 0.06 * cost;
 	}
+
+	@Override
+	public double getTotal(double cost, double tax) {
+
+		return cost + tax;
+	}
+
+
 }
 
 

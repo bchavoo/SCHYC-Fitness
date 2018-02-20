@@ -93,9 +93,11 @@ public class InvoiceWriter {
 		String address = "";
 		double quantity = 0;
 		double cost = 0;
+		double costPerUnit = 0;
+		double costPerUnitWithDiscount = 0;
+		double totalCost = 0;
 		double tax = 0;
 		double subTotal = 0;
-		double costWithDiscount = 0;
 		boolean freeParkingPassesYM = false;
 		boolean freeParkingPassesDM = false;
 		boolean YearMembership = false;
@@ -120,19 +122,19 @@ public class InvoiceWriter {
 							address = yProduct.getAddress().getStreet();
 							freeParkingPassesYM = true;
 							YearMembership = true;
-
-
-
-
-							cost = yProduct.getCost();
-							costWithDiscount = yProduct.getDiscount();							
-
+								
+							
 							if (yProduct.getStartDate().getMonthOfYear() == 1) {
-								tax = (yProduct.getTax() * costWithDiscount) ;
-								subTotal = (tax + costWithDiscount);
+								costPerUnit = yProduct.getCost() * yProduct.getDiscount();	
+								subTotal = yProduct.getSubTotal(costPerUnit, quantity);
+								tax = yProduct.getTax(subTotal);
+								totalCost = yProduct.getTotal(subTotal, tax);
+								
 							} else if (yProduct.getStartDate().getMonthOfYear() != 1) {
-								tax = (yProduct.getTax() * cost);
-								subTotal = (tax + cost);
+								costPerUnit = yProduct.getCost();
+								subTotal = yProduct.getSubTotal(costPerUnit, quantity);
+								tax = yProduct.getTax(subTotal);
+								totalCost = yProduct.getTotal(subTotal, tax);
 							}
 
 						}
@@ -146,18 +148,18 @@ public class InvoiceWriter {
 							address = dProduct.getAddress().getStreet();
 							freeParkingPassesDM = true;
 
-							cost = dProduct.getCost();
-							tax = dProduct.getTax();
-
-
-							costWithDiscount = dProduct.getDiscount();
 
 							if (dProduct.getStartDate().getMonthOfYear() == 1) {
-								tax = (dProduct.getTax() * costWithDiscount) ;
-								subTotal = (tax + costWithDiscount);
+								costPerUnit = dProduct.getCost() * dProduct.getDiscount();
+								subTotal = dProduct.getSubTotal(costPerUnit, quantity);
+								tax = dProduct.getTax(subTotal);
+								totalCost = dProduct.getTotal(subTotal, tax);
+								
 							} else if (dProduct.getStartDate().getMonthOfYear() != 1) {
-								tax = (dProduct.getTax() * cost);
-								subTotal = (tax + cost);
+								costPerUnit = dProduct.getCost();
+								subTotal = dProduct.getSubTotal(costPerUnit, quantity);
+								tax = dProduct.getTax(subTotal);
+								totalCost = dProduct.getTotal(subTotal, tax);
 							}
 
 
@@ -167,10 +169,15 @@ public class InvoiceWriter {
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
 						if (pProduct.getProductType().equals("P")) {
+							
 							productCode = pProduct.getProductCode();
 							productType = "Parking Pass";
 							personCode = productList.get(i).getPersonCode();
-							cost = pProduct.getCost();
+							costPerUnit = pProduct.getCost();
+							subTotal = pProduct.getSubTotal(costPerUnit, quantity);
+							tax = pProduct.getTax(costPerUnit);
+							totalCost = pProduct.getTotal(subTotal, tax);
+							
 						}
 
 					} else if (productFileList.get(j) instanceof Equipment) {
@@ -180,8 +187,11 @@ public class InvoiceWriter {
 							productType = "Rental Equipment";
 							personCode = productList.get(i).getPersonCode();
 							productName = eProduct.getEquipment();
-							cost = eProduct.getCost();
-
+							
+							costPerUnit = eProduct.getCost();
+							subTotal = eProduct.getSubTotal(costPerUnit, quantity);
+							tax = eProduct.getTax(subTotal);
+							totalCost = eProduct.getTotal(subTotal, tax);
 
 						}
 					}
@@ -200,45 +210,46 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
-						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount, tax, subTotal);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost/quantity);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, subTotal*quantity);
-						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost, tax, subTotal);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost/quantity);
 					}
 				} else if (productName.equals("Gold Package")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
+					//b29e      Year-long membership 'Gold Package' @ 179 West Lane                    $   8797.50 $   527.85 $   9325.35
 
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
-						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount, tax, subTotal);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, cost/quantity);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost, tax, subTotal*quantity);
-						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost, tax, subTotal);
+						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, costPerUnit);
 					}
 				} else if (productName.equals("Ultimate Workout")){
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					if(startDate.getMonthOfYear() == 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount*quantity, tax*quantity, subTotal*quantity);
-						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, costWithDiscount, tax, subTotal);
+						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, cost/quantity);
 					} else if (startDate.getMonthOfYear() != 1) {
-						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost*quantity, tax*quantity, subTotal*quantity);
-						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost);
+						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, cost, tax, subTotal);
+						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, cost/quantity);
 					}
 				}
 			} else if (productType.equals("Day-long membership")) {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1){
-					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, costWithDiscount*quantity, (tax*quantity), subTotal*quantity);
-					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
+					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, costWithDiscount, tax, subTotal);
+					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost/quantity);
 				}else if (startDate.getMonthOfYear() != 1){
-					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), subTotal*quantity);
-					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
+					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, cost, tax, subTotal);
+					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost/quantity);
 
 				}
 
@@ -246,19 +257,19 @@ public class InvoiceWriter {
 				if(personCode.equals("")) {
 					if(freeParkingPassesYM == true) {
 						System.out.println("THEY GET 365 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + " with %-2.0 free)" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, quantity, "", cost*quantity, 0.00, 0.00);
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + " with %-2.0 free)" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost/quantity, quantity, "", cost, 0.00, 0.00);
 					} else if (freeParkingPassesDM == true) {
 						System.out.println("THEY GET 1 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0.00, 0.00);
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost/quantity, "", cost, 0.00, 0.00);
 					} else {
 						System.out.println("THEY GET NO FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0.00, 0.00);
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost/quantity, "", cost, 0.00, 0.00);
 					}
 
 				} else {
 					if(freeParkingPassesYM == true) {
 						System.out.println("THEY GET 365 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, "", cost*quantity, 0.00, 0.00);
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost/quantity, "", cost, 0.00, 0.00);
 					} else if (freeParkingPassesDM == true) {
 						System.out.println("THEY GET 1 FREE PARKING PASSES");
 						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, cost, "", cost*quantity, 0.00, 0.00);

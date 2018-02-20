@@ -42,31 +42,32 @@ public class YearMemberships extends Membership {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
-
-	@Override
-	public double getSubTotal(int quantity) {
-		
-		return this.cost*quantity;
-	}
-	
-	@Override
-	public double getTax() {
-		
-		return 0.06;
-	}
-
-	@Override
-	public double getTotal() {		
-		 
-		return (0.06 * this.cost + this.cost);
-	}
 
 	@Override
 	public double getDiscount() {
 		
-		return this.cost * 0.85;
+		return 0.85;
 	}
+
+	@Override
+	public double getSubTotal(double cost, double quantity) {
+		
+		return cost * quantity;
+	}
+
+	@Override
+	public double getTax(double cost) {
+
+		return 0.06 * cost;
+	}
+
+	@Override
+	public double getTotal(double cost, double tax) {
+		
+		return cost + tax;
+	}
+
+	
 
 		
 

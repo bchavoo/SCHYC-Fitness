@@ -27,7 +27,8 @@ public abstract class Service extends Product {
 	
 
 	//Abstract Methods
-	public abstract double getTax();
-	public abstract double getTotal();
+	public abstract double getSubTotal(double cost, double quantity);
+	public abstract double getTax(double cost);
+	public abstract double getTotal(double cost, double tax);
 		
 }

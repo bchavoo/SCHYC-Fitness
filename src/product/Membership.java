@@ -40,10 +40,11 @@ public abstract class Membership extends Product {
 	}
 	
 	//Abstract Methods to be overridden in General/Student memberships
-	public abstract double getSubTotal(int quantity);
-	public abstract double getTax();
-	public abstract double getTotal();
 	public abstract double getDiscount();
+	public abstract double getSubTotal(double cost, double quantity);
+	public abstract double getTax(double cost);
+	public abstract double getTotal(double cost, double tax);
+
 	
 	
 }

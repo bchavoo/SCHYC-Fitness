@@ -8,19 +8,26 @@ public class ParkingPass extends Service {
 		super(productCode, cost, productType);
 	}
 
-
 	@Override
-	public double getTax() {
-		
-		return 0.06 * this.getCost();
+	public double getSubTotal(double cost, double quantity) {
+
+		return cost * quantity;
 	}
 
 	@Override
-	public double getTotal() {
-		//if()
-		
-		return( 0.06 * this.getCost() + this.getCost());
+	public double getTax(double cost) {
+
+		return 0.06 * cost;
 	}
+
+	@Override
+	public double getTotal(double cost, double tax) {
+
+		return cost + tax;
+	}
+
+
+
 
 
 
