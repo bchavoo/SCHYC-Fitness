@@ -145,6 +145,25 @@ public class InvoiceWriter {
 							address = dProduct.getAddress().getStreet();
 							cost = dProduct.getCost();
 							tax = dProduct.getTax();
+							
+							
+							costWithDiscount = dProduct.getDiscount();
+							
+							if (dProduct.getStartDate().getMonthOfYear() == 1) {
+								tax = (dProduct.getTax() * costWithDiscount) ;
+								subTotal = (tax + costWithDiscount);
+							} else if (dProduct.getStartDate().getMonthOfYear() != 1) {
+								tax = (dProduct.getTax() * cost);
+								subTotal = (tax + cost);
+							}
+							
+							
+							
+						
+
+						}
+							
+							
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -215,10 +234,10 @@ public class InvoiceWriter {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1){
-				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (0*quantity), (tax*quantity),(0*quantity) + (tax*quantity));
+				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, costWithDiscount * quantity, (tax*quantity), subTotal*quantity);
 				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 				}else if (startDate.getMonthOfYear() != 1){
-					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), (cost*quantity) + (tax*quantity));
+					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), subTotal*quantity);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 	
 				}
