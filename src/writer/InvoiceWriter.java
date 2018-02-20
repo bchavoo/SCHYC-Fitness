@@ -96,11 +96,13 @@ public class InvoiceWriter {
 		double tax = 0;
 		double subTotal = 0;
 		double costWithDiscount = 0;
-	
+		double noOfFreeParkingPassesYM = 0;
+		double noOfFreeParkingPassesDM = 0;
+
 
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
-				
+
 				quantity = productList.get(i).getQuantity();
 
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
@@ -115,13 +117,14 @@ public class InvoiceWriter {
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
-							
-							
-							
-							
+							noOfFreeParkingPassesYM = quantity;
+
+
+
+
 							cost = yProduct.getCost();
 							costWithDiscount = yProduct.getDiscount();							
-							
+
 							if (yProduct.getStartDate().getMonthOfYear() == 1) {
 								tax = (yProduct.getTax() * costWithDiscount) ;
 								subTotal = (tax + costWithDiscount);
@@ -139,12 +142,14 @@ public class InvoiceWriter {
 							productType = "Day-long membership";
 							startDate = dProduct.getStartDate();
 							address = dProduct.getAddress().getStreet();
+							noOfFreeParkingPassesDM = quantity;
+							
 							cost = dProduct.getCost();
 							tax = dProduct.getTax();
-							
-							
+
+
 							costWithDiscount = dProduct.getDiscount();
-							
+
 							if (dProduct.getStartDate().getMonthOfYear() == 1) {
 								tax = (dProduct.getTax() * costWithDiscount) ;
 								subTotal = (tax + costWithDiscount);
@@ -152,9 +157,9 @@ public class InvoiceWriter {
 								tax = (dProduct.getTax() * cost);
 								subTotal = (tax + cost);
 							}
-							
-							
-							
+
+
+
 						}
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
@@ -179,11 +184,13 @@ public class InvoiceWriter {
 						}
 					}
 				}
-
+				
 				
 
+
+
 			}
-			
+
 			if(productType.equals("Year-long membership")) {
 				if (productName.equals("Bronze Fit")) {
 					DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
@@ -225,15 +232,16 @@ public class InvoiceWriter {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1){
-				System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, costWithDiscount * quantity, (tax*quantity), subTotal*quantity);
-				System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
+					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, costWithDiscount * quantity, (tax*quantity), subTotal*quantity);
+					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
 				}else if (startDate.getMonthOfYear() != 1){
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, (cost*quantity), (tax * quantity), subTotal*quantity);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, cost);
-	
+
 				}
 
 			} else if (productType.equals("Parking Pass")) {
+				double freePasses = noOfFreeParkingPassesYM + noOfFreeParkingPassesDM;
 				if(personCode.equals("")) {
 					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, cost, "", cost*quantity, 0.00, 0.00);
 				} else {
@@ -250,17 +258,25 @@ public class InvoiceWriter {
 				}
 			}
 		}
+
+
+
+
+
+
 		System.out.println("                                                                                ===================================");
 		System.out.printf("SUB-TOTALS  %68s $%10d $%9d $%10d\n","", 0, 0, 0);
+		
 		if(memberType.equals("Student")) {
 			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
 			System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
 		}
+		
 		System.out.printf("TOTAL %97s $%10d\n","" , 0);
 		System.out.printf("\n\n                                       Thank you for your purchase!\n");
 	}
-	
-	
+
+
 
 
 }
