@@ -98,6 +98,7 @@ public class InvoiceWriter {
 		double costWithDiscount = 0;
 		double noOfFreeParkingPassesYM = 0;
 		double noOfFreeParkingPassesDM = 0;
+		boolean YearMembership = false;
 
 
 		for(int i = 0; i < productList.size(); i++) {
@@ -118,6 +119,7 @@ public class InvoiceWriter {
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
 							noOfFreeParkingPassesYM = quantity;
+							YearMembership = true;
 
 
 
@@ -143,7 +145,7 @@ public class InvoiceWriter {
 							startDate = dProduct.getStartDate();
 							address = dProduct.getAddress().getStreet();
 							noOfFreeParkingPassesDM = quantity;
-							
+
 							cost = dProduct.getCost();
 							tax = dProduct.getTax();
 
@@ -184,8 +186,8 @@ public class InvoiceWriter {
 						}
 					}
 				}
-				
-				
+
+
 
 
 
@@ -251,11 +253,29 @@ public class InvoiceWriter {
 
 			} else if (productType.equals("Rental Equipment")) {
 				if(personCode.equals("")) {
-					System.out.printf("%-9s %-13s - %-51s $%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, cost*quantity, 0.00, 0.00);
-					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
+					if(YearMembership == true) {
+						//Calculate discount somewhere here
+						System.out.println("THEY GET A 5% DISCOUNT");
+						System.out.printf("%-9s %-13s - %-51s $%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, cost*quantity, 0.00, 0.00);
+						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
+					} else if (YearMembership == false) {
+						//No Discount
+						System.out.println("They do NOT get a discount");
+						System.out.printf("%-9s %-13s - %-51s $%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, cost*quantity, 0.00, 0.00);
+						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, cost);
+					}
 				} else {
-					System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, cost*quantity, 0.00, 0.00);
-					System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, cost);
+					if(YearMembership == true) {
+						//Discount
+						System.out.println("THEY GET A 5% DISCOUNT");
+						System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, cost*quantity, 0.00, 0.00);
+						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, cost);
+					} else if (YearMembership == false) {
+						//NO discount
+						System.out.println("They do NOT get a discount");
+						System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, cost*quantity, 0.00, 0.00);
+						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, cost);
+					}
 				}
 			}
 		}
@@ -267,12 +287,12 @@ public class InvoiceWriter {
 
 		System.out.println("                                                                                ===================================");
 		System.out.printf("SUB-TOTALS  %68s $%10d $%9d $%10d\n","", 0, 0, 0);
-		
+
 		if(memberType.equals("Student")) {
 			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
 			System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
 		}
-		
+
 		System.out.printf("TOTAL %97s $%10d\n","" , 0);
 		System.out.printf("\n\n                                       Thank you for your purchase!\n");
 	}
