@@ -4,6 +4,8 @@ import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
 import product.Product;
+import product.YearMemberships;
+import product.DayMemberships;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,6 +45,16 @@ public class JSONWriter {
 
 	public static void createProductJSON(List<Product> productList) throws IOException {
 
+		for(int i = 0; i < productList.size(); i++) {
+			if(productList.get(i) instanceof YearMemberships) {
+				YearMemberships newProd = (YearMemberships) productList.get(i);
+				//String startDate = (String) newProd.getStartDate();
+			} else if(productList.get(i) instanceof DayMemberships) {
+				DayMemberships newProd = (DayMemberships) productList.get(i);
+			}
+		}
+		
+		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		String jsonString = gson.toJson(productList);
