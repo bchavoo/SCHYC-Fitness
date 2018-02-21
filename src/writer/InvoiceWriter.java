@@ -386,18 +386,26 @@ public class InvoiceWriter {
 
 
 		if(memberType.equals("Student")) {
-			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10d\n", "", 0);
-			System.out.printf("ADDITIONAL FEE (Student) %78s $%10d\n","" , 0);
+			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10.2f\n", "", 0.00);
+			System.out.printf("ADDITIONAL FEE (Student) %78s $%10.2f\n","" , 10.50);
 		}
 
-		System.out.printf("TOTAL %97s $%10d\n","" , 0);
+		System.out.printf("TOTAL %97s $%10.2f\n","" , 0.00);
 		System.out.printf("\n\n                                       Thank you for your purchase!\n");
 
-
+		//All totals are set back to zero
 		YMSubTotal = 0;
 		DMSubTotal = 0;
 		PPSubTotal = 0;
 		RESubTotal = 0;
+		YMTaxes = 0;
+		DMTaxes = 0;
+		PPTaxes = 0;
+		RETaxes = 0;
+		YMTotal = 0;
+		DMTotal = 0;
+		PPTotal = 0;
+		RETotal = 0;
 
 	}
 
