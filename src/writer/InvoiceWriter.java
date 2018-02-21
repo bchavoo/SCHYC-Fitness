@@ -262,10 +262,10 @@ public class InvoiceWriter {
 				if(personCode.equals("")) {
 					if(freeParkingPassesYM == true) {
 						//THEY GET 365 FREE PARKING PASSES
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0 free)" + "%26s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0 free)" + "%26s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 					} else if (freeParkingPassesDM == true) {
 						//THEY GET 1 FREE PARKING PASSES
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(1*costPerUnit), tax-(costPerUnit*0.04), totalCost-((costPerUnit) + ((costPerUnit)*0.04)));
 					} else {
 						//THEY GET NO FREE PARKING PASSES
 						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
@@ -274,10 +274,10 @@ public class InvoiceWriter {
 				} else {
 					if(freeParkingPassesYM == true) {
 						//THEY GET 365 FREE PARKING PASSES
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%29s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%29s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 					} else if (freeParkingPassesDM == true) {
 						//THEY GET 1 FREE PARKING PASSES
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(1*costPerUnit), tax-(costPerUnit*0.04), totalCost-((costPerUnit) + ((costPerUnit)*0.04)));
 					} else {
 						//THEY GET NO FREE PARKING PASSES
 						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
