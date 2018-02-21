@@ -266,7 +266,7 @@ public class InvoiceWriter {
 				} else {
 					if(freeParkingPassesYM == true) {
 						System.out.println("THEY GET 365 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + " with %-2.0f free)" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
 					} else if (freeParkingPassesDM == true) {
 						System.out.println("THEY GET 1 FREE PARKING PASSES");
 						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
