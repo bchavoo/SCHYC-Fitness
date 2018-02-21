@@ -17,7 +17,7 @@ public class ParkingPass extends Service {
 	@Override
 	public double getTax(double cost) {
 
-		return 0.06 * cost;
+		return 0.04 * cost;
 	}
 
 	@Override

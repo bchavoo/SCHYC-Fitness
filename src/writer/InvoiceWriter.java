@@ -173,7 +173,7 @@ public class InvoiceWriter {
 							personCode = productList.get(i).getPersonCode();
 							costPerUnit = pProduct.getCost();
 							subTotal = pProduct.getSubTotal(costPerUnit, quantity);
-							tax = pProduct.getTax(costPerUnit);
+							tax = pProduct.getTax(subTotal);
 							totalCost = pProduct.getTotal(subTotal, tax);
 							
 						}
@@ -208,9 +208,11 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
+						//They get a 15% discount
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit);
 					} else if (startDate.getMonthOfYear() != 1) {
+						//No discount
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, costPerUnit);
 					}
@@ -220,9 +222,11 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 
 					if(startDate.getMonthOfYear() == 1) {
+						//They get a 15% discount
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-33s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit);
 					} else if (startDate.getMonthOfYear() != 1) {
+						//No discount
 						System.out.printf("%-9s %-10s '%-10s'" + " @ " + "%-35s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, costPerUnit);
 					}
@@ -231,9 +235,11 @@ public class InvoiceWriter {
 					String sDate = dateOutput.print(startDate);
 					String eDate = dateOutput.print(endDate);
 					if(startDate.getMonthOfYear() == 1) {
+						//They get a 15% discount
 						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with%%15 off)\n", "", sDate, eDate, quantity, costPerUnit);
 					} else if (startDate.getMonthOfYear() != 1) {
+						//No discount
 						System.out.printf("%-9s %-10s '%-16s'" + " @ " + "%-29s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, address, subTotal, tax, totalCost);
 						System.out.printf("%9s %8s - %8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + ")\n", "", sDate, eDate, quantity, costPerUnit);
 					}
@@ -241,10 +247,12 @@ public class InvoiceWriter {
 			} else if (productType.equals("Day-long membership")) {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
-				if(startDate.getMonthOfYear() == 1){
+				if(startDate.getMonthOfYear() == 1) {
+					//They get a 50% discount
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, costPerUnit);
 				}else if (startDate.getMonthOfYear() != 1){
+					//No Discount
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, costPerUnit);
 
@@ -253,26 +261,26 @@ public class InvoiceWriter {
 			} else if (productType.equals("Parking Pass")) {
 				if(personCode.equals("")) {
 					if(freeParkingPassesYM == true) {
-						System.out.println("THEY GET 365 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + " with %-2.0 free)" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						//THEY GET 365 FREE PARKING PASSES
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0 free)" + "%26s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
 					} else if (freeParkingPassesDM == true) {
-						System.out.println("THEY GET 1 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
+						//THEY GET 1 FREE PARKING PASSES
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
 					} else {
-						System.out.println("THEY GET NO FREE PARKING PASSES");
+						//THEY GET NO FREE PARKING PASSES
 						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
 					}
 
 				} else {
 					if(freeParkingPassesYM == true) {
-						System.out.println("THEY GET 365 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + " with %-2.0f free)" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+						//THEY GET 365 FREE PARKING PASSES
+						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%29s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
 					} else if (freeParkingPassesDM == true) {
-						System.out.println("THEY GET 1 FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
+						//THEY GET 1 FREE PARKING PASSES
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
 					} else {
-						System.out.println("THEY GET NO FREE PARKING PASSES");
-						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
+						//THEY GET NO FREE PARKING PASSES
+						System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + ")" + "%34s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, "", subTotal, tax, totalCost);
 					}
 				}
 
