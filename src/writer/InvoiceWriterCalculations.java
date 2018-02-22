@@ -141,7 +141,7 @@ public class InvoiceWriterCalculations {
 							productType = "Rental Equipment";
 							personCode = productList.get(i).getPersonCode();
 							productName = eProduct.getEquipment();
-
+							
 							costPerUnit = eProduct.getCost();
 							subTotal = eProduct.getSubTotal(costPerUnit, quantity);
 							tax = eProduct.getTax(subTotal);
@@ -181,19 +181,33 @@ public class InvoiceWriterCalculations {
 						DMTaxes = tax;
 						DMTotal = totalCost;
 					}
+					//Here we create two array list for year and day code so that it could include the product
+					// codes for day and year memberships
 
 				} else if (productType.equals("Parking Pass")) {
-
+					ArrayList<String> yearCodes = new ArrayList<String>();
+					ArrayList<String> dayCodes = new ArrayList<String>();
+					for(int k = 0; k < productFileList.size();k++){
+						if (productFileList.get(k) instanceof YearMemberships){
+							YearMemberships temp = (YearMemberships)productFileList.get(k);
+							yearCodes.add(temp.getProductCode());
+						}
+						else if (productFileList.get(k) instanceof DayMemberships){
+							DayMemberships temp = (DayMemberships)productFileList.get(k);
+							dayCodes.add(temp.getProductCode());
+						}
+					}
+					
 					if(personCode.equals("")) {
 						PPSubTotal = subTotal;
 						PPTaxes = tax;
 						PPTotal = totalCost;
-					} else if (personCode.equals(DayMembershipFromInvoice)) {
-						PPSubTotal = subTotal-(1*costPerUnit);
+					} else if (dayCodes.contains(personCode)) {
+						PPSubTotal = subTotal-(costPerUnit);
 						PPTaxes = tax-(costPerUnit*0.04);
 						PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
-					} else if (personCode.equals(YearMembershipFromInvoice)) {
-						if(quantity < 365) {
+					} else if (yearCodes.contains(personCode)) {
+						if(quantity <= 365) {
 							PPSubTotal = subTotal-(quantity*costPerUnit);
 							PPTaxes = tax-((quantity*costPerUnit)*0.04);
 							PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
@@ -207,13 +221,23 @@ public class InvoiceWriterCalculations {
 
 
 				} else if (productType.equals("Rental Equipment")) {
+					ArrayList<String> yearCodes = new ArrayList<String>();
+					for(int k = 0; k < productFileList.size();k++){
+						if (productFileList.get(k) instanceof YearMemberships){
+							YearMemberships temp = (YearMemberships)productFileList.get(k);
+							yearCodes.add(temp.getProductCode());
+						}
+					}
+					
+					
+					
 					if(personCode.equals("")) {
 
 						RESubTotal = subTotal;
 						RETaxes = tax;
 						RETotal = totalCost;
 					} else {
-						if(personCode.equals(YearMembershipFromInvoice)) {
+						if(yearCodes.contains(personCode)) {
 
 							RESubTotal =  subTotal*0.95;
 							RETaxes = (subTotal*0.95)*0.04;
@@ -243,6 +267,10 @@ public class InvoiceWriterCalculations {
 		double allTotals = YMTotal + DMTotal + PPTotal + RETotal + discount + additionalStudentFee;
 
 
+		
+		/**
+		 * Here we store the calculation inside a variable of array list
+		 */
 		ArrayList<Calculations> totalArray = new ArrayList<Calculations>();
 
 		Calculations calc = new Calculations(allSubTotals, additionalStudentFee, allTaxes, discount, allTotals);
@@ -270,4 +298,3 @@ public class InvoiceWriterCalculations {
 
 	}
 }
-
