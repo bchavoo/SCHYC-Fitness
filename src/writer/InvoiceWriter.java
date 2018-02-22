@@ -27,6 +27,8 @@ public class InvoiceWriter {
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
 		//Do all calculations and formatting here
 		int i = 0;
+		InvoiceWriter.createExcutiveReport(invoiceList);
+
 		while(i < invoiceList.size()) {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
@@ -58,15 +60,41 @@ public class InvoiceWriter {
 
 
 
-	public static void createExcutiveReport(String invoiceNumber, String memberName, String memberType, String trainerLastName, String trainerFistName) {
+	public static void createExcutiveReport(List<Invoice> invoiceList) {
 
 		System.out.println("Executive Summary Report");
 		System.out.println("===========================");
-		System.out.println("Invoice            Member                                              Personal Trainer               Subtotal           Fees          Taxes           Discount        Total");
-		System.out.println(invoiceNumber + "             " + memberName + " [" + memberType + "]                          "  +  trainerLastName + "," + trainerFistName);
+		System.out.println("Invoice   Member                                            Personal Trainer              Subtotal        Fees       Taxes    Discount       Total");
+		
+		for(Invoice i : invoiceList){
+			String fullName = i.getPersonalTrainerCode().getLastName() + ", " + i.getPersonalTrainerCode().getFirstName();
+			String memberType = i.getMemberCode().getMemberType();
+			String memberNameType = "";
+			double subTotal = 0;
+			double tax = i.getMemberCode().getTax();
+			double fees = 0;
+			
+			if(memberType.equals("G")) {
+				memberType = "General";
+				memberNameType = i.getMemberCode().getName() + " [" + memberType + "] ";
+				fees = 0;
+			} else if (memberType.equals("S")) {
+				memberType = "Student";
+				memberNameType = i.getMemberCode().getName() + " [" + memberType + "] ";
+				fees = 10.50;
+			}
+			
+			
+			
+		System.out.printf("%-9s %-49s %-30s $%-13.2f $%-30.2f $%-20.2f\n", i.getInvoiceCode(), memberNameType, fullName, subTotal, fees, tax);
 	}
+		System.out.println("========================================================================================================================================================");
+		System.out.println("TOTALS");
+		System.out.println("");
+		System.out.println("Individual Invoice Detail Reports");
+		System.out.println("===============================================");
 
-
+	}
 	public static void createSingleInvoiceReport(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
 		System.out.println("Invoice  " + invoiceNumber);
 		System.out.println("==================================================");
