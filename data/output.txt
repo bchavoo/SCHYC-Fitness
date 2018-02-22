@@ -1,117 +1,112 @@
 Executive Summary Report
-===========================
+=========================
 Invoice   Member                                            Personal Trainer                 Subtotal        Fees       Taxes    Discount       Total
-INV001    Thomas Charlie [General]                          Danny,  Cordrey               $     82.50 $      0.00 $      4.05 $     0.00 $     86.55
-INV002    Computer Science Club [Student]                   Lucas,  Miller                $   1406.25 $     10.50 $     75.30 $  -187.80 $   1304.25
-INV003    Harry Willis [General]                            Heyman,  Joe                  $   1775.00 $      0.00 $    104.75 $     0.00 $   1879.75
-INV004    Mathew Smith [Student]                            Lee,  Labrada                 $    905.00 $     10.50 $     50.20 $  -122.60 $    843.10
-========================================================================================================================================================
-TOTALS                                                                                    $   4168.75 $     21.00 $    234.30 $  -310.40 $   4113.65
+INV001    Clark Consultants [General]                       Eccleston, Chris              $     62.96 $      0.00 $      3.38 $    -0.00 $     66.34
+INV002    CAS International Fellows [Student]               Tennant, David                $   9056.83 $     10.50 $    541.63 $ -1266.18 $   8342.78
+INV003    Hewlett Industries [General]                      Smith, Matt                   $   3608.00 $      0.00 $    213.82 $    -0.00 $   3821.82
+INV004    Valueless Club [Student]                          Hurndall, Richard             $     76.50 $     10.50 $      3.06 $    -9.18 $     80.88
+=====================================================================================================================================================
+TOTALS                                                                                    $  12804.29 $     21.00 $    761.89 $ -1275.36 $  12311.82
 
 Individual Invoice Detail Reports
-===============================================
-Invoice  INV001
 ==================================================
-Personal Trainer: Danny,  Cordrey
-Member Info:
-  Thomas Charlie  (M001)
+Invoice INV001
+========================
+Personal Trainer: Eccleston, Chris
+Member Info: 
+  Clark Consultants (M001) 
   [General]
-  Noah, Liam
-  7311 South 11th Street
-  Lincoln NE 68532 USA
-------------------------------------------
+  Baker, Tom
+  259 Concorde Suites
+  Lincoln NE 68588-0115 USA
+-------------------------------------------
 Code      Item                                                                      SubTotal        Tax       Total
-jk99      Day-long membership  @ 4862 South 7th St                               $     37.50 $     2.25 $     39.75
-          12/21/16 (3 units @ $12.50)
-89pa      Parking Pass jk99 (1  units @ $15.00 @ 1  free)                        $      0.00 $     0.00 $      0.00
-we25      Rental Equipment - jk99 - Dumbbells                                    $     45.00 $     1.80 $     46.80
-          (2 units @ $22.50/unit)
-                                                                                ===================================
-SUB-TOTALS                                                                       $     82.50 $     4.05 $     86.55
-TOTAL                                                                                                   $     86.55
+fp12      Day-long membership @ 3555 South 140th Plaza                          $     43.00 $      2.58 $     45.58
+          10/21/16 (2 units @ $21.5)                                                                                  
+3289      Parking Pass fp12 (1 units @ $55.0 with 1 free)                       $      0.00 $      0.00 $      0.00
+ff23      Rental Equipment - fp12 - Boxing Glove-Large                          $     19.96 $      0.80 $     20.76
+          (4 units @ $4.99/unit)                                                                                      
+                                                                                ====================================
+SUB-TOTALS                                                                      $     62.96 $      3.38 $     66.34
+TOTAL                                                                                                   $     66.34
 
 
-                                       Thank you for your purchase! :)
+			Thank you for your purchase!
 
-Individual Invoice Detail Reports
-===============================================
-Invoice  INV002
-==================================================
-Personal Trainer: Lucas,  Miller
-Member Info:
-  Computer Science Club  (M002)
+
+Invoice INV002
+========================
+Personal Trainer: Tennant, David
+Member Info: 
+  CAS International Fellows (M002) 
   [Student]
-  Ethan, James
-  3423 Avery Hall
+  Castro, Starlin
+  1223 Oldfather Hall
   Lincoln NE 68503 USA
-------------------------------------------
+-------------------------------------------
 Code      Item                                                                      SubTotal        Tax       Total
-ye77      Year-long membership 'Ultimate Gold Package' @  218 East 13th St       $    765.00 $    45.90 $    810.90
-          01/05/17 - 01/04/18 (2  units @ $382.50 with %15 off)
-722h      Day-long membership  @ 722 Willmar Ave                                 $    187.50 $    11.25 $    198.75
-          01/16/18 (15 units @ $12.50)
-20pr      Parking Pass ye77 (15 units @ $20.00 @ 15 free)                        $      0.00 $     0.00 $      0.00
-10he      Rental Equipment - ye77 - Hiking Equipment                             $    213.75 $     8.55 $    222.30
-          (3 units @ $75.00/unit)
-                                                                                ===================================
-SUB-TOTALS                                                                       $   1166.25 $    65.70 $   1231.95
-DISCOUNT (8 STUDENT & NO TAX)                                                                           $   -159.00
+b29e      Year-long membership 'Gold Package' @ 179 West Lane                   $   8797.50 $    527.85 $   9325.35
+          1/13/17 - 1/12/18 (23 units @ $450.0 with %15 off)                                                          
+1239      Day-long membership @ 755 Willard Drive                               $    170.50 $     10.23 $    180.73
+          1/16/18 (31 units @ $11.0 with %50 off)                                                                     
+90fa      Parking Pass b29e (30 units @ $25.0 with 30 free)                     $      0.00 $      0.00 $      0.00
+32f4      Rental Equipment - b29e - Tennis Racket                               $     88.82 $      3.55 $     92.38
+          (17 units @ $5.5/unit @ %5 off)                                                                             
+                                                                                ====================================
+SUB-TOTALS                                                                      $   9056.83 $    541.63 $   9598.46
+DISCOUNT (8%  STUDENT & NO TAX)                                                                         $  -1266.18
 ADDITIONAL FEE (Student)                                                                                $     10.50
-TOTAL                                                                                                   $   1083.45
+TOTAL                                                                                                   $   8342.78
 
 
-                                       Thank you for your purchase! :)
+			Thank you for your purchase!
 
-Individual Invoice Detail Reports
-===============================================
-Invoice  INV003
-==================================================
-Personal Trainer: Heyman,  Joe
-Member Info:
-  Harry Willis  (M005)
+
+Invoice INV003
+========================
+Personal Trainer: Smith, Matt
+Member Info: 
+  Hewlett Industries (M005) 
   [General]
-  Danny, Cordrey
-  9843 Noth Willson Dr
-  Las Vegas NA 87646 USA
-------------------------------------------
+  Ehrmantraut, Kaylee
+  1060 West Addison
+  Chicago IL 60601 USA
+-------------------------------------------
 Code      Item                                                                      SubTotal        Tax       Total
-722h      Day-long membership  @ 722 Willmar Ave                                 $     87.50 $     5.25 $     92.75
-          01/16/18 (7 units @ $12.50)
-rtp9      Year-long membership 'Bronze Fit' @  289 W Pine St                     $   1600.00 $    96.00 $   1696.00
-          08/09/15 - 08/08/16 (8  units @ $200.00)
-20pr      Parking Pass 722h (3  units @ $20.00 @ 3  free)                        $      0.00 $     0.00 $      0.00
-sb07      Rental Equipment - rtp9 - Soccer Ball-Large                            $     47.50 $     1.90 $     49.40
-          (2 units @ $25.00/unit)
-                                                                                ===================================
-SUB-TOTALS                                                                       $   1775.00 $   104.75 $   1879.75
-TOTAL                                                                                                   $   1879.75
+782g      Day-long membership @ 6301 University Ave                             $    175.00 $     10.50 $    185.50
+          11/10/16 (7 units @ $25.0)                                                                                  
+3y92      Year-long membership 'Ultimate Workout' @ 449 3rd Ave                 $   3300.00 $    198.00 $   3498.00
+          11/24/17 - 11/23/18 (6 units @ $550.0)                                                                      
+3289      Parking Pass 782g (2 units @ $55.0 with 1 free)                       $     55.00 $      2.20 $     57.20
+yp23      Rental Equipment - 782g - Cross Country Skis-Large                    $     78.00 $      3.12 $     81.12
+          (4 units @ $19.5/unit)                                                                                      
+                                                                                ====================================
+SUB-TOTALS                                                                      $   3608.00 $    213.82 $   3821.82
+TOTAL                                                                                                   $   3821.82
 
 
-                                       Thank you for your purchase! :)
+			Thank you for your purchase!
 
-Individual Invoice Detail Reports
-===============================================
-Invoice  INV004
-==================================================
-Personal Trainer: Lee,  Labrada
-Member Info:
-  Mathew Smith  (M003)
+
+Invoice INV004
+========================
+Personal Trainer: Hurndall, Richard
+Member Info: 
+  Valueless Club (M003) 
   [Student]
-  Lucas, Miller
-  342 Onway
-  Sioux City IA 78453 USA
-------------------------------------------
+  Sampson, Brock
+  123 Venture Way
+  Culver City CA 90230 USA
+-------------------------------------------
 Code      Item                                                                      SubTotal        Tax       Total
-58ad      Year-long membership 'Ultimate Silver Package' @  913 2nd St           $    700.00 $    42.00 $    742.00
-          11/02/16 - 11/01/17 (2  units @ $350.00)
-20pr      Parking Pass  (9  units @ $20.00 @ 9  free)                        $      0.00 $     0.00 $      0.00
-sb07      Rental Equipment - Soccer Ball-Large                                   $     25.00 $     1.00 $     26.00
-          (1 units @ $25.00/unit)
-                                                                                ===================================
-SUB-TOTALS                                                                       $    885.00 $    49.40 $    934.40
-DISCOUNT (8 STUDENT & NO TAX)                                                                           $   -120.20
+90fb      Parking Pass (3 units @ $20.0)                                        $     60.00 $      2.40 $     62.40
+32f4      Rental Equipment - Tennis Racket                                      $     16.50 $      0.66 $     17.16
+          (3 units @ $5.5/unit)                                                                                       
+                                                                                ====================================
+SUB-TOTALS                                                                      $     76.50 $      3.06 $     79.56
+DISCOUNT (8%  STUDENT & NO TAX)                                                                         $     -9.18
 ADDITIONAL FEE (Student)                                                                                $     10.50
-TOTAL                                                                                                   $    824.70
+TOTAL                                                                                                   $     80.88
 
 
-                                       Thank you for your purchase! :)
+			Thank you for your purchase!

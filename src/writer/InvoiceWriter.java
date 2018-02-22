@@ -87,6 +87,20 @@ public class InvoiceWriter {
 			totalArray[i] = fullArray.get(i).get(0).getDiscount();
 			totalArray[i] = fullArray.get(i).get(0).getFinalTotal();
 		}
+		
+		double finalTotalSubTotal = 0; 
+		double finalTotalFees = 0;
+		double finalTotalTaxes = 0;
+		double finalTotalDiscount = 0;
+		double finalTotalTotal = 0;
+		
+		for(int j = 0; j < fullArray.size(); j++) {
+			finalTotalSubTotal += fullArray.get(j).get(0).getSubTotal();
+			finalTotalFees += fullArray.get(j).get(0).getStudentFees();
+			finalTotalTaxes += fullArray.get(j).get(0).getTaxes();
+			finalTotalDiscount += fullArray.get(j).get(0).getDiscount();
+			finalTotalTotal += fullArray.get(j).get(0).getDiscount();	
+		}
 
 		/**
 		 * Here we create a for loop to loop  the invoice list and we use variables
@@ -114,7 +128,7 @@ public class InvoiceWriter {
 			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 		}
 		System.out.println("========================================================================================================================================================");
-		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f", "TOTALS", 0.00, 0.00, 0.00, 0.00, 0.00);
+		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
 
 	}
 
