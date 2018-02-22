@@ -424,7 +424,7 @@ public class InvoiceWriter {
 		}
 
 		System.out.printf("TOTAL %97s $%10.2f\n","" , allTotals + discount + additionalStudentFee);
-		System.out.printf("\n\n                                       Thank you for your purchase!\n");
+		System.out.printf("\n\n                                       Thank you for your purchase! :)\n");
 
 		//All totals are set back to zero
 		YMSubTotal = 0;
