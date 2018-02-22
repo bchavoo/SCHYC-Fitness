@@ -43,15 +43,12 @@ public class InvoiceWriterCalculations {
 		 * invoice line by line
 		 */
 		for(int i = 0; i < productList.size(); i++) {
-			String productCode = "";
 			for(int j = 0; j < productFileList.size(); j++) {
-				
-				productCode = productList.get(i).getPersonCode();
-				
-				System.out.println("The item is tied to " + productCode);
+								
 				String productType = "";
 				String personCode = "";
 				String productName = "";
+				String productCode = "";
 				DateTime startDate = null;
 				DateTime endDate = null;
 				String address = "";

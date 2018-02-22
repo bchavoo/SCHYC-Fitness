@@ -175,25 +175,21 @@ public class InvoiceWriter {
 
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
-				quantity = productList.get(i).getQuantity();
-				personCode = "";
-				productType = "";
-
 
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 					personCode = "";
 					productType = "";
+					quantity = productList.get(i).getQuantity();
 					/**
 					 * BONUS: Here we create an instanceof method that helps us initalize
 					 * variables to what they need to be. And we do it for each product
 					 * This also shows dynamic polymorphism.
 					 */
-					//YEARMEMBERSHIP ---------------------------------------------------------------------------------------------------------------->
+			//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
-							System.out.println("The product code is " + productCode);
 							productType = "Year-long membership";
 							productName = yProduct.membershipName;							
 							startDate = yProduct.getStartDate();
@@ -249,7 +245,7 @@ public class InvoiceWriter {
 
 
 						}
-						//DAYMEMBERSHIP ---------------------------------------------------------------------------------------------------------------->
+			//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
 						if(dProduct.getProductType().equals("D")) {
@@ -268,9 +264,9 @@ public class InvoiceWriter {
 								subTotal = dProduct.getSubTotal(costPerUnit, quantity);
 								tax = dProduct.getTax(subTotal);
 								totalCost = dProduct.getTotal(subTotal, tax);
-								//They get a 50% discount if it falls in the month of january
+								//They get a 50% discount if it falls in the month of January
 								System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
-								System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, costPerUnit);
+								System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + "w/ %%50 off)\n", "", sDate, quantity, costPerUnit);
 								DMSubTotal = subTotal;
 								DMTaxes = tax;
 								DMTotal = totalCost;
@@ -293,7 +289,7 @@ public class InvoiceWriter {
 
 
 						}
-						//PARKING PASS -------------------------------------------------------------------------------------------------------------------------------->
+			//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
 						if (pProduct.getProductType().equals("P")) {
@@ -319,32 +315,33 @@ public class InvoiceWriter {
 							} else if (personCode.equals(YearMembershipFromInvoice)) {
 								if(quantity < 365) {
 									//if the amount bought is less than 365 then they get a all passes
-									System.out.printf("%-9s %-12s "  + personCode +  " (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 									break;
 								} else if (quantity > 365) {
 									//If they actually buy more than 365 then they will only get 365 free
-									System.out.printf("%-9s %-12s "  + personCode +  " (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 									break;
 								} 
 							} else if (personCode.equals(DayMembershipFromInvoice)) {
-								//Print out the calculations do the calculations
+								//They get 1 free parking pass if they buy a DayMembership
+								quantity = quantity - 1;
 								costPerUnit = pProduct.getCost();
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, 1.00, "", subTotal-((quantity-1)*costPerUnit), tax-(((quantity-1)*costPerUnit)*0.04), totalCost-(((quantity-1)*costPerUnit) + (((quantity-1)*costPerUnit)*0.04)));
-								PPSubTotal = subTotal-(1*costPerUnit);
-								PPTaxes = tax-(costPerUnit*0.04);
-								PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
+								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity+1, costPerUnit, 1.00, "", subTotal, tax, totalCost);
+								PPSubTotal = subTotal;
+								PPTaxes = tax;
+								PPTotal = totalCost;
 								break;
 							} else {
-								System.out.printf("%-9s %-12s " + "I am here" + DayMembershipFromInvoice + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
+								System.out.printf("%-9s %-12s (" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
 								PPSubTotal = subTotal;
 								PPTaxes = tax;
 								PPTotal = totalCost;
@@ -353,7 +350,7 @@ public class InvoiceWriter {
 
 
 						}
-						//EQUIPMENT ---------------------------------------------------------------------------------------------------------------->
+			//EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
 					} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
 						if (eProduct.getProductType().equals("R")) {
@@ -361,9 +358,6 @@ public class InvoiceWriter {
 							productType = "Rental Equipment";
 							personCode = productList.get(i).getPersonCode();
 							productName = eProduct.getEquipment();
-							
-							System.out.println("The product belongs to membership: " + productList.get(i).getPersonCode());
-
 							costPerUnit = eProduct.getCost();
 							subTotal = eProduct.getSubTotal(costPerUnit, quantity);
 							tax = eProduct.getTax(subTotal);
@@ -371,7 +365,7 @@ public class InvoiceWriter {
 
 							if (productType.equals("Rental Equipment")) {
 								if(personCode.equals("")) {
-									//They do NOT get a discount (bc there is no year membership tied to)
+									//They do NOT get a discount (because there is no year membership tied to)
 									System.out.printf("%-9s %-13s - %-51s $%10.2f $%9.2f $%10.2f\n", productCode, productType, productName, subTotal, tax, totalCost);
 									System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n", "", quantity, costPerUnit);
 									RESubTotal = subTotal;
@@ -390,30 +384,18 @@ public class InvoiceWriter {
 									//They do NOT get a discount
 									System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, subTotal, tax, totalCost);
 									System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, costPerUnit);
-									// Here we initalize varibles to the actual cost info of the rentals
+									// Here we initialize varibles to the actual cost info of the rentals
 									RESubTotal = subTotal;
 									RETaxes = tax;
 									RETotal = totalCost;
 									break;
 								}
-
 							}
 						}
 					}
 				}
-
-
-
-
-
 			}
-
-
 		}
-
-
-
-
 
 
 		System.out.println("                                                                                ===================================");
