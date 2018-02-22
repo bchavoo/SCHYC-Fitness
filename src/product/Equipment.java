@@ -33,6 +33,8 @@ public class Equipment extends Service {
 	 * The method below are overridden, the abstraction creation helps with the process
 	 * and with the calculations needed to be done.
 	 */
+	 // The abstraction will hide some details and only show the right
+	//features of the object
 	@Override
 	public double getSubTotal(double cost, double quantity) {
 
