@@ -257,7 +257,6 @@ public class InvoiceWriter {
 							String sDate = dateOutput.print(startDate);
 
 							// if the month is 1 we give discount if not than we don't
-
 							if (dProduct.getStartDate().getMonthOfYear() == 1) {
 								costPerUnit = dProduct.getCost() * dProduct.getDiscount();
 								subTotal = dProduct.getSubTotal(costPerUnit, quantity);
@@ -301,17 +300,28 @@ public class InvoiceWriter {
 							tax = pProduct.getTax(subTotal);
 							totalCost = pProduct.getTotal(subTotal, tax);
 
-							if (personCode.equals(YearMembershipFromInvoice)) {
+							if(personCode.equals("")) {
+								/**
+								 * Here we see if the person code equals to null than we will give it no free
+								 * parking passes 
+								 */
+								//THEY GET NO FREE PARKING PASSES
+								System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
+								PPSubTotal = subTotal;
+								PPTaxes = tax;
+								PPTotal = totalCost;
+								break; 
+							} else if (personCode.equals(YearMembershipFromInvoice)) {
 								if(quantity < 365) {
 									//if the amount bought is less than 365 then they get a all passes
-									System.out.printf("%-9s %-12s "  + personCode +  " (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 									break;
 								} else if (quantity > 365) {
 									//If they actually buy more than 365 then they will only get 365 free
-									System.out.printf("%-9s %-12s "  + personCode +  " (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
@@ -323,24 +333,13 @@ public class InvoiceWriter {
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								System.out.printf("%-9s %-12s "  + personCode +  " (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 								PPSubTotal = subTotal-(1*costPerUnit);
 								PPTaxes = tax-(costPerUnit*0.04);
 								PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
 								break;
-							} else if(personCode.equals("")) {
-								/**
-								 * Here we see if the person code equals to null than we will give it no free
-								 * parking passes 
-								 */
-								//THEY GET NO FREE PARKING PASSES
-								System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
-								PPSubTotal = subTotal;
-								PPTaxes = tax;
-								PPTotal = totalCost;
-								break; 
 							} else {
-								System.out.printf("%-9s %-12s " + "I am here" + DayMembershipFromInvoice + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
+								System.out.printf("%-9s %-12s (" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
 								PPSubTotal = subTotal;
 								PPTaxes = tax;
 								PPTotal = totalCost;
