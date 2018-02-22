@@ -74,7 +74,10 @@ public class InvoiceWriter {
 		System.out.println("Invoice   Member                                            Personal Trainer                 Subtotal        Fees       Taxes    Discount       Total");
 
 		double[]totalArray = new double[fullArray.size()]; 
-
+        /**
+         * Here we create a array and store the calculation for the subtotal
+         * student fees, taxes, discount and total.
+         */
 
 		for(int i = 0; i < fullArray.size(); i++) {
 			totalArray[i] = fullArray.get(i).get(0).getSubTotal();
@@ -85,6 +88,10 @@ public class InvoiceWriter {
 		}
 
 		for(int i = 0; i < invoiceList.size(); i++){
+		    /**
+		     * Here we create a for loop to loop  the invoice list and we use variables
+		     * and initalize it to the infomation we need
+		     */
 			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 			String memberType = invoiceList.get(i).getMemberCode().getMemberType();
 			String memberNameType = "";
@@ -99,7 +106,7 @@ public class InvoiceWriter {
 
 
 
-
+    // print out info
 			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 		}
 		System.out.println("========================================================================================================================================================");
@@ -110,6 +117,9 @@ public class InvoiceWriter {
 	
 	
 	public static void createSingleInvoiceReport(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
+		/**
+		 * Here we create a function/method that holds arguments of the invoice and print them out
+		 */
 		System.out.println("\nIndividual Invoice Detail Reports");
 		System.out.println("===============================================");
 		System.out.println("Invoice  " + invoiceNumber);
@@ -142,7 +152,7 @@ public class InvoiceWriter {
 		double subTotal = 0;
 		String YearMembershipFromInvoice = "";
 		String DayMembershipFromInvoice = "";
-
+// Here we initalize many variables for our calculation and format
 		double YMSubTotal = 0;
 		double DMSubTotal = 0;
 		double PPSubTotal = 0;
@@ -166,6 +176,10 @@ public class InvoiceWriter {
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
 					productType = "";
+					/**
+					 * Here we create an instanceof method that helps us initalize
+					 * variables to what they need to be. And we do it for each product
+					 */
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
@@ -202,7 +216,7 @@ public class InvoiceWriter {
 							address = dProduct.getAddress().getStreet();
 							DayMembershipFromInvoice = dProduct.getProductCode();
 
-
+                            // if the month is 1 we give discount if not than we don't
 
 							if (dProduct.getStartDate().getMonthOfYear() == 1) {
 								costPerUnit = dProduct.getCost() * dProduct.getDiscount();
@@ -266,7 +280,7 @@ public class InvoiceWriter {
 					String eDate = dateOutput.print(endDate);
 					
 					if(startDate.getMonthOfYear() == 1) {
-						//They get a 15% discount
+						//They get a 15% discount if the purchase falls within the first month
 						String s1 = productType;
 						String s2 = "'" + productName + "' @ ";
 						String s3 = address;
@@ -279,6 +293,10 @@ public class InvoiceWriter {
 						
 					} else if (startDate.getMonthOfYear() != 1) {
 						//No discount
+						/**
+						 * Here we create three strings and these strings include the products info
+						 * so then we use this to store it in one big string which helps with format.
+						 */
 						String s1 = productType;
 						String s2 = "'" + productName + "' @ ";
 						String s3 = address;
@@ -295,7 +313,7 @@ public class InvoiceWriter {
 				DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 				String sDate = dateOutput.print(startDate);
 				if(startDate.getMonthOfYear() == 1) {
-					//They get a 50% discount
+					//They get a 50% discount if it falls in the month of january
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, costPerUnit);
 					DMSubTotal = subTotal;
@@ -305,6 +323,7 @@ public class InvoiceWriter {
 					//No Discount
 					System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
 					System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + ")\n", "", sDate, quantity, costPerUnit);
+				    //Here we initalize variables to their actual cost info
 					DMSubTotal = subTotal;
 					DMTaxes = tax;
 					DMTotal = totalCost;
@@ -316,24 +335,33 @@ public class InvoiceWriter {
 
 
 				if(personCode.equals("")) {
+				    /**
+				     * Here we see if the person code equals to null than we will give it no free
+				     * parking passes 
+				     */
 					//THEY GET NO FREE PARKING PASSES
 					System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.2f" + ")" + "%39s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
 					PPSubTotal = subTotal;
 					PPTaxes = tax;
 					PPTotal = totalCost;
 				} else if (personCode.equals(DayMembershipFromInvoice)) {
+					//Print out the calculations do the calculations
 					System.out.printf("%-9s %-12s %-4s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-1.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, 1.00, "", subTotal-(1*costPerUnit), tax-(costPerUnit*0.04), totalCost-((costPerUnit) + ((costPerUnit)*0.04)));
 					PPSubTotal = subTotal-(1*costPerUnit);
 					PPTaxes = tax-(costPerUnit*0.04);
 					PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
 				} else if (personCode.equals(YearMembershipFromInvoice)) {
 					if(quantity < 365) {
+					    //if the amount bought is less than 365 than they get a certain amount of free
+					    //passes
 						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%29s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 						PPSubTotal = subTotal-(quantity*costPerUnit);
 						PPTaxes = tax-((quantity*costPerUnit)*0.04);
 						PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 					} else if (quantity > 365) {
 						System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-3.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, 365.00, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));	
+						// Here we initalize varibles to the actual cost info of the parking pass
+
 						PPSubTotal = subTotal-(quantity*costPerUnit);
 						PPTaxes = tax-((quantity*costPerUnit)*0.04);
 						PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
@@ -352,7 +380,7 @@ public class InvoiceWriter {
 					RETotal = totalCost;
 				} else {
 					if(personCode.equals(YearMembershipFromInvoice)) {
-						//THEY GET A 5% DISCOUNT
+						//THEY GET A 5% DISCOUNT if the person code is connected to a year membership
 						System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, subTotal*0.95, (subTotal*0.95)*0.04, (subTotal*0.95) + ((subTotal*0.95)*0.04));
 						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, costPerUnit);
 						RESubTotal =  subTotal*0.95;
@@ -361,7 +389,8 @@ public class InvoiceWriter {
 					} else {
 						//They do NOT get a discount
 						System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, subTotal, tax, totalCost);
-						System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, costPerUnit);
+				    	System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, costPerUnit);
+						// Here we initalize varibles to the actual cost info of the rentals
 						RESubTotal = subTotal;
 						RETaxes = tax;
 						RETotal = totalCost;
