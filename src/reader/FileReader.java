@@ -144,7 +144,7 @@ public class FileReader {
 			
 		
 			/**
-			 * Here we have runtime POLYMORPHISM, we declare a Member variable but
+			 * Here we have runtime polymorphism, we declare a Member variable but
 			 * instead we create and store a new General or Student object
 			 */
 			if(memberType.equals("G")) {
@@ -199,7 +199,7 @@ public class FileReader {
 				double cost = Double.parseDouble(token[3]);
 
 				/**
-				 * Here we again have runtime POLYMORPHISM, we declare a Product variable
+				 * Here we again have runtime polymorphism, we declare a Product variable
 				 * but we store a new Equipment or Parking Pass
 				 */
 				Product product = new Equipment(equipment, cost, productCode, productType);
@@ -235,7 +235,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				/**
-				 * Here we again have runtime POLYMORPHISM, we declare a Product variable
+				 * Here we again have runtime polymorphism, we declare a Product variable
 				 * but we store a new Year or DayMembership
 				 */
 				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
@@ -346,6 +346,7 @@ public class FileReader {
 						if(tokenType.length == 2) {
 							productCode = tokenType[0];
 							quantity = Integer.parseInt(tokenType[1]);
+							personCode = "";
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
 							invoiceProductArray.add(ip);
@@ -363,7 +364,7 @@ public class FileReader {
                     
 				Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
 
-				// Add Invoice to the invoice list that will be returned at the end
+				// Add Invoice to the invoice list
 				invoiceList.add(v);
 			}
 			return invoiceList;
