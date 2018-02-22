@@ -286,6 +286,7 @@ public class InvoiceWriter {
 
 
 						}
+						//Helps the overridden
 
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
