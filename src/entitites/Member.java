@@ -85,6 +85,8 @@ public abstract class Member {
 	 * Here we use abstraction methods so that it could help us with calculations and later
 	 * override the super class
 	 */
+	 // The abstraction will hide some details and only show the right
+	//features of the object
 	public abstract double getTax();
 	public abstract double getDiscount();
 	public abstract double additionalFee();
