@@ -2,10 +2,9 @@ package entitites;
 
 public abstract class Member {
 
-	/*
+	/**
 	 * Here we have variables needed for the member class
 	 */
-
 	public String memberCode;
 	public String memberType;
 	public Person contact;

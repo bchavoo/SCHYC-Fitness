@@ -20,10 +20,15 @@ public abstract class Membership extends Product {
 	
 	public Membership(String productCode, DateTime startDate, Address address, String productType) {
 		super(productCode);
+		/**
+		 * This is an instance where we override the super class Product and added the attributes
+		 * startDate, address, and productType
+		 */
 		this.startDate = startDate;
 		this.address = address;
 		this.productType = productType;
 	}
+	//Getters and Setters
 	public DateTime getStartDate() {
 		return startDate;
 	}

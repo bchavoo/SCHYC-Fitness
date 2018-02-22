@@ -6,7 +6,8 @@ public abstract class Product {
 	private String productCode;
 	
 	/**
-	 * our product class includes strings of product code and product type
+	 * Our product class includes strings of product code and product type
+	 * It is also the super class of Service and Membership
 	 * @param productCode
 	 */
 	//Constructor

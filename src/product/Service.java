@@ -4,7 +4,7 @@ public abstract class Service extends Product {
 	
 	/**
 	 * The service is  child class of the Product super class. The super helps us see that the 
-	 *Service INHERENTES attributes of the Service class. 
+	 *Service INHERITS attributes of the Service class. 
 	 * @param productCode
 	 * @param cost
 	 * @param productType
@@ -17,6 +17,7 @@ public abstract class Service extends Product {
 	//Constructor
 	public Service(String productCode, double cost, String productType) {
 		super(productCode);
+		//This is an instance where we override the super class Product and added the attribute cost and productType
 		this.cost = cost;
 		this.productType = productType;
 	}

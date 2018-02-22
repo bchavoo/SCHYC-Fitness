@@ -13,7 +13,7 @@ public class InvoiceProducts {
 	private int quantity;
 	private String personCode;
 	
-	// here we create constructors and getter and setter
+	//Here we create constructors and getter and setter
 	public InvoiceProducts(String productCode, int quantity, String personCode) {
 		super();
 		this.productCode = productCode;
@@ -21,6 +21,7 @@ public class InvoiceProducts {
 		this.personCode = personCode;
 	}
 	
+	//Getters and Setters
 	public String getProductCode() {
 		return productCode;
 	}

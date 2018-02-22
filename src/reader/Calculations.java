@@ -9,7 +9,8 @@ public class Calculations {
 	/**
 	 * The calculation class is just an object with 'total' attributes
 	 * that we use in the calculations algorithm to 
-	 * compute the invoice and its subTotals and other numbers,
+	 * compute the invoice and its subTotals and other numbers
+	 * These are the attributes
 	 */
 	private double subTotal;
 	private double taxes;

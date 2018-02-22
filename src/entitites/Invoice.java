@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class Invoice {
 	
-	/*
+	/**
 	 * The invoice class takes in many attributes and from other classes such as person code
 	 * and member code, the invoice products are also stored in a array list
 	 */
-	
 	private String invoiceCode;
 	private Member memberCode;
 	private Person personalTrainerCode;
@@ -25,6 +24,7 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 		this.invoiceProducts = invoiceProducts;
 	}
+	//Getters and Setters
 	public String getInvoiceCode() {
 		return invoiceCode;
 	}

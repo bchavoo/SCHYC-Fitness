@@ -20,6 +20,7 @@ public class DayMemberships extends Membership {
 	 
 	public DayMemberships(DateTime startDate, Address address, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
+		//This is an instance where we overrid the super class Membership and added the attribute cost
 		this.cost = cost;
 	}
 

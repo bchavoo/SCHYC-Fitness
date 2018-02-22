@@ -45,6 +45,11 @@ public class InvoiceWriterCalculations {
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
 				
+				/**
+				 * We initialize it back to empty, null, or zero at the beginning of every 
+				 * loop even though these parameters are not specified as used
+				 * we use them in conditionals in this algorithm
+				 */
 				String productCode = "";
 				String productType = "";
 				String personCode = "";

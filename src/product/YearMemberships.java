@@ -26,6 +26,7 @@ public class YearMemberships extends Membership {
 	 */
 	public YearMemberships(DateTime startDate, DateTime endDate, Address address, String membershipName, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
+		//This is an instance where we override the super class Membership and added the attribute cost
 		this.endDate = endDate;
 		this.membershipName = membershipName;
 		this.cost = cost;

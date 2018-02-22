@@ -4,8 +4,8 @@ public class General extends Member {
 
 	double cost;
 	
-	/*
-	 * Inheritance is used here because the child class (General) inherits all of the attributes of the Member class
+	/**
+	 * Inheritance is used here because the child class (General) inherits all of the attributes of the super Member class
 	 * then below we add getters and setters or the general attributes which is its cost.
 	 */
 
@@ -20,11 +20,11 @@ public class General extends Member {
 	public General(String memberCode, String memberType, Person contact, String name, Address address) {
 		super(memberCode, memberType, contact, name, address);
 	}
-	/*
+	
+	/**
 	 * Here the abstraction is in use and overrides the parent class 
 	 * we have the calculations of the taxes and discount and its total
 	 */
-
 	@Override
 	public double getTax() {
 		double totalT = 0.06 * this.getCost();

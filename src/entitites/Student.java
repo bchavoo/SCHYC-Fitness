@@ -3,15 +3,15 @@ package entitites;
 public class Student extends Member {
 
 	double cost;
-	/*
+	/**
 	 * Here the student is a sub class for the member super class and the student class 
 	 * inherits the attributes of the member class
 	 */
-
 	public Student(String memberCode, String memberType, Person contact, String name, Address address) {
 		super(memberCode, memberType, contact, name, address);
 	}
 
+	//Getters and Setters
 	public double getCost() {
 		return cost;
 	}

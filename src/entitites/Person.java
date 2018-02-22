@@ -14,7 +14,6 @@ public class Person {
 	private Address address;
 	private ArrayList<String>email;
 
-	//Constructor
 	/**
 	 * Here created a person class with its contructor and setters and getters
 	 * @param personCode
