@@ -6,7 +6,6 @@ import java.util.List;
 import entitites.Invoice;
 import reader.FileReader;
 import writer.InvoiceWriter;
-import writer.JSONWriter;
 public class InvoiceReport {
 
 	public static void main(String[] args) throws IOException {
@@ -16,16 +15,7 @@ public class InvoiceReport {
 
 		//This will generate invoice report
 		InvoiceWriter.createInvoiceReport(invoiceList);
-		
-		JSONWriter.createInvoiceList(invoiceList);
-		
-		
-		
-		
-		//Create JSON Writer Object
-		
 
-		//Create XML Writer Object
 
 	}
 
