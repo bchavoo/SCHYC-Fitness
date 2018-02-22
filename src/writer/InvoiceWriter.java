@@ -314,11 +314,14 @@ public class InvoiceWriter {
 								break; 
 							} else if (personCode.equals(YearMembershipFromInvoice)) {
 								if(quantity < 365) {
-									//if the amount bought is less than 365 then they get a all passes
-									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
-									PPSubTotal = subTotal-(quantity*costPerUnit);
-									PPTaxes = tax-((quantity*costPerUnit)*0.04);
-									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
+									//if the amount bought is less than 365 then they get a all passes free
+									subTotal = 0;
+									tax = 0;
+									totalCost = 0;
+									System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal, tax, totalCost);
+									PPSubTotal = 0;
+									PPTaxes = 0;
+									PPTotal = 0;
 									break;
 								} else if (quantity > 365) {
 									//If they actually buy more than 365 then they will only get 365 free
@@ -350,7 +353,7 @@ public class InvoiceWriter {
 
 
 						}
-			//EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
+			//RENTAL EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
 					} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
 						if (eProduct.getProductType().equals("R")) {
