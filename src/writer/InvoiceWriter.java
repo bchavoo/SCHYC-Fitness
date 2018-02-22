@@ -32,7 +32,7 @@ public class InvoiceWriter {
 		 * Here we create a while loop that loops through the invoice list and we use 
 		 * Variables to initialize parts of the invoice
 		 */
-
+//	We also see 
 		while(i < invoiceList.size()) {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
@@ -58,11 +58,40 @@ public class InvoiceWriter {
 			fullArray.add(calcList);
 
 
+			i++;
+		}
+		
+		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
+		fullArray.clear();
+		i =0;
+		while(i < invoiceList.size()) {
+			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			Member temp = invoiceList.get(i).getMemberCode();
+			String memberName = temp.getName();
+			String memberCode = temp.getMemberCode();
+			String memberType = temp.getMemberType();
+			if(memberType.equals("G")) {
+				memberType = "General";
+			} else if (memberType.equals("S")) {
+				memberType = "Student";
+			}
+			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+
+			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+
+			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+
+
+			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			fullArray.add(calcList);
+
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
 		}
-
-		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
+		
 	}
 
 
@@ -99,8 +128,8 @@ public class InvoiceWriter {
 			finalTotalFees += fullArray.get(j).get(0).getStudentFees();
 			finalTotalTaxes += fullArray.get(j).get(0).getTaxes();
 			finalTotalDiscount += fullArray.get(j).get(0).getDiscount();
-			finalTotalTotal += fullArray.get(j).get(0).getDiscount();	
-		}
+			finalTotalTotal += fullArray.get(j).get(0).getFinalTotal();		
+			}
 
 		/**
 		 * Here we create a for loop to loop  the invoice list and we use variables
@@ -155,7 +184,6 @@ public class InvoiceWriter {
 		List<Product> productFileList = FileReader.createProductList();
 
 
-		//System.out.println(productFileList.get(0).getProductCode();
 		String productCode = "";
 		String productType = "";
 		String personCode = "";
@@ -226,7 +254,7 @@ public class InvoiceWriter {
 									String s3 = address;
 									String all = s1 + " " + s2 + " " + s3;
 									System.out.printf("%-9s %-70s $%10.2f $%9.2f $%10.2f\n", productCode, all, subTotal, tax, totalCost);
-									System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit / yProduct.getDiscount());
+									System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit);
 									YMSubTotal = subTotal;
 									YMTaxes = tax;
 									YMTotal = totalCost;
@@ -301,6 +329,12 @@ public class InvoiceWriter {
 
 
 						}
+						/**
+						 * Here we use instance of method to help us show the properties and info
+						 * we need for parking pass. Which helps check if the object would be a instance
+						 * of a type.
+						 */
+						 
 
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
@@ -347,7 +381,7 @@ public class InvoiceWriter {
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, 1.00, "", subTotal-((quantity-1)*costPerUnit), tax-(((quantity-1)*costPerUnit)*0.04), totalCost-(((quantity-1)*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 								PPSubTotal = subTotal-(1*costPerUnit);
 								PPTaxes = tax-(costPerUnit*0.04);
 								PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
@@ -403,25 +437,12 @@ public class InvoiceWriter {
 									RETotal = totalCost;
 									break;
 								}
-
 							}
 						}
 					}
 				}
-
-
-
-
-
 			}
-
-
 		}
-
-
-
-
-
 
 		System.out.println("                                                                                ===================================");
 		double allSubTotals = YMSubTotal + DMSubTotal + PPSubTotal + RESubTotal;
@@ -443,18 +464,6 @@ public class InvoiceWriter {
 		System.out.printf("\n\n                                       Thank you for your purchase! :)\n");
 
 		//All totals are set back to zero
-		YMSubTotal = 0;
-		DMSubTotal = 0;
-		PPSubTotal = 0;
-		RESubTotal = 0;
-		YMTaxes = 0;
-		DMTaxes = 0;
-		PPTaxes = 0;
-		RETaxes = 0;
-		YMTotal = 0;
-		DMTotal = 0;
-		PPTotal = 0;
-		RETotal = 0;
 
 	}
 
