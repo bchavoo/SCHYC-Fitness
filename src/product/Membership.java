@@ -7,12 +7,16 @@ import entitites.Address;
 //Abstract class of Membership
 public abstract class Membership extends Product {
 
+//Encamsulation when making the address private
 	
 	private DateTime startDate;
 	private Address address;
 	public String productType;
 	
-
+    /**
+     * Here is the membership which is the products child class and it inherites 
+     * what is in its super class. 
+     */
 	
 	public Membership(String productCode, DateTime startDate, Address address, String productType) {
 		super(productCode);
