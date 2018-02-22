@@ -62,10 +62,8 @@ public class InvoiceWriter {
 			i++;
 		}
 
-		InvoiceWriterCalculations.createExcutiveReport(invoiceList, fullArray);
+		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
 	}
-
-
 
 
 	public static void createExcutiveReport(List<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
