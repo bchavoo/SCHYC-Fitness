@@ -22,13 +22,13 @@ public class DataConverter {
 
 
 		//Create JSON file for each of the lists
-		//JSONWriter.createPersonJSON(personList);
-		//JSONWriter.createMemberJSON(memberList);
+		JSONWriter.createPersonJSON(personList);
+		JSONWriter.createMemberJSON(memberList);
 		JSONWriter.createProductJSON(productList);
 
 		//Create XML file for each of the same lists 
-		//XMLWriter.createPersonXML(personList);
-		//XMLWriter.createMemberXML(memberList);
+		XMLWriter.createPersonXML(personList);
+		XMLWriter.createMemberXML(memberList);
 		XMLWriter.createProductXML(productList);
 
 

@@ -1,29 +1,22 @@
 package writer;
 
 import java.util.ArrayList;
-//import java.io.IOException;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import entitites.Address;
 import entitites.Invoice;
 import entitites.InvoiceProducts;
 import entitites.Member;
-import entitites.Person;
 import product.DayMemberships;
 import product.Equipment;
-import product.Membership;
 import product.ParkingPass;
 import product.Product;
-import product.Service;
 import product.YearMemberships;
 import reader.Calculations;
 import reader.FileReader;
 
-public class InvoiceWriterCALC {
+public class InvoiceWriterCalculations {
 
 
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
@@ -52,12 +45,12 @@ public class InvoiceWriterCALC {
 			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
 
 
-			List<Calculations> calcList = InvoiceWriterCALC.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			fullArray.add(calcList);
 			i++;
 		}
 
-		InvoiceWriterCALC.createExcutiveReport(invoiceList, fullArray);
+		InvoiceWriterCalculations.createExcutiveReport(invoiceList, fullArray);
 
 	}
 
@@ -85,18 +78,18 @@ public class InvoiceWriterCALC {
 			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 			String memberType = invoiceList.get(i).getMemberCode().getMemberType();
 			String memberNameType = "";
-			double subTotal = 0;
-			double tax = invoiceList.get(i).getMemberCode().getTax();
-			double studentFee = 0;
+//			double subTotal = 0;
+//			double tax = invoiceList.get(i).getMemberCode().getTax();
+//			double studentFee = 0;
 
 			if(memberType.equals("G")) {
 				memberType = "General";
 				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
-				studentFee = 0;
+				//studentFee = 0;
 			} else if (memberType.equals("S")) {
 				memberType = "Student";
 				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
-				studentFee = 10.50;
+				//studentFee = 10.50;
 			}
 
 

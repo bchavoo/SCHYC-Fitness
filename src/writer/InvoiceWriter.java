@@ -12,13 +12,10 @@ import entitites.Address;
 import entitites.Invoice;
 import entitites.InvoiceProducts;
 import entitites.Member;
-import entitites.Person;
 import product.DayMemberships;
 import product.Equipment;
-import product.Membership;
 import product.ParkingPass;
 import product.Product;
-import product.Service;
 import product.YearMemberships;
 import reader.Calculations;
 import reader.FileReader;
@@ -57,7 +54,7 @@ public class InvoiceWriter {
 			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
 
 
-			List<Calculations> calcList = InvoiceWriterCALC.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			fullArray.add(calcList);
 			
 			
@@ -65,7 +62,7 @@ public class InvoiceWriter {
 			i++;
 		}
 
-		InvoiceWriterCALC.createExcutiveReport(invoiceList, fullArray);
+		InvoiceWriterCalculations.createExcutiveReport(invoiceList, fullArray);
 	}
 
 

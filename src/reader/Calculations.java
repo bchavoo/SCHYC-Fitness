@@ -3,16 +3,6 @@ package reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
-import entitites.Address;
-import entitites.InvoiceProducts;
-import entitites.Person;
-import product.DayMemberships;
-import product.Equipment;
-import product.ParkingPass;
-import product.Product;
-import product.YearMemberships;
 
 public class Calculations {
 	

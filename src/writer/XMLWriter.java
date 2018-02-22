@@ -12,9 +12,9 @@ import product.ParkingPass;
 import product.Product;
 import product.YearMemberships;
 
-import java.io.FileWriter;
+//import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 
 public class XMLWriter {
 

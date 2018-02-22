@@ -4,10 +4,6 @@ import entitites.Invoice;
 import entitites.Member;
 import entitites.Person;
 import product.Product;
-import product.YearMemberships;
-import product.DayMemberships;
-
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,7 +64,7 @@ public class JSONWriter {
 
 		String jsonString = gson.toJson(invoiceList);
 
-		//System.out.println(jsonString);
+		System.out.println(jsonString);
 
 		//		FileWriter fileWriter = new FileWriter("data/Products.json");
 		//		PrintWriter printWriter = new PrintWriter(fileWriter);
