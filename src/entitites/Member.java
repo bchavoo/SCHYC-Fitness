@@ -2,6 +2,10 @@ package entitites;
 
 public abstract class Member {
 
+/*
+	 * Here we have variables needed for the member class
+	 */
+
 	public String memberCode;
 	public String memberType;
 	public Person contact;
@@ -10,6 +14,14 @@ public abstract class Member {
 
 
 	//Constructor
+	/**
+	 * Created constructor with its arguments of the member class. And we created getters and setters
+	 * @param memberCode
+	 * @param memberType
+	 * @param contact
+	 * @param name
+	 * @param address
+	 */
 	public Member(String memberCode, String memberType, Person contact, String name, Address address) {
 		super();
 		this.memberCode = memberCode;
@@ -70,6 +82,10 @@ public abstract class Member {
 	}
 	
 	//Abstract Methods
+	/*
+	 * Here we use abstraction methods so that it could help us with calculations and later
+	 * override the super class
+	 */
 	public abstract double getTax();
 	public abstract double getDiscount();
 	public abstract double additionalFee();
