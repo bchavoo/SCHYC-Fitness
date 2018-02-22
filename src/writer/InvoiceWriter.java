@@ -31,6 +31,10 @@ public class InvoiceWriter {
 		int i = 0;
 		ArrayList<List<Calculations>> fullArray = new ArrayList<List<Calculations>>();
 
+            /**
+			 * Here we create a while loop that loops through the invoice list and we use 
+			 * Variables to initialize parts of the invoice
+			 */
 
 		while(i < invoiceList.size()) {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
