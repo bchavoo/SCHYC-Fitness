@@ -310,13 +310,13 @@ public class InvoiceWriter {
 							} else if (personCode.equals(YearMembershipFromInvoice)) {
 								if(quantity < 365) {
 									//if the amount bought is less than 365 then they get a all passes
-									System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%29s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s"  + personCode +  "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%26s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 								} else if (quantity > 365) {
 									//If they actually buy more than 365 then they will only get 365 free
-									System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-3.0f free)" + "%25s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, 365.00, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+									System.out.printf("%-9s %-12s"  + personCode +  "(" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%26s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 									PPSubTotal = subTotal-(quantity*costPerUnit);
 									PPTaxes = tax-((quantity*costPerUnit)*0.04);
 									PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
