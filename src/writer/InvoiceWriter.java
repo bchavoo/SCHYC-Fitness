@@ -347,7 +347,7 @@ public class InvoiceWriter {
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, quantity, "", subTotal-(quantity*costPerUnit), tax-((quantity*costPerUnit)*0.04), totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04)));
+								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%4.2f" + " @ %-2.0f free)" + "%24s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity, costPerUnit, 1.00, "", subTotal-((quantity-1)*costPerUnit), tax-(((quantity-1)*costPerUnit)*0.04), totalCost-(((quantity-1)*costPerUnit) + ((quantity*costPerUnit)*0.04)));
 								PPSubTotal = subTotal-(1*costPerUnit);
 								PPTaxes = tax-(costPerUnit*0.04);
 								PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
