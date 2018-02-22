@@ -27,6 +27,9 @@ import product.Product;
 import product.YearMemberships;
 
 public class FileReader {
+    /**
+	 * here we store the person member and product in a list
+	 */
 
 	public static List<Person> personList = new ArrayList<Person>();
 	public static List<Member> memberList = new ArrayList<Member>();
@@ -50,7 +53,9 @@ public class FileReader {
 		}
 
 		numberOfPersons = Integer.parseInt(s.nextLine());
-
+         /**
+		 * Here we tokenize the person file 
+		 */
 		while (s.hasNext()) {
 			String line = s.nextLine();
 			String token[] = line.split(";");
@@ -65,6 +70,9 @@ public class FileReader {
 			String zip = tokenAddress[3];
 			String country = tokenAddress[4];
 
+            /**
+			 * here we store the email in an arraylist
+			 */
 			ArrayList<String> emailArray = new ArrayList<String>();
 
 			// Instead make more generic with loop for email(larger size);
@@ -77,6 +85,10 @@ public class FileReader {
 			}
 
 			Address a = new Address(street, city, state, zip, country);
+            /**
+			 * We create two new objects that will contain the address and person inff
+			 */
+
 
 			Person p = new Person(personCode, firstName, lastName, a, emailArray);
 
@@ -99,7 +111,9 @@ public class FileReader {
 		}
 
 		numberOfMembers = Integer.parseInt(m.nextLine());
-
+        /**
+		 * Here we tokenize the member file
+		 */
 		while (m.hasNext()) {
 			String line = m.nextLine();
 			String token[] = line.split(";");
@@ -124,6 +138,11 @@ public class FileReader {
 					match = personList.get(i);
 				}
 			}
+			
+			/**
+			 * Here we create a for loop that will help match a persons info
+			 *
+			 */
 
 			//RUN TIME POLYMORPHISM
 			if(memberType.equals("G")) {
@@ -156,7 +175,8 @@ public class FileReader {
 		while (pr.hasNext()) {
 			String line = pr.nextLine();
 			String token[] = line.split(";");
-
+			// we want to initalize all the varibles as an empty string that
+			//we will eventually fill in
 			String productCode = "";
 			String productType = "";
 			String street = "";
@@ -165,7 +185,11 @@ public class FileReader {
 			String zip = "";
 			String country = "";
 			String membershipGroup = "";
-
+             /**
+			 * for the next conditionals we tokenize the product through if its a 
+			 * rental parking day or year memberships. And we portray the varibles
+			 * needed for each product
+			 */
 			if (token[1].equals("R")) {
 				productCode = token[0];
 				productType = token[1];
@@ -214,6 +238,7 @@ public class FileReader {
 				productCode = token[0];
 				productType = token[1];
 				
+				// create date and time as date time formatters 
 				DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 				DateTime startDate = date.parseDateTime(token[2]);
 				
@@ -263,6 +288,9 @@ public class FileReader {
 				
 				String memberCode = token[1];
 				
+					/**
+				 * Here we call the member list so that we can access them
+				 */
 				List<Member> memberList = FileReader.createMemberList();
 				
 				//Find and store Member
@@ -274,6 +302,9 @@ public class FileReader {
 				
 				String personalTrainerCode = token[2];
 				
+				/**
+				 * Here we call the person list so that we can access them
+				 */
 				List<Person> personList = FileReader.createPersonList();
 				
 				//Find and store Person
@@ -289,9 +320,17 @@ public class FileReader {
 				
 				String tokenProducts[] = token[4].split(",");
 				
+				/**
+				 * here we create an array list called invoiceProductArray that will contain
+				 * the products in that invoice
+				 */
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
 				
-				
+				/**
+				 * Here we use a for loop to loop the token products length to find if 
+				 * its 2 or 3 for the last part of the token to decide the information
+				 * needed for.
+				 */
 				for(int i = 0; i < tokenProducts.length; i++) {
 					int quantity = 0;
 					String tokenType[] = tokenProducts[i].split(":");
@@ -313,9 +352,10 @@ public class FileReader {
 						}
 				}
 
+                    
 				Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
 
-				// Add Invoice
+				// Add Invoice to the invoice list
 				invoiceList.add(v);
 			}
 			return invoiceList;
