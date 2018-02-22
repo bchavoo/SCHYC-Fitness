@@ -10,7 +10,7 @@ public class DayMemberships extends Membership {
 
 	/**
 	 * The DayMembership is  subclass of the membership. The super helps us see that the 
-	 * day membership INHERENTES attributes of the Membership class. 
+	 * day membership INHERENTES attributes of the Membership class and overrides them. 
 	 * @param startDate
 	 * @param address
 	 * @param cost
