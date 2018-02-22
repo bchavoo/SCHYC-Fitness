@@ -226,7 +226,7 @@ public class InvoiceWriter {
 									String s3 = address;
 									String all = s1 + " " + s2 + " " + s3;
 									System.out.printf("%-9s %-70s $%10.2f $%9.2f $%10.2f\n", productCode, all, subTotal, tax, totalCost);
-									System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit);
+									System.out.printf("%9s %-8s - %-8s " + "(" + "%-2.0f" + " units @ " + "$%5.2f" + " with %%15 off)\n", "", sDate, eDate, quantity, costPerUnit / yProduct.getDiscount());
 									YMSubTotal = subTotal;
 									YMTaxes = tax;
 									YMTotal = totalCost;
