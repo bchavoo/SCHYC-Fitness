@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class Invoice {
 	
+	/*
+	 * The invoice class takes in many attributes and from other classes such as person code
+	 * and member code, the invoice products are also stored in a array list
+	 */
+	
 	private String invoiceCode;
 	private Member memberCode;
 	private Person personalTrainerCode;
 	private String invoiceDate;
 	private ArrayList<InvoiceProducts> invoiceProducts;
 	
+	 //Here we create constructors and the setters and getters
+
 	
 	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate,
 			ArrayList<InvoiceProducts> invoiceProducts) {
