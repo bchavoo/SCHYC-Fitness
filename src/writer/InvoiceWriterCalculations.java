@@ -202,11 +202,7 @@ public class InvoiceWriterCalculations {
 							PPTaxes = tax-((quantity*costPerUnit)*0.04);
 							PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 						}
-					} else {
-						PPSubTotal = subTotal;
-						PPTaxes = tax;
-						PPTotal = totalCost;
-					}
+					} 
 
 
 
