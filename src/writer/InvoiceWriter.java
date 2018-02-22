@@ -181,8 +181,9 @@ public class InvoiceWriter {
 
 					productType = "";
 					/**
-					 * Here we create an instanceof method that helps us initalize
+					 * BONUS: Here we create an instanceof method that helps us initalize
 					 * variables to what they need to be. And we do it for each product
+					 * This also shows dynamic polymorphism.
 					 */
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
