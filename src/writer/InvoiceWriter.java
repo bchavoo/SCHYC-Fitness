@@ -56,10 +56,6 @@ public class InvoiceWriter {
 			List<Calculations> calcList = InvoiceWriterCALC.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			fullArray.add(calcList);
 			
-			if(i == 0) {
-				InvoiceWriterCALC.createExcutiveReport(invoiceList, fullArray);
-	
-			}
 			
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
