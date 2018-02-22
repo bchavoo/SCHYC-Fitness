@@ -2,6 +2,11 @@ package entitites;
 
 public class Address {
 
+
+    /**
+     * Encapsulation is shown here, the strings are all private which
+     * cant be accessed by the user
+     */
 	private String street;
 	private String city;
 	private String state;
@@ -9,6 +14,14 @@ public class Address {
 	private String country;
 
 	//Constructor
+	/**
+	 * Contructors are created for the class as well as their setters and getters
+	 * @param street
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param country
+	 */
 	public Address(String street, String city, String state, String zip, String country) {
 		super();
 		this.street = street;
