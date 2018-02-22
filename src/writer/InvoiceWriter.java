@@ -90,7 +90,7 @@ public class InvoiceWriter {
 
 		/**
 		 * Here we create a for loop to loop  the invoice list and we use variables
-		 * and initalize it to the infomation we need
+		 * and initialize it to the information we need
 		 */
 		for(int i = 0; i < invoiceList.size(); i++){
 			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
