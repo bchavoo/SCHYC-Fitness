@@ -2,6 +2,13 @@ package entitites;
 
 public class InvoiceProducts {
 	
+	/**
+	 * We create a invoice product class that would include the product and person code and the amount of products (quantity)
+	 * @param productCode
+	 * @param quantity
+	 * @param personCode
+	 */
+	
 	private String productCode;
 	private int quantity;
 	private String personCode;
