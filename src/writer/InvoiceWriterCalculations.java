@@ -61,7 +61,6 @@ public class InvoiceWriterCalculations {
 
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 
-					productType = "";
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
@@ -149,85 +148,81 @@ public class InvoiceWriterCalculations {
 				}
 
 
+				if(productType.equals("Year-long membership")) {
 
+					if(startDate.getMonthOfYear() == 1) {
 
+						YMSubTotal = subTotal;
+						YMTaxes = tax;
+						YMTotal = totalCost;
 
-			}
+					} else if (startDate.getMonthOfYear() != 1) {
 
-			if(productType.equals("Year-long membership")) {
-
-				if(startDate.getMonthOfYear() == 1) {
-
-					YMSubTotal = subTotal;
-					YMTaxes = tax;
-					YMTotal = totalCost;
-
-				} else if (startDate.getMonthOfYear() != 1) {
-
-					YMSubTotal = subTotal;
-					YMTaxes = tax;
-					YMTotal = totalCost;
-				}
-
-
-			} else if (productType.equals("Day-long membership")) {
-
-				if(startDate.getMonthOfYear() == 1) {
-
-					DMSubTotal = subTotal;
-					DMTaxes = tax;
-					DMTotal = totalCost;
-				}else if (startDate.getMonthOfYear() != 1){
-
-					DMSubTotal = subTotal;
-					DMTaxes = tax;
-					DMTotal = totalCost;
-				}
-
-			} else if (productType.equals("Parking Pass")) {
-
-
-
-
-				if(personCode.equals("")) {
-					PPSubTotal = subTotal;
-					PPTaxes = tax;
-					PPTotal = totalCost;
-				} else if (personCode.equals(DayMembershipFromInvoice)) {
-					PPSubTotal = subTotal-(1*costPerUnit);
-					PPTaxes = tax-(costPerUnit*0.04);
-					PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
-				} else if (personCode.equals(YearMembershipFromInvoice)) {
-					if(quantity < 365) {
-						PPSubTotal = subTotal-(quantity*costPerUnit);
-						PPTaxes = tax-((quantity*costPerUnit)*0.04);
-						PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
-					} else if (quantity > 365) {
-						PPSubTotal = subTotal-(quantity*costPerUnit);
-						PPTaxes = tax-((quantity*costPerUnit)*0.04);
-						PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
+						YMSubTotal = subTotal;
+						YMTaxes = tax;
+						YMTotal = totalCost;
 					}
-				} 
+
+
+				} else if (productType.equals("Day-long membership")) {
+
+					if(startDate.getMonthOfYear() == 1) {
+
+						DMSubTotal = subTotal;
+						DMTaxes = tax;
+						DMTotal = totalCost;
+					}else if (startDate.getMonthOfYear() != 1){
+
+						DMSubTotal = subTotal;
+						DMTaxes = tax;
+						DMTotal = totalCost;
+					}
+
+				} else if (productType.equals("Parking Pass")) {
 
 
 
-			} else if (productType.equals("Rental Equipment")) {
-				if(personCode.equals("")) {
 
-					RESubTotal = subTotal;
-					RETaxes = tax;
-					RETotal = totalCost;
-				} else {
-					if(personCode.equals(YearMembershipFromInvoice)) {
+					if(personCode.equals("")) {
+						PPSubTotal = subTotal;
+						PPTaxes = tax;
+						PPTotal = totalCost;
+					} else if (personCode.equals(DayMembershipFromInvoice)) {
+						PPSubTotal = subTotal-(1*costPerUnit);
+						PPTaxes = tax-(costPerUnit*0.04);
+						PPTotal = totalCost-((costPerUnit) + ((costPerUnit)*0.04));
+					} else if (personCode.equals(YearMembershipFromInvoice)) {
+						if(quantity < 365) {
+							PPSubTotal = subTotal-(quantity*costPerUnit);
+							PPTaxes = tax-((quantity*costPerUnit)*0.04);
+							PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
+						} else if (quantity > 365) {
+							PPSubTotal = subTotal-(quantity*costPerUnit);
+							PPTaxes = tax-((quantity*costPerUnit)*0.04);
+							PPTotal = totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
+						}
+					} 
 
-						RESubTotal =  subTotal*0.95;
-						RETaxes = (subTotal*0.95)*0.04;
-						RETotal = (subTotal*0.95) + ((subTotal*0.95)*0.04);
-					} else {
+
+
+				} else if (productType.equals("Rental Equipment")) {
+					if(personCode.equals("")) {
 
 						RESubTotal = subTotal;
 						RETaxes = tax;
 						RETotal = totalCost;
+					} else {
+						if(personCode.equals(YearMembershipFromInvoice)) {
+
+							RESubTotal =  subTotal*0.95;
+							RETaxes = (subTotal*0.95)*0.04;
+							RETotal = (subTotal*0.95) + ((subTotal*0.95)*0.04);
+						} else {
+
+							RESubTotal = subTotal;
+							RETaxes = tax;
+							RETotal = totalCost;
+						}
 					}
 				}
 			}
@@ -247,7 +242,7 @@ public class InvoiceWriterCalculations {
 			discount = (((allSubTotals * 0.08) + allTaxes) * -1);
 			additionalStudentFee = 10.50;
 		}
-		
+
 		double allTotals = YMTotal + DMTotal + PPTotal + RETotal + discount + additionalStudentFee;
 
 
