@@ -3,10 +3,13 @@ package entitites;
 public class Student extends Member {
 
 	double cost;
+	/*
+	 * Here the student is a sub class for the member super class and the student class 
+	 * inherits the attributes of the member class
+	 */
 
 	public Student(String memberCode, String memberType, Person contact, String name, Address address) {
 		super(memberCode, memberType, contact, name, address);
-		// TODO Auto-generated constructor stub
 	}
 
 	public double getCost() {
@@ -17,6 +20,10 @@ public class Student extends Member {
 		this.cost = cost;
 	}
 
+/**
+	 * Here the the super class is overridden and we used the abstraction method 
+	 * to help us with returning the right calculations
+	 */
 
 	@Override
 	public double getDiscount() {
