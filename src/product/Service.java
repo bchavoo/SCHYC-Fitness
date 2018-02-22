@@ -14,12 +14,14 @@ public abstract class Service extends Product {
 	private String productType;
 	
 
-	
+	//Constructor
 	public Service(String productCode, double cost, String productType) {
 		super(productCode);
 		this.cost = cost;
 		this.productType = productType;
 	}
+	
+	//Getters and setters
 	public double getCost() {
 		return cost;
 	}

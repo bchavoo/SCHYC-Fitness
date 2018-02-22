@@ -15,9 +15,7 @@ public class Invoice {
 	private String invoiceDate;
 	private ArrayList<InvoiceProducts> invoiceProducts;
 	
-	 //Here we create constructors and the setters and getters
-
-	
+	//Here we create constructors and the setters and getters	
 	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate,
 			ArrayList<InvoiceProducts> invoiceProducts) {
 		super();

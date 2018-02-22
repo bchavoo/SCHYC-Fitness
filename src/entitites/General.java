@@ -20,9 +20,9 @@ public class General extends Member {
 	public General(String memberCode, String memberType, Person contact, String name, Address address) {
 		super(memberCode, memberType, contact, name, address);
 	}
-	/**
-	 * here the abstraction is in use and overrides the parent class 
-	 * we have the calculations of the taxs and discount and its total
+	/*
+	 * Here the abstraction is in use and overrides the parent class 
+	 * we have the calculations of the taxes and discount and its total
 	 */
 
 	@Override

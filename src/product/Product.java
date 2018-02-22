@@ -1,6 +1,6 @@
 package product;
 
-//Abstract product class
+//Abstract Product class
 public abstract class Product {
 
 	private String productCode;
@@ -9,7 +9,6 @@ public abstract class Product {
 	 * our product class includes strings of product code and product type
 	 * @param productCode
 	 */
-
 	//Constructor
 	public Product(String productCode) {
 		super();

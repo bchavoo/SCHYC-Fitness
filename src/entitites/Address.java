@@ -3,7 +3,7 @@ package entitites;
 public class Address {
 
 
-    /**
+    /*
      * Encapsulation is shown here, the strings are all private which
      * cant be accessed by the user
      */
@@ -14,7 +14,7 @@ public class Address {
 	private String country;
 
 	//Constructor
-	/**
+	/*
 	 * Contructors are created for the class as well as their setters and getters
 	 * @param street
 	 * @param city

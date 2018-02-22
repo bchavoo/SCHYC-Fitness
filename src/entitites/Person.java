@@ -2,7 +2,7 @@ package entitites;
 
 import java.util.ArrayList;
 
-/**
+	/**
 	 * Encapsulation is shown by making the strings address and arraylist of string to private
 	 * Here we use type string for the person info but we also have to use type address so it would access the address attribute
 	 */
@@ -15,7 +15,7 @@ public class Person {
 	private ArrayList<String>email;
 
 	//Constructor
-		/**
+	/**
 	 * Here created a person class with its contructor and setters and getters
 	 * @param personCode
 	 * @param firstName

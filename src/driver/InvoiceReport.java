@@ -13,7 +13,7 @@ public class InvoiceReport {
 		//Creates a FlatFileReader object, this returns a list of invoices
 		List<Invoice> invoiceList = FileReader.createInvoiceList();
 
-		//This will generate invoice report
+		//This will generate invoice report and display it on the console
 		InvoiceWriter.createInvoiceReport(invoiceList);
 
 

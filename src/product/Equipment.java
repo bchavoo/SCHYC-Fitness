@@ -4,7 +4,6 @@ public class Equipment extends Service {
 
 	private String equipment;
 
-	//Constructor
 	/**
 	 * The Equipment is  child class of the Service super class. The super helps us see that the 
 	 *Equipment INHERENTES attributes of the Service class. 
@@ -13,8 +12,8 @@ public class Equipment extends Service {
 	 * @param productCode
 	 * @param productType
 	 */
-	 	//Overridden from the super class, more arguments were added
-
+	
+	 //Overridden from the super class, more arguments were added
 	public Equipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode, cost, productType);
 		this.equipment = equipment;
@@ -29,11 +28,11 @@ public class Equipment extends Service {
 		this.equipment = equipment;
 
 	}
-        /*
-		 * The method below are overridden, the abstraction creation helps with the process
-		 * and with the calculations needed to be done.
-		 */
-
+	
+    /*
+	 * The method below are overridden, the abstraction creation helps with the process
+	 * and with the calculations needed to be done.
+	 */
 	@Override
 	public double getSubTotal(double cost, double quantity) {
 

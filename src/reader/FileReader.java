@@ -24,10 +24,10 @@ import product.Product;
 import product.YearMemberships;
 
 public class FileReader {
+	
     /**
-	 * here we store the person member and product in a list
+	 * Here we store the person member and product in a list
 	 */
-
 	public static List<Person> personList = new ArrayList<Person>();
 	public static List<Member> memberList = new ArrayList<Member>();
 	public static List<Product> productList = new ArrayList<Product>();
@@ -50,6 +50,7 @@ public class FileReader {
 		}
 
 		numberOfPersons = Integer.parseInt(s.nextLine());
+		
          /**
 		 * Here we tokenize the person file 
 		 */
@@ -68,7 +69,7 @@ public class FileReader {
 			String country = tokenAddress[4];
 
             /**
-			 * here we store the email in an arraylist
+			 * Here we store the email in an arraylist
 			 */
 			ArrayList<String> emailArray = new ArrayList<String>();
 
@@ -108,6 +109,7 @@ public class FileReader {
 		}
 
 		numberOfMembers = Integer.parseInt(m.nextLine());
+		
         /**
 		 * Here we tokenize the member file
 		 */
@@ -130,18 +132,21 @@ public class FileReader {
 			// FIND AND ADD PERSON
 			Person match = null;
 			List<Person> personList = FileReader.createPersonList();
+			/**
+			 * Here we create a for loop that will help match a persons info
+			 *
+			 */
 			for (int i = 0; i < numberOfPersons; i++) {
 				if (personList.get(i).getPersonCode().equals(personCode)) {
 					match = personList.get(i);
 				}
 			}
 			
+		
 			/**
-			 * Here we create a for loop that will help match a persons info
-			 *
+			 * Here we have runtime polymorphism, we declare a Member variable but
+			 * instead we create and store a new General or Student object
 			 */
-
-			//RUN TIME POLYMORPHISM
 			if(memberType.equals("G")) {
 				Member mem = new General(memberCode, memberType, match, memberName, a);
 				memberList.add(mem);
@@ -172,8 +177,8 @@ public class FileReader {
 		while (pr.hasNext()) {
 			String line = pr.nextLine();
 			String token[] = line.split(";");
-			// we want to initalize all the varibles as an empty string that
-			//we will eventually fill in
+			// We initialize all the variables as an empty string that
+			//We will eventually fill in with values
 			String productCode = "";
 			String productType = "";
 			String street = "";
@@ -183,8 +188,8 @@ public class FileReader {
 			String country = "";
 			String membershipGroup = "";
              /**
-			 * for the next conditionals we tokenize the product through if its a 
-			 * rental parking day or year memberships. And we portray the varibles
+			 * For the next conditionals we tokenize the product through if its a 
+			 * rental, parking, day or year memberships. And we portray the variables
 			 * needed for each product
 			 */
 			if (token[1].equals("R")) {
@@ -193,7 +198,10 @@ public class FileReader {
 				String equipment = token[2];
 				double cost = Double.parseDouble(token[3]);
 
-				//POLYMORPHISM 
+				/**
+				 * Here we again have runtime polymorphism, we declare a Product variable
+				 * but we store a new Equipment or Parking Pass
+				 */
 				Product product = new Equipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
@@ -226,7 +234,10 @@ public class FileReader {
 
 				Address address = new Address(street, city, state, zip, country);
 
-				//POLYMORPHISM 
+				/**
+				 * Here we again have runtime polymorphism, we declare a Product variable
+				 * but we store a new Year or DayMembership
+				 */
 				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
@@ -235,7 +246,7 @@ public class FileReader {
 				productCode = token[0];
 				productType = token[1];
 				
-				// create date and time as date time formatters 
+				//Create date and time as date time formatters 
 				DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 				DateTime startDate = date.parseDateTime(token[2]);
 				
@@ -285,12 +296,13 @@ public class FileReader {
 				
 				String memberCode = token[1];
 				
-					/**
-				 * Here we call the member list so that we can access them
+				/**
+				 * Here we call the member list so that we can access the data
 				 */
+				
 				List<Member> memberList = FileReader.createMemberList();
 				
-				//Find and store Member
+				//Find and store a matching member from the invoice
 				for(int i = 0; i < numberOfMembers; i++) {
 					if(memberList.get(i).memberCode.equals(memberCode)) {
 						m = memberList.get(i);
@@ -300,7 +312,7 @@ public class FileReader {
 				String personalTrainerCode = token[2];
 				
 				/**
-				 * Here we call the person list so that we can access them
+				 * Here we call the person list so that we can access it's data
 				 */
 				List<Person> personList = FileReader.createPersonList();
 				
@@ -318,7 +330,7 @@ public class FileReader {
 				String tokenProducts[] = token[4].split(",");
 				
 				/**
-				 * here we create an array list called invoiceProductArray that will contain
+				 * Here we create an array list called invoiceProductArray that will contain
 				 * the products in that invoice
 				 */
 				ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
@@ -326,7 +338,7 @@ public class FileReader {
 				/**
 				 * Here we use a for loop to loop the token products length to find if 
 				 * its 2 or 3 for the last part of the token to decide the information
-				 * needed for.
+				 * needed for. We store all of it into an Array of InvoiceProducts
 				 */
 				for(int i = 0; i < tokenProducts.length; i++) {
 					int quantity = 0;
@@ -344,7 +356,6 @@ public class FileReader {
 							personCode = tokenType[2];
 							
 							InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-							//System.out.println("These are the products in " + invoiceNumber + " : " + ip);
 							invoiceProductArray.add(ip);
 						}
 				}

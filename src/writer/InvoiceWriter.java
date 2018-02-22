@@ -72,11 +72,13 @@ public class InvoiceWriter {
 		System.out.println("===========================");
 		System.out.println("Invoice   Member                                            Personal Trainer                 Subtotal        Fees       Taxes    Discount       Total");
 
-		double[]totalArray = new double[fullArray.size()]; 
 		/**
-		 * Here we create a array and store the calculation for the subtotal
-		 * student fees, taxes, discount and total.
+		 * Here we create a array and store the calculation for the subTotal
+		 * student fees, taxes, discount and total, then use further below
+		 * to display all of these values
 		 */
+		double[]totalArray = new double[fullArray.size()]; 
+
 
 		for(int i = 0; i < fullArray.size(); i++) {
 			totalArray[i] = fullArray.get(i).get(0).getSubTotal();
@@ -86,15 +88,19 @@ public class InvoiceWriter {
 			totalArray[i] = fullArray.get(i).get(0).getFinalTotal();
 		}
 
+		/**
+		 * Here we create a for loop to loop  the invoice list and we use variables
+		 * and initalize it to the infomation we need
+		 */
 		for(int i = 0; i < invoiceList.size(); i++){
-			/**
-			 * Here we create a for loop to loop  the invoice list and we use variables
-			 * and initalize it to the infomation we need
-			 */
 			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 			String memberType = invoiceList.get(i).getMemberCode().getMemberType();
 			String memberNameType = "";
 
+			/**
+			 * If the type is G then we set it to General but 
+			 * if the type is S then we set to Student
+			 */
 			if(memberType.equals("G")) {
 				memberType = "General";
 				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
@@ -104,8 +110,7 @@ public class InvoiceWriter {
 			}
 
 
-
-			// print out info
+			//Here we format and display the information we have
 			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 		}
 		System.out.println("========================================================================================================================================================");
@@ -192,8 +197,6 @@ public class InvoiceWriter {
 							YearMembershipFromInvoice = yProduct.getProductCode();
 
 							if(productType.equals("Year-long membership")) {
-
-
 								DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 								String sDate = dateOutput.print(startDate);
 								String eDate = dateOutput.print(endDate);

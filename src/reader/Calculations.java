@@ -6,6 +6,11 @@ import java.util.List;
 
 public class Calculations {
 	
+	/**
+	 * The calculation class is just an object with 'total' attributes
+	 * that we use in the calculations algorithm to 
+	 * compute the invoice and its subTotals and other numbers,
+	 */
 	private double subTotal;
 	private double taxes;
 	private double discount;
@@ -14,6 +19,7 @@ public class Calculations {
 	public static List<Calculations> calcList = new ArrayList<Calculations>();
 
 
+	//This is the constructor for calculations
 	public Calculations(double subTotal, double studentFees, double taxes, double discount, double finalTotal) {
 		super();
 		this.subTotal = subTotal;
@@ -23,6 +29,7 @@ public class Calculations {
 		this.finalTotal = finalTotal;
 	}
 	
+	//Getters and Setters
 	public double getSubTotal() {
 		return subTotal;
 	}

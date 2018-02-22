@@ -8,9 +8,6 @@ public class DayMemberships extends Membership {
 
 	private double cost;
 
-
-
-	//Constructor
 	/**
 	 * The DayMembership is  subclass of the membership. The super helps us see that the 
 	 * day membership INHERENTES attributes of the Membership class. 
@@ -65,13 +62,5 @@ public class DayMemberships extends Membership {
 
 		return cost + tax;
 	}
-
-	
-
-
-
-
-
-
 
 }

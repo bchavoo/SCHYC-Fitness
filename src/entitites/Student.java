@@ -20,7 +20,7 @@ public class Student extends Member {
 		this.cost = cost;
 	}
 
-/**
+	/**
 	 * Here the the super class is overridden and we used the abstraction method 
 	 * to help us with returning the right calculations
 	 */

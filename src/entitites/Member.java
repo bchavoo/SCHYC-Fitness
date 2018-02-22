@@ -2,7 +2,7 @@ package entitites;
 
 public abstract class Member {
 
-/*
+	/*
 	 * Here we have variables needed for the member class
 	 */
 
@@ -13,7 +13,6 @@ public abstract class Member {
 	public Address address;
 
 
-	//Constructor
 	/**
 	 * Created constructor with its arguments of the member class. And we created getters and setters
 	 * @param memberCode
@@ -82,7 +81,7 @@ public abstract class Member {
 	}
 	
 	//Abstract Methods
-	/*
+	/**
 	 * Here we use abstraction methods so that it could help us with calculations and later
 	 * override the super class
 	 */
