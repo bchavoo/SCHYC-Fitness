@@ -8,7 +8,19 @@ public class DayMemberships extends Membership {
 
 	private double cost;
 
+
+
 	//Constructor
+	/**
+	 * The DayMembership is  subclass of the membership. The super helps us see that the 
+	 * day membership INHERENTES attributes of the Membership class. 
+	 * @param startDate
+	 * @param address
+	 * @param cost
+	 * @param productCode
+	 * @param productType
+	 */
+	 
 	public DayMemberships(DateTime startDate, Address address, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
 		this.cost = cost;
@@ -23,6 +35,12 @@ public class DayMemberships extends Membership {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
+
+
+     /**
+	 * The abstraction helped override the super class so now we can use each of the 
+	 * these methods to help us calculate.
+	 */
 
 	@Override
 	public double getDiscount() {
