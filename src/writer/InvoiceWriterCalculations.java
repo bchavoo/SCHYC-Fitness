@@ -47,7 +47,7 @@ public class InvoiceWriterCalculations {
 				
 				/**
 				 * We initialize it back to empty, null, or zero at the beginning of every 
-				 * loop even though these parameters are not specified as used
+				 * loop even though these parameters are not specified as being used
 				 * we use them in conditionals in this algorithm
 				 */
 				String productCode = "";

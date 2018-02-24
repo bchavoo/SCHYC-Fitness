@@ -1,7 +1,6 @@
 package writer;
 
 import java.util.ArrayList;
-//import java.io.IOException;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -98,7 +97,7 @@ public class InvoiceWriter {
 	public static void createExcutiveReport(List<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
 
 		System.out.println("Executive Summary Report");
-		System.out.println("===========================");
+		System.out.println("=========================");
 		System.out.println("Invoice   Member                                            Personal Trainer                 Subtotal        Fees       Taxes    Discount       Total");
 
 		/**
@@ -157,7 +156,7 @@ public class InvoiceWriter {
 			//Here we format and display the information we have
 			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 		}
-		System.out.println("========================================================================================================================================================");
+		System.out.println("=====================================================================================================================================================");
 		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
 
 	}
@@ -168,10 +167,10 @@ public class InvoiceWriter {
 		/**
 		 * Here we create a function/method that holds arguments of the invoice and print them out
 		 */
-		System.out.println("\nIndividual Invoice Detail Reports");
-		System.out.println("===============================================");
-		System.out.println("Invoice  " + invoiceNumber);
+		System.out.println("\n\nIndividual Invoice Detail Reports");
 		System.out.println("==================================================");
+		System.out.println("Invoice  " + invoiceNumber);
+		System.out.println("========================");
 		System.out.println("Personal Trainer: " + trainerLastName + ", " + trainerFirstName);
 		System.out.println("Member Info:");
 		System.out.println("  " + memberName + "  (" + memberCode + ")");
