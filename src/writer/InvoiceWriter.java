@@ -32,7 +32,7 @@ public class InvoiceWriter {
 		 * Here we create a while loop that loops through the invoice list and we use 
 		 * Variables to initialize parts of the invoice
 		 */
-
+//	We also see 
 		while(i < invoiceList.size()) {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
@@ -58,11 +58,40 @@ public class InvoiceWriter {
 			fullArray.add(calcList);
 
 
+			i++;
+		}
+		
+		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
+		fullArray.clear();
+		i =0;
+		while(i < invoiceList.size()) {
+			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			Member temp = invoiceList.get(i).getMemberCode();
+			String memberName = temp.getName();
+			String memberCode = temp.getMemberCode();
+			String memberType = temp.getMemberType();
+			if(memberType.equals("G")) {
+				memberType = "General";
+			} else if (memberType.equals("S")) {
+				memberType = "Student";
+			}
+			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+
+			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+
+			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+
+
+			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			fullArray.add(calcList);
+
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
 		}
-
-		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
+		
 	}
 
 
