@@ -456,7 +456,7 @@ public class InvoiceWriter {
 		if(memberType.equals("Student")) {
 			discount = (((allSubTotals * 0.08) + allTaxes) * -1);
 			additionalStudentFee = 10.50;
-			System.out.printf("DISCOUNT (8 STUDENT & NO TAX) %73s $%10.2f\n", "", discount);
+			System.out.printf("DISCOUNT (8%% STUDENT & NO TAX) %72s $%10.2f\n", "", discount);
 			System.out.printf("ADDITIONAL FEE (Student) %78s $%10.2f\n","" , additionalStudentFee);
 		}
 
