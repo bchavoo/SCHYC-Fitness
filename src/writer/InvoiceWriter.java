@@ -157,7 +157,8 @@ public class InvoiceWriter {
 			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 		}
 		System.out.println("=====================================================================================================================================================");
-		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
+		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
+		System.out.println("\nIndividual Invoice Detail Reports");
 
 	}
 
@@ -167,7 +168,6 @@ public class InvoiceWriter {
 		/**
 		 * Here we create a function/method that holds arguments of the invoice and print them out
 		 */
-		System.out.println("\n\nIndividual Invoice Detail Reports");
 		System.out.println("==================================================");
 		System.out.println("Invoice  " + invoiceNumber);
 		System.out.println("========================");
@@ -461,7 +461,7 @@ public class InvoiceWriter {
 		}
 
 		System.out.printf("TOTAL %97s $%10.2f\n","" , allTotals + discount + additionalStudentFee);
-		System.out.printf("\n\n                                       Thank you for your purchase! :)\n");
+		System.out.printf("\n\n                                       Thank you for your purchase! :)\n\n");
 
 		//All totals are set back to zero
 		YMSubTotal = 0;
