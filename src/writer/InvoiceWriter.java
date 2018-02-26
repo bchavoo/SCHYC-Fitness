@@ -82,15 +82,11 @@ public class InvoiceWriter {
 			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 
 			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
-
-			System.out.println("This is the product list " + productList);
 			
 			
 			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			fullArray.add(calcList);
 			
-			System.out.println(calcList.get(0).getSubTotal());
-
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
 		}
