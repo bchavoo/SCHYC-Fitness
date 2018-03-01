@@ -214,6 +214,9 @@ public class InvoiceWriter {
 		double DMTotal = 0;
 		double PPTotal = 0;
 		double RETotal = 0;
+		
+		ArrayList<String> ymCodes = new ArrayList();
+		ArrayList<String> dmCodes = new ArrayList();
 
 
 		for(int i = 0; i < productList.size(); i++) {
@@ -239,6 +242,7 @@ public class InvoiceWriter {
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
 							YearMembershipFromInvoice = yProduct.getProductCode();
+							ymCodes.add(YearMembershipFromInvoice);
 
 							if(productType.equals("Year-long membership")) {
 								DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
@@ -299,6 +303,7 @@ public class InvoiceWriter {
 							DayMembershipFromInvoice = dProduct.getProductCode();
 							DateTimeFormatter dateOutput = DateTimeFormat.forPattern("MM/dd/yy");
 							String sDate = dateOutput.print(startDate);
+							dmCodes.add(DayMembershipFromInvoice);
 
 							// if the month is 1 we give discount if not than we don't
 
@@ -343,8 +348,21 @@ public class InvoiceWriter {
 							subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 							tax = pProduct.getTax(subTotal);
 							totalCost = pProduct.getTotal(subTotal, tax);
+							String freeType = "";
+							
+							for(int k = 0; k < ymCodes.size(); k++) {
+								if(personCode.equals(ymCodes.get(k))) {
+									freeType = "365";
+								}
+							} 
+							
+							for(int m = 0; m < dmCodes.size(); m++) {
+								if(personCode.equals(dmCodes.get(m))) {
+									freeType = "1";
+								}
+ 							}
 
-							if(personCode.equals("")) {
+							if(freeType.equals("")) {
 								/**
 								 * Here we see if the person code equals to null than we will give it no free
 								 * parking passes 
@@ -355,7 +373,7 @@ public class InvoiceWriter {
 								PPTaxes += tax;
 								PPTotal += totalCost;
 								break; 
-							} else if (personCode.equals(YearMembershipFromInvoice)) {
+							} else if (freeType.equals("365")) {
 								if(quantity < 365) {
 									//if the amount bought is less than 365 then they get a all passes free
 									subTotal = 0;
@@ -374,7 +392,7 @@ public class InvoiceWriter {
 									PPTotal += totalCost-((quantity*costPerUnit) + ((quantity*costPerUnit)*0.04));
 									break;
 								} 
-							} else if (personCode.equals(DayMembershipFromInvoice)) {
+							} else if (freeType.equals("1")) {
 								//They get 1 free parking pass if they buy a DayMembership
 								quantity = quantity - 1;
 								costPerUnit = pProduct.getCost();
