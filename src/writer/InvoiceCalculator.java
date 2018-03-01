@@ -133,12 +133,12 @@ public class InvoiceCalculator {
 
 
 						}
-					//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
-					/**
-					 * BONUS: Here we create an instanceof method that helps us initalize
-					 * variables to what they need to be. And we do it for each product
-					 * This also shows dynamic polymorphism.
-					 */
+						//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
+						/**
+						 * BONUS: Here we create an instanceof method that helps us initalize
+						 * variables to what they need to be. And we do it for each product
+						 * This also shows dynamic polymorphism.
+						 */
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
 						if(dProduct.getProductType().equals("D")) {
@@ -181,14 +181,14 @@ public class InvoiceCalculator {
 
 
 						}
-						
-						
-					//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
-					/**
-					 * BONUS: Here we create an instanceof method that helps us initalize
-					 * variables to what they need to be. And we do it for each product
-					 * This also shows dynamic polymorphism.
-					 */
+
+
+						//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
+						/**
+						 * BONUS: Here we create an instanceof method that helps us initalize
+						 * variables to what they need to be. And we do it for each product
+						 * This also shows dynamic polymorphism.
+						 */
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
 						if (pProduct.getProductType().equals("P")) {
@@ -274,41 +274,41 @@ public class InvoiceCalculator {
 						 * variables to what they need to be. And we do it for each product
 						 * This also shows dynamic polymorphism.
 						 */} else if (productFileList.get(j) instanceof Equipment) {
-						Equipment eProduct = (Equipment)productFileList.get(j);
-						if (eProduct.getProductType().equals("R")) {
-							productCode = eProduct.getProductCode();
-							productType = "Rental Equipment";
-							personCode = productList.get(i).getPersonCode();
-							productName = eProduct.getEquipment();
-							costPerUnit = eProduct.getCost();
-							subTotal = eProduct.getSubTotal(costPerUnit, quantity);
-							tax = eProduct.getTax(subTotal);
-							totalCost = eProduct.getTotal(subTotal, tax);
+							 Equipment eProduct = (Equipment)productFileList.get(j);
+							 if (eProduct.getProductType().equals("R")) {
+								 productCode = eProduct.getProductCode();
+								 productType = "Rental Equipment";
+								 personCode = productList.get(i).getPersonCode();
+								 productName = eProduct.getEquipment();
+								 costPerUnit = eProduct.getCost();
+								 subTotal = eProduct.getSubTotal(costPerUnit, quantity);
+								 tax = eProduct.getTax(subTotal);
+								 totalCost = eProduct.getTotal(subTotal, tax);
 
-							if (productType.equals("Rental Equipment")) {
-								if(personCode.equals("")) {
-									//They do NOT get a discount (because there is no year membership tied to)
-									RESubTotal += subTotal;
-									RETaxes += tax;
-									RETotal += totalCost;
-									break;
-								} else if(personCode.equals(YearMembershipFromInvoice)) {
-									//THEY GET A 5% DISCOUNT if the person code is connected to a year membership
-									RESubTotal +=  subTotal*0.95;
-									RETaxes += (subTotal*0.95)*0.04;
-									RETotal += (subTotal*0.95) + ((subTotal*0.95)*0.04);
-									break;
-								} else {
-									//They do NOT get a discount
-									// Here we initialize varibles to the actual cost info of the rentals
-									RESubTotal += subTotal;
-									RETaxes += tax;
-									RETotal += totalCost;
-									break;
-								}
-							}
-						}
-					}
+								 if (productType.equals("Rental Equipment")) {
+									 if(personCode.equals("")) {
+										 //They do NOT get a discount (because there is no year membership tied to)
+										 RESubTotal += subTotal;
+										 RETaxes += tax;
+										 RETotal += totalCost;
+										 break;
+									 } else if(personCode.equals(YearMembershipFromInvoice)) {
+										 //THEY GET A 5% DISCOUNT if the person code is connected to a year membership
+										 RESubTotal +=  subTotal*0.95;
+										 RETaxes += (subTotal*0.95)*0.04;
+										 RETotal += (subTotal*0.95) + ((subTotal*0.95)*0.04);
+										 break;
+									 } else {
+										 //They do NOT get a discount
+										 // Here we initialize varibles to the actual cost info of the rentals
+										 RESubTotal += subTotal;
+										 RETaxes += tax;
+										 RETotal += totalCost;
+										 break;
+									 }
+								 }
+							 }
+						 }
 				}
 			}
 		}
