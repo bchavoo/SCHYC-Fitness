@@ -54,7 +54,8 @@ public class InvoiceWriterCalculations {
 		double DMTotal = 0;
 		double PPTotal = 0;
 		double RETotal = 0;
-		
+		//Here we created array lists so that the prices of some of the year and day memberships do not override and so
+		// the information would be stored in them to recieve the right calculations.		
 		ArrayList<String> ymCodes = new ArrayList();
 		ArrayList<String> dmCodes = new ArrayList();
 
