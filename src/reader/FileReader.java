@@ -337,8 +337,10 @@ public class FileReader {
 				
 				/**
 				 * Here we use a for loop to loop the token products length to find if 
-				 * its 2 or 3 for the last part of the token to decide the information
-				 * needed for. We store all of it into an Array of InvoiceProducts
+				 * it is 2 or 3 for the last part of the token to decide the if we will have 
+				 * a related membership tied to the product so we can store it or
+				 * if we have no extra data and can ignore it.
+				 * We then store all of it into an Array of InvoiceProducts
 				 */
 				for(int i = 0; i < tokenProducts.length; i++) {
 					int quantity = 0;
@@ -361,10 +363,13 @@ public class FileReader {
 						}
 				}
 
-                    
+                /**
+                 * At the end we create a new invoice with all the
+                 * information we gathered from the invoice file into an Invoice object
+                 * and add the object to a list of Invoices
+                 */
 				Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
 
-				// Add Invoice to the invoice list
 				invoiceList.add(v);
 			}
 			return invoiceList;

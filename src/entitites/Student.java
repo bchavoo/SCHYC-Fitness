@@ -21,7 +21,7 @@ public class Student extends Member {
 	}
 
 	/**
-	 * Here the the super class is overridden and we used the abstraction method 
+	 * Here the the super class methods are overridden and we used the abstraction method 
 	 * to help us with returning the right calculations
 	 */
 

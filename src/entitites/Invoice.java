@@ -3,20 +3,20 @@ package entitites;
 import java.util.ArrayList;
 
 public class Invoice {
-	
+
 	/**
-	 * The invoice class takes in many attributes and from other classes such as person code
-	 * and member code, the invoice products are also stored in a array list
+	 * The invoice class takes in many attributes from the text file we create an invoice here
+	 * which takes in an invoiceCode, memberCode, personalTrainerCode, date, and
+	 * an array list of products (where we store all the products of each invoice
 	 */
 	private String invoiceCode;
 	private Member memberCode;
 	private Person personalTrainerCode;
 	private String invoiceDate;
 	private ArrayList<InvoiceProducts> invoiceProducts;
-	
-	//Here we create constructors and the setters and getters	
-	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate,
-			ArrayList<InvoiceProducts> invoiceProducts) {
+
+	//Here we create constructor for this class
+	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate, ArrayList<InvoiceProducts> invoiceProducts) {
 		super();
 		this.invoiceCode = invoiceCode;
 		this.memberCode = memberCode;
@@ -24,6 +24,7 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 		this.invoiceProducts = invoiceProducts;
 	}
+
 	//Getters and Setters
 	public String getInvoiceCode() {
 		return invoiceCode;
@@ -55,7 +56,7 @@ public class Invoice {
 	public void setProductsList(ArrayList<InvoiceProducts> invoiceProducts) {
 		this.invoiceProducts = invoiceProducts;
 	}
-	
-	
+
+
 
 }

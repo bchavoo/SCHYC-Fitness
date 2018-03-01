@@ -3,13 +3,11 @@ package product;
 public abstract class Service extends Product {
 	
 	/**
-	 * The service is  child class of the Product super class. The super helps us see that the 
-	 *Service INHERITS attributes of the Service class. 
-	 * @param productCode
+	 * The Service class is a child class of the Product super class. The super helps us see that  
+	 * Service INHERITS attributes of the Service class. 
 	 * @param cost
 	 * @param productType
 	 */
-	
 	private double cost;
 	private String productType;
 	
@@ -37,8 +35,8 @@ public abstract class Service extends Product {
 	}
 	
 
-	//Abstract Methods
 	/**
+	 * AbstractMethods
 	 * Here we create abstract methods to successfully use to override the super class
 	 * and calculations
 	 * @param cost

@@ -3,10 +3,10 @@ package entitites;
 public class Address {
 
 
-    /**
-     * Encapsulation is shown here, the strings are all private which
-     * can't be accessed by the user
-     */
+	/**
+	 * Encapsulation is shown here, the strings are all private which
+	 * can't be accessed by the user
+	 */
 	private String street;
 	private String city;
 	private String state;

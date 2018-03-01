@@ -3,7 +3,8 @@ package entitites;
 public abstract class Member {
 
 	/**
-	 * Here we have variables needed for the member class
+	 * Here we have more variables needed for the member class
+	 * that are not defined in it's parent classes
 	 */
 	public String memberCode;
 	public String memberType;
@@ -78,14 +79,15 @@ public abstract class Member {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	
-	//Abstract Methods
+
 	/**
+	 * Abstract Methods
 	 * Here we use abstraction methods so that it could help us with calculations and later
 	 * override the super class
+	 * 
+	 * The abstraction will hide the details and only show the right
+	 * features of the object
 	 */
-	 // The abstraction will hide some details and only show the right
-	//features of the object
 	public abstract double getTax();
 	public abstract double getDiscount();
 	public abstract double additionalFee();

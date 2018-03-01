@@ -5,13 +5,20 @@ import java.util.List;
 
 
 public class Calculations {
-	
+
 	/**
 	 * The calculation class is just an object with 'total' attributes
 	 * that we use in the calculations algorithm to 
 	 * compute the invoice and its subTotals and other numbers
-	 * These are the attributes
+	 * We also store each calculation in an array list to be used later in Executive Report
+	 * @param subTotal
+	 * @param taxes
+	 * @param discount
+	 * @param finalTotal
+	 * @param studentFees;
+	 * @param calcList
 	 */
+
 	private double subTotal;
 	private double taxes;
 	private double discount;
@@ -29,7 +36,7 @@ public class Calculations {
 		this.discount = discount;
 		this.finalTotal = finalTotal;
 	}
-	
+
 	//Getters and Setters
 	public double getSubTotal() {
 		return subTotal;
@@ -70,6 +77,6 @@ public class Calculations {
 	public void setFinalTotal(double finalTotal) {
 		this.finalTotal = finalTotal;
 	}
-	
+
 
 }

@@ -25,13 +25,13 @@ public class InvoiceWriter {
 	public static void createInvoiceReport(List<Invoice> invoiceList)  {
 		//Do all calculations and formatting here
 		int i = 0;
-		ArrayList<List<Calculations>> fullArray = new ArrayList<List<Calculations>>();
+		ArrayList<List<Calculations>> allCalcTotals = new ArrayList<List<Calculations>>();
 
 		/**
 		 * Here we create a while loop that loops through the invoice list and we use 
 		 * Variables to initialize parts of the invoice
 		 */
- 
+
 		while(i < invoiceList.size()) {
 			//This wile loop will have the information needed for the executive report.
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
@@ -53,17 +53,29 @@ public class InvoiceWriter {
 
 			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
 
-
-			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
-			fullArray.add(calcList);
+			/**
+			 * Here we use the information of the invoice we find and pass through the
+			 * Calculations class to process and calculation all the totals and returns the list of
+			 * totals where we add to our list of lists to be used in the InvoiceWriter
+			 */
+			List<Calculations> calcList = InvoiceCalculator.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			allCalcTotals.add(calcList);
 
 
 			i++;
 		}
-		
-		InvoiceWriter.createExcutiveReport(invoiceList, fullArray);
-		fullArray.clear();
+
+		//Use the list of invoices and calculations to create the overall executive report
+		InvoiceWriter.createExcutiveReport(invoiceList, allCalcTotals);
+		allCalcTotals.clear();
+
+
 		i =0;
+		/**
+		 * Here we repeat the while loop through the invoice but instead of getting the overall
+		 * Executive Report we will process one invoice at a time and pass through
+		 * the InvoiceWriter to create a single invoice and will repeat until no more invoices are left
+		 */
 		while(i < invoiceList.size()) {
 			//Here we initialize what is needed for the single invoices which contains information from the invoice class and other super classes
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
@@ -84,18 +96,18 @@ public class InvoiceWriter {
 			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 
 			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
-			
-			
-			List<Calculations> calcList = InvoiceWriterCalculations.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
-			fullArray.add(calcList);
-			
+
+
+			List<Calculations> calcList = InvoiceCalculator.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+			allCalcTotals.add(calcList);
+
+			//Creates a single invoice, processing one invoice at a time as it reads the data
 			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			i++;
 		}
-		
+
 	}
 
-	//Method to calculate executive report summary
 	public static void createExcutiveReport(List<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
 
 		System.out.println("Executive Summary Report");
@@ -109,7 +121,7 @@ public class InvoiceWriter {
 		 */
 		double[]totalArray = new double[fullArray.size()]; 
 
-
+		//Process and find individual totals
 		for(int i = 0; i < fullArray.size(); i++) {
 			totalArray[i] = fullArray.get(i).get(0).getSubTotal();
 			totalArray[i] = fullArray.get(i).get(0).getStudentFees();
@@ -117,25 +129,26 @@ public class InvoiceWriter {
 			totalArray[i] = fullArray.get(i).get(0).getDiscount();
 			totalArray[i] = fullArray.get(i).get(0).getFinalTotal();
 		}
-		
+
 		double finalTotalSubTotal = 0; 
 		double finalTotalFees = 0;
 		double finalTotalTaxes = 0;
 		double finalTotalDiscount = 0;
 		double finalTotalTotal = 0;
-		
+
+		//Find the total of all types of totals
 		for(int j = 0; j < fullArray.size(); j++) {
 			finalTotalSubTotal += fullArray.get(j).get(0).getSubTotal();
 			finalTotalFees += fullArray.get(j).get(0).getStudentFees();
 			finalTotalTaxes += fullArray.get(j).get(0).getTaxes();
 			finalTotalDiscount += fullArray.get(j).get(0).getDiscount();
 			finalTotalTotal += fullArray.get(j).get(0).getFinalTotal();		
-			}
+		}
 
 
 		/**
 		 * Here we create a for loop to loop  the invoice list and we use variables
-		 * and initalize it to the infomation we need
+		 * and initialize it to the information we need
 		 */
 		for(int i = 0; i < invoiceList.size(); i++){
 			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
@@ -183,10 +196,9 @@ public class InvoiceWriter {
 		System.out.println("------------------------------------------");
 		System.out.println("Code      Item                                                                      SubTotal        Tax       Total");
 
+		//Here we call the ProductList from FileReader to access its data
 		List<Product> productFileList = FileReader.createProductList();
 
-
-		//System.out.println(productFileList.get(0).getProductCode();
 		String productCode = "";
 		String productType = "";
 		String personCode = "";
@@ -216,13 +228,17 @@ public class InvoiceWriter {
 		double DMTotal = 0;
 		double PPTotal = 0;
 		double RETotal = 0;
-		//Here we created array lists so that the prices of some of the year and day memberships do not override and so
-		// the information would be stored in them to recieve the right calculations.
-		ArrayList<String> ymCodes = new ArrayList();
-		ArrayList<String> dmCodes = new ArrayList();
+		
+		/** 
+		 * Here we created array lists so that the prices of some of the year and day memberships do not replace previous products
+		 * (for example, if a person buys two kinds of DayMembership, the data from the first product is not replaced)
+		 * and so the information would be stored in them to receive the right calculations.
+		 */
+		ArrayList<String> ymCodes = new ArrayList<String>();
+		ArrayList<String> dmCodes = new ArrayList<String>();
 
 		//Here we create two for loops for the sizes of the product list and product file list.
-		
+
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
 
@@ -231,11 +247,16 @@ public class InvoiceWriter {
 					productType = "";
 					quantity = productList.get(i).getQuantity();
 					/**
+					 * BONUS: Here we create an instance of method that helps us initialize
+					 * variables to what they need to be. And we do it for each product
+					 * This also shows dynamic polymorphism.
+					 */
+					//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
+					/**
 					 * BONUS: Here we create an instanceof method that helps us initalize
 					 * variables to what they need to be. And we do it for each product
 					 * This also shows dynamic polymorphism.
 					 */
-			//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
@@ -296,7 +317,7 @@ public class InvoiceWriter {
 
 
 						}
-			//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
+						//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
 						/**
 						 * BONUS: Here we create an instanceof method that helps us initalize
 						 * variables to what they need to be. And we do it for each product
@@ -346,7 +367,7 @@ public class InvoiceWriter {
 
 
 						}
-			//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
+						//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
 						/**
 						 * BONUS: Here we create an instanceof method that helps us initalize
 						 * variables to what they need to be. And we do it for each product
@@ -365,18 +386,18 @@ public class InvoiceWriter {
 							String freeType = "";
 							// Here we create two for loops for yearly and daily memberships that says if the person code 
 							// equals the same as the ymcode than they will get 365 free parking passes and 1 if they have a day membership
-							
+
 							for(int k = 0; k < ymCodes.size(); k++) {
 								if(personCode.equals(ymCodes.get(k))) {
 									freeType = "365";
 								}
 							} 
-							
+
 							for(int m = 0; m < dmCodes.size(); m++) {
 								if(personCode.equals(dmCodes.get(m))) {
 									freeType = "1";
 								}
- 							}
+							}
 
 							if(freeType.equals("")) {
 								/**
@@ -430,13 +451,13 @@ public class InvoiceWriter {
 
 
 						}
-			//RENTAL EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
+						//RENTAL EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
 						/**
 						 * BONUS: Here we create an instanceof method that helps us initalize
 						 * variables to what they need to be. And we do it for each product
 						 * This also shows dynamic polymorphism.
 						 */
-					
+
 					} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
 						if (eProduct.getProductType().equals("R")) {
@@ -483,7 +504,7 @@ public class InvoiceWriter {
 			}
 		}
 
-		// Here we initialize all of the subtotals, taxes, and totals of all the products into one variable.
+		// Here we initialize all of the subtotals, taxes, and totals of all the products into one variable to display the complete totals
 		System.out.println("                                                                                ===================================");
 		double allSubTotals = YMSubTotal + DMSubTotal + PPSubTotal + RESubTotal;
 		double allTaxes = YMTaxes + DMTaxes + PPTaxes + RETaxes;
@@ -493,7 +514,8 @@ public class InvoiceWriter {
 
 		double discount = 0;
 		double additionalStudentFee = 0;
-		//If the membertype is student they get specific discounts and fees
+		
+		//If the membertype is student they get specific discounts and fees so we calculate those now
 		if(memberType.equals("Student")) {
 			discount = (((allSubTotals * 0.08) + allTaxes) * -1);
 			additionalStudentFee = 10.50;
@@ -504,7 +526,7 @@ public class InvoiceWriter {
 		System.out.printf("TOTAL %97s $%10.2f\n","" , allTotals + discount + additionalStudentFee);
 		System.out.printf("\n\n                                       Thank you for your purchase! :)\n\n");
 
-		//All totals are set back to zero
+		//All totals are set back to zero for the next invoice
 		YMSubTotal = 0;
 		DMSubTotal = 0;
 		PPSubTotal = 0;

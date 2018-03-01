@@ -17,14 +17,18 @@ import product.YearMemberships;
 import reader.Calculations;
 import reader.FileReader;
 
-public class InvoiceWriterCalculations {
+public class InvoiceCalculator {
 
+	//Invoice Total Algorithm
 	public static List<Calculations> calculateTotals(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
-
 
 		List<Product> productFileList = FileReader.createProductList();
 
 
+		/**
+		 * Although some of these varibles (on Eclipse) say they are not "used"
+		 * we do use them throughout the algorithm to calculate the totals
+		 */
 		String productCode = "";
 		String productType = "";
 		String personCode = "";
@@ -39,7 +43,7 @@ public class InvoiceWriterCalculations {
 		double subTotal = 0;
 		String YearMembershipFromInvoice = "";
 		String DayMembershipFromInvoice = "";
-		
+
 		double YMSubTotal = 0;
 		double DMSubTotal = 0;
 		double PPSubTotal = 0;
@@ -54,10 +58,14 @@ public class InvoiceWriterCalculations {
 		double DMTotal = 0;
 		double PPTotal = 0;
 		double RETotal = 0;
-		//Here we created array lists so that the prices of some of the year and day memberships do not override and so
-		// the information would be stored in them to recieve the right calculations.		
-		ArrayList<String> ymCodes = new ArrayList();
-		ArrayList<String> dmCodes = new ArrayList();
+
+		/** 
+		 * Here we created array lists so that the prices of some of the year and day memberships do not replace previous products
+		 * (for example, if a person buys two kinds of DayMembership, the data from the first product is not replaced)
+		 * and so the information would be stored in them to receive the right calculations.
+		 */
+		ArrayList<String> ymCodes = new ArrayList<String>();
+		ArrayList<String> dmCodes = new ArrayList<String>();
 
 		/**
 		 * Complex algorithm to calculate the subTotal, taxes, discount, free parking passes,
@@ -76,7 +84,7 @@ public class InvoiceWriterCalculations {
 					 * variables to what they need to be. And we do it for each product
 					 * This also shows dynamic polymorphism.
 					 */
-			//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
+					//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
 					if(productFileList.get(j) instanceof YearMemberships) {
 						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
@@ -90,7 +98,7 @@ public class InvoiceWriterCalculations {
 							ymCodes.add(YearMembershipFromInvoice);
 
 							if(productType.equals("Year-long membership")) {
-	
+
 
 								if(startDate.getMonthOfYear() == 1) {
 									//They get a 15% discount if the purchase falls within the first month
@@ -125,7 +133,12 @@ public class InvoiceWriterCalculations {
 
 
 						}
-			//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
+					//DAYMEMBERSHIP -------------------------------------------------------------------------------------------------------------------------------------------------->
+					/**
+					 * BONUS: Here we create an instanceof method that helps us initalize
+					 * variables to what they need to be. And we do it for each product
+					 * This also shows dynamic polymorphism.
+					 */
 					} else if (productFileList.get(j) instanceof DayMemberships) {
 						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
 						if(dProduct.getProductType().equals("D")) {
@@ -138,7 +151,7 @@ public class InvoiceWriterCalculations {
 							String sDate = dateOutput.print(startDate);
 							dmCodes.add(DayMembershipFromInvoice);
 
-							
+
 							// if the month is 1 we give discount if not than we don't
 
 							if (dProduct.getStartDate().getMonthOfYear() == 1) {
@@ -168,7 +181,14 @@ public class InvoiceWriterCalculations {
 
 
 						}
-			//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
+						
+						
+					//PARKING PASS ------------------------------------------------------------------------------------------------------------------------------------------------->
+					/**
+					 * BONUS: Here we create an instanceof method that helps us initalize
+					 * variables to what they need to be. And we do it for each product
+					 * This also shows dynamic polymorphism.
+					 */
 					} else if (productFileList.get(j) instanceof ParkingPass) {
 						ParkingPass pProduct = (ParkingPass)productFileList.get(j);
 						if (pProduct.getProductType().equals("P")) {
@@ -180,19 +200,24 @@ public class InvoiceWriterCalculations {
 							tax = pProduct.getTax(subTotal);
 							totalCost = pProduct.getTotal(subTotal, tax);
 							String freeType = "";
-							
+
+							/**
+							 * Here we use two different for loops to check the list of Codes from the products
+							 * We store into an array so we check each indext to see if a parking pass is tied to 
+							 * a stored product code, then they get a discount and we flag that in a string
+							 */
 							for(int k = 0; k < ymCodes.size(); k++) {
 								if(personCode.equals(ymCodes.get(k))) {
 									freeType = "365";
 								}
 							} 
-							
+
 							for(int m = 0; m < dmCodes.size(); m++) {
 								if(personCode.equals(dmCodes.get(m))) {
 									freeType = "1";
 								}
 							}
- 							
+
 
 							if(freeType.equals("")) {
 								/**
@@ -206,11 +231,11 @@ public class InvoiceWriterCalculations {
 								break; 
 							} else if (freeType.equals("365")) {
 								if(quantity < 365) {
-									//if the amount bought is less than 365 then they get a all passes free
+									//If the amount bought is less than 365 then they get a all passes free
 									subTotal = 0;
 									tax = 0;
 									totalCost = 0;
-									
+
 									PPSubTotal += 0;
 									PPTaxes += 0;
 									PPTotal += 0;
@@ -229,7 +254,7 @@ public class InvoiceWriterCalculations {
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								
+
 								PPSubTotal += subTotal;
 								PPTaxes += tax;
 								PPTotal += totalCost;
@@ -243,8 +268,12 @@ public class InvoiceWriterCalculations {
 
 
 						}
-			//RENTAL EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
-					} else if (productFileList.get(j) instanceof Equipment) {
+						//RENTAL EQUIPMENT ------------------------------------------------------------------------------------------------------------------------------------>
+						/**
+						 * BONUS: Here we create an instance of method that helps us initialize
+						 * variables to what they need to be. And we do it for each product
+						 * This also shows dynamic polymorphism.
+						 */} else if (productFileList.get(j) instanceof Equipment) {
 						Equipment eProduct = (Equipment)productFileList.get(j);
 						if (eProduct.getProductType().equals("R")) {
 							productCode = eProduct.getProductCode();
@@ -283,8 +312,8 @@ public class InvoiceWriterCalculations {
 				}
 			}
 		}
-		
-		
+
+
 		double allSubTotals = YMSubTotal + DMSubTotal + PPSubTotal + RESubTotal;
 		double allTaxes = YMTaxes + DMTaxes + PPTaxes + RETaxes;
 
@@ -298,9 +327,10 @@ public class InvoiceWriterCalculations {
 		double allTotals = YMTotal + DMTotal + PPTotal + RETotal + discount + additionalStudentFee;
 
 
-		
+
 		/**
-		 * Here we store the calculation inside a variable of array list
+		 * Here we store the calculation inside a variable of array list to be used for the Executive Report
+		 * This class is just a calculator to calculate the invoices before processing all of them
 		 */
 		ArrayList<Calculations> totalArray = new ArrayList<Calculations>();
 

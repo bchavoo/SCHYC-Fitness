@@ -7,7 +7,7 @@ import entitites.Address;
 public class YearMemberships extends Membership {
 
     /**
-	 * The year membership is a child class of membership so it will inherit all the 
+	 * The YearMembership class is a child class of Membership so it will inherit all the 
 	 * attributes of the memberships class and its super class
 	 */
 	public DateTime endDate;
@@ -15,14 +15,11 @@ public class YearMemberships extends Membership {
 	public double cost;
 
 	/**
-	 * Here we create constructor as well as setter and getters
-	 * @param startDate
+	 * Here we create constructor with all the attributes
+	 * of its super classes as well as new attributes we need for YearMemberships
 	 * @param endDate
-	 * @param address
 	 * @param membershipName
 	 * @param cost
-	 * @param productCode
-	 * @param productType
 	 */
 	public YearMemberships(DateTime startDate, DateTime endDate, Address address, String membershipName, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
@@ -58,6 +55,7 @@ public class YearMemberships extends Membership {
 	}
 	
 	/**
+	 * Abstract Method
 	 * Here the the super class is overridden and we used the abstraction method 
 	 * to help us with returning the right calculations
 	 */
