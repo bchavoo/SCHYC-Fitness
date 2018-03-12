@@ -3,7 +3,7 @@ package driver;
 import java.io.IOException;
 import java.util.List;
 
-import entitites.Invoice;
+import entities.Invoice;
 import reader.FileReader;
 import writer.InvoiceWriter;
 public class InvoiceReport {

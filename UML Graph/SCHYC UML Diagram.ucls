@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="entitites.Member" project="SCHYC_Fitness(GIT)" 
-    file="/SCHYC_Fitness(GIT)/src/entitites/Member.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="entities.Member" project="SCHYC_Fitness(GIT)" 
+    file="/SCHYC_Fitness(GIT)/src/entities/Member.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="353" width="268" x="2" y="-41"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="entitites.Person" project="SCHYC_Fitness(GIT)" 
-    file="/SCHYC_Fitness(GIT)/src/entitites/Person.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="entities.Person" project="SCHYC_Fitness(GIT)" 
+    file="/SCHYC_Fitness(GIT)/src/entities/Person.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="482" y="154"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

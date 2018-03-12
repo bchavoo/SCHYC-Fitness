@@ -7,13 +7,13 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import entitites.Address;
-import entitites.InvoiceProducts;
-import product.DayMemberships;
-import product.Equipment;
+import entities.Address;
+import entities.InvoiceProducts;
+import product.DayMembership;
+import product.RentalEquipment;
 import product.ParkingPass;
 import product.Product;
-import product.YearMemberships;
+import product.YearMembership;
 import reader.Calculations;
 import reader.FileReader;
 
@@ -85,8 +85,8 @@ public class InvoiceCalculator {
 					 * This also shows dynamic polymorphism.
 					 */
 					//YEARMEMBERSHIP ------------------------------------------------------------------------------------------------------------------------------>
-					if(productFileList.get(j) instanceof YearMemberships) {
-						YearMemberships yProduct = (YearMemberships)productFileList.get(j);
+					if(productFileList.get(j) instanceof YearMembership) {
+						YearMembership yProduct = (YearMembership)productFileList.get(j);
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
@@ -139,8 +139,8 @@ public class InvoiceCalculator {
 						 * variables to what they need to be. And we do it for each product
 						 * This also shows dynamic polymorphism.
 						 */
-					} else if (productFileList.get(j) instanceof DayMemberships) {
-						DayMemberships dProduct = (DayMemberships)productFileList.get(j);
+					} else if (productFileList.get(j) instanceof DayMembership) {
+						DayMembership dProduct = (DayMembership)productFileList.get(j);
 						if(dProduct.getProductType().equals("D")) {
 							productCode = dProduct.getProductCode();
 							productType = "Day-long membership";
@@ -273,8 +273,8 @@ public class InvoiceCalculator {
 						 * BONUS: Here we create an instance of method that helps us initialize
 						 * variables to what they need to be. And we do it for each product
 						 * This also shows dynamic polymorphism.
-						 */} else if (productFileList.get(j) instanceof Equipment) {
-							 Equipment eProduct = (Equipment)productFileList.get(j);
+						 */} else if (productFileList.get(j) instanceof RentalEquipment) {
+							 RentalEquipment eProduct = (RentalEquipment)productFileList.get(j);
 							 if (eProduct.getProductType().equals("R")) {
 								 productCode = eProduct.getProductCode();
 								 productType = "Rental Equipment";

@@ -1,8 +1,5 @@
 package writer;
 
-import entitites.Invoice;
-import entitites.Member;
-import entitites.Person;
 import product.Product;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +7,10 @@ import java.io.PrintWriter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import entities.Invoice;
+import entities.Member;
+import entities.Person;
 
 import java.util.List;
 

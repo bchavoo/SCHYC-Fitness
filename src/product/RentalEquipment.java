@@ -1,6 +1,6 @@
 package product;
 
-public class Equipment extends Service {
+public class RentalEquipment extends Service {
 
 	private String equipment;
 
@@ -14,7 +14,7 @@ public class Equipment extends Service {
 	 */
 	
 	 //Overridden from the super class, more arguments were added
-	public Equipment(String equipment, double cost, String productCode, String productType) {
+	public RentalEquipment(String equipment, double cost, String productCode, String productType) {
 		super(productCode, cost, productType);
 		//This is an instance where we override the super class Service and added the attribute equipment
 		this.equipment = equipment;

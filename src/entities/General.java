@@ -1,4 +1,4 @@
-package entitites;
+package entities;
 
 public class General extends Member {
 

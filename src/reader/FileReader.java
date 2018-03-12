@@ -10,18 +10,18 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import entitites.Address;
-import entitites.General;
-import entitites.Invoice;
-import entitites.InvoiceProducts;
-import entitites.Member;
-import entitites.Person;
-import entitites.Student;
-import product.DayMemberships;
-import product.Equipment;
+import entities.Address;
+import entities.General;
+import entities.Invoice;
+import entities.InvoiceProducts;
+import entities.Member;
+import entities.Person;
+import entities.Student;
+import product.DayMembership;
+import product.RentalEquipment;
 import product.ParkingPass;
 import product.Product;
-import product.YearMemberships;
+import product.YearMembership;
 
 public class FileReader {
 	
@@ -202,7 +202,7 @@ public class FileReader {
 				 * Here we again have runtime polymorphism, we declare a Product variable
 				 * but we store a new Equipment or Parking Pass
 				 */
-				Product product = new Equipment(equipment, cost, productCode, productType);
+				Product product = new RentalEquipment(equipment, cost, productCode, productType);
 				productList.add(product);
 
 			} else if (token[1].equals("P")) {
@@ -238,7 +238,7 @@ public class FileReader {
 				 * Here we again have runtime polymorphism, we declare a Product variable
 				 * but we store a new Year or DayMembership
 				 */
-				Product product = new YearMemberships(startDate, endDate, address, membershipGroup, cost, productCode, productType);
+				Product product = new YearMembership(startDate, endDate, address, membershipGroup, cost, productCode, productType);
 
 				productList.add(product);
 
@@ -261,7 +261,7 @@ public class FileReader {
 				Address address = new Address(street, city, state, zip, country);
 
 				//POLYMORPHISM 
-				Product product = new DayMemberships(startDate, address, cost, productCode, productType);
+				Product product = new DayMembership(startDate, address, cost, productCode, productType);
 
 				productList.add(product);
 			}

@@ -2,7 +2,7 @@ package product;
 
 import org.joda.time.DateTime;
 
-import entitites.Address;
+import entities.Address;
 
 //Abstract class of Membership
 public abstract class Membership extends Product {

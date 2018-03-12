@@ -1,4 +1,4 @@
-package entitites;
+package entities;
 
 public abstract class Member {
 

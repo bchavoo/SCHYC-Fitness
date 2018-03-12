@@ -2,9 +2,9 @@ package product;
 
 import org.joda.time.DateTime;
 
-import entitites.Address;
+import entities.Address;
 
-public class YearMemberships extends Membership {
+public class YearMembership extends Membership {
 
     /**
 	 * The YearMembership class is a child class of Membership so it will inherit all the 
@@ -21,7 +21,7 @@ public class YearMemberships extends Membership {
 	 * @param membershipName
 	 * @param cost
 	 */
-	public YearMemberships(DateTime startDate, DateTime endDate, Address address, String membershipName, double cost, String productCode, String productType) {
+	public YearMembership(DateTime startDate, DateTime endDate, Address address, String membershipName, double cost, String productCode, String productType) {
 		super(productCode, startDate, address, productType);
 		//This is an instance where we override the super class Membership and added the attribute cost
 		this.endDate = endDate;
