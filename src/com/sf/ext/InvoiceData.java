@@ -13,15 +13,15 @@ import java.util.List;
  * 
  */
 
-import com.sf.model.DayMembership;
-import com.sf.model.Invoice;
-import com.sf.model.Member;
-import com.sf.model.Membership;
-import com.sf.model.Parkingpass;
-import com.sf.model.Person;
-import com.sf.model.Product;
-import com.sf.model.RentalEquipment;
-import com.sf.model.YearLongMembership;
+import product.DayMembership;
+import entities.Invoice;
+import entities.Member;
+import product.Membership;
+import product.ParkingPass;
+import entities.Person;
+import product.Product;
+import product.RentalEquipment;
+import product.YearMembership;
 
 public class InvoiceData {
 
