@@ -172,8 +172,11 @@ public class InvoiceData {
 		try {
 			removeAllInvoices();
 
+			String removeAllInvoices = "DELETE FROM Invoices";
+			conn.createStatement().executeUpdate(removeAllInvoices);
 			String removeAllMembers = "DELETE FROM Members";
 			conn.createStatement().executeUpdate(removeAllMembers);
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -291,7 +294,7 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		try {
-			String addDayPay = "INSERT INTO InvoiceProducts (ProductInvoiceID, ProductCode, ProductType, ProductQuantity, ProductCost) VALUES (?, ?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO InvoiceProducts (ProductInvoiceID, ProductCode, ProductType, ProductQuantity, ProductCost) VALUES (?, ?, ?, ?, ?)";
 
 		
 
@@ -400,6 +403,22 @@ public class InvoiceData {
 
 	public static void addDayPassToInvoice(String invoiceCode, String productCode, int quantity) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		try{
+			String addDayMembershiptoInvoice = "INSERT INTO Invoice (InvoiceCode, ProductCode, Quantity) VALUES (?, ?, ?, ?)";
+			conn.createStatement().executeUpdate(addDayMembershiptoInvoice);
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtility.closeConnection(conn);
+
+		
 		String findInvoiceID;
 		
 	}
