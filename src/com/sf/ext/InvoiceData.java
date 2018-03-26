@@ -88,7 +88,6 @@ public class InvoiceData {
 			ps.executeUpdate();
 			ps.close();
 
-			//Find address? Using input you just used? OR is there an easier way
 			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
@@ -172,8 +171,6 @@ public class InvoiceData {
 		try {
 			removeAllInvoices();
 
-			String removeAllInvoices = "DELETE FROM Invoices";
-			conn.createStatement().executeUpdate(removeAllInvoices);
 			String removeAllMembers = "DELETE FROM Members";
 			conn.createStatement().executeUpdate(removeAllMembers);
 			
@@ -235,12 +232,12 @@ public class InvoiceData {
 			rs.close();
 			
 			
-			String addMember = "INSERT INTO Members (MemberCode, MemberType, MemberPersonID, MemberName, MemberAddressID) VALUES (?, ?, ?, ?, ?)";
+			String addMember = "INSERT INTO Members (MemberPersonID, MemberCode, MemberType, MemberName, MemberAddressID) VALUES (?, ?, ?, ?, ?)";
 			
 			ps = conn.prepareStatement(addMember);
-			ps.setString(1, memberCode);
-			ps.setString(2, memberType);
-			ps.setInt(3, personID);
+			ps.setInt(1, personID);
+			ps.setString(2, memberCode);
+			ps.setString(3, memberType);
 			ps.setString(4, name);
 			ps.setInt(5, addressID);
 			ps.close();
@@ -263,20 +260,12 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		try {
-			String removeAllParking = "DELETE FROM ParkingPasses";
-			conn.createStatement().executeUpdate(removeAllParking);
-
-			String removeAllRental = "DELETE FROM RentalEquipments";
-			conn.createStatement().executeUpdate(removeAllRental);
-
-			String removeAllDay = "DELETE FROM DayMemberships";
-			conn.createStatement().executeUpdate(removeAllDay);
-
-			String removeAllYear = "DELETE FROM YearMemberships";
-			conn.createStatement().executeUpdate(removeAllYear);
-
-			String removeAllProducts = "DELETE FROM InvoiceProducts";
+			String removeAllInvoiceProducts = "DELETE FROM InvoiceProducts";
+			conn.createStatement().executeUpdate(removeAllInvoiceProducts);
+			
+			String removeAllProducts = "DELETE FROM Products";
 			conn.createStatement().executeUpdate(removeAllProducts);
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -292,9 +281,40 @@ public class InvoiceData {
 		/** TODO*/
 		
 		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
 
 		try {
-			String addDayPass = "INSERT INTO InvoiceProducts (ProductInvoiceID, ProductCode, ProductType, ProductQuantity, ProductCost) VALUES (?, ?, ?, ?, ?)";
+			
+			String addAddress = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(addAddress);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
+			ps.executeUpdate();
+			ps.close();
+			
+			//Find the AddressID from the address just inserted into the data, is there an easy way
+			//to do this or do I have to write another query to find it
+			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			ps = conn.prepareStatement(findAddressID);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			rs = ps.executeQuery();
+			int addressID = rs.getInt("AddressID");
+			ps.close();
+			rs.close();
+			
+			String addDayPass = "INSERT INTO InvoiceProducts (ProductCode, ProductType, ProductQuantity, ProductCost) VALUES (?, ?, ?, ?)";
+			ps = conn.prepareStatement(addDayPass);
+			ps.setString(1, productCode);
+			ps.setString(2, "D");
+			ps.setInt(parameterIndex, x);
+			ps.setDouble(4, pricePerUnit);
+			
 
 		
 
