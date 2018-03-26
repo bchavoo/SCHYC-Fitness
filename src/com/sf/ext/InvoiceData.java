@@ -509,8 +509,10 @@ public class InvoiceData {
 		ResultSet rs;
 		
 		try{
-			String addDayMembershiptoInvoice = "INSERT INTO Invoice (InvoiceCode, ProductCode, Quantity) VALUES (?, ?, ?, ?)";
-			conn.createStatement().executeUpdate(addDayMembershiptoInvoice);
+			
+			
+			String addDayMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Qquantity) VALUES (?, ?, ?)";
+			ps = conn.prepareStatement(addDayMembershiptoInvoice);
 
 		}
 		catch (SQLException e) {
