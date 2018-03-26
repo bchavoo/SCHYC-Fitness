@@ -240,6 +240,7 @@ public class InvoiceData {
 			ps.setString(3, memberType);
 			ps.setString(4, name);
 			ps.setInt(5, addressID);
+			ps.executeUpdate();
 			ps.close();
 			
 		} catch (SQLException e) {
@@ -277,7 +278,7 @@ public class InvoiceData {
 	/**
 	 * 7. Adds a day-pass record to the database with the provided data.
 	 */
-	public static void addDayPass(String productCode, String dateTime, String street, String city, String state, String zip, String country, double pricePerUnit) {
+	public static void addDayPass(String productCode, String startDate, String street, String city, String state, String zip, String country, double pricePerUnit) {
 		/** TODO*/
 		
 		Connection conn = DBUtility.connectMeToDatabase();
@@ -308,12 +309,13 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 			
-			String addDayPass = "INSERT INTO InvoiceProducts (ProductCode, ProductType, ProductQuantity, ProductCost) VALUES (?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
-			ps.setString(2, "D");
-			ps.setInt(parameterIndex, x);
+			ps.setString(2, startDate);
+			ps.setInt(3, addressID);
 			ps.setDouble(4, pricePerUnit);
+			ps.executeUpdate();
 			
 
 		
@@ -328,15 +330,75 @@ public class InvoiceData {
 	/**
 	 * 8. Adds a year-long-pass record to the database with the provided data.
 	 */
-	public static void addYearPass(String productCode, String StartDate, String EndDate,String street, String city, String state, String zip, String country, String name, double pricePerUnit) {
+	public static void addYearPass(String productCode, String startDate, String endDate,String street, String city, String state, String zip, String country, String name, double pricePerUnit) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
+
+		try {
+			
+			String addAddress = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(addAddress);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
+			ps.executeUpdate();
+			ps.close();
+			
+			//Find the AddressID from the address just inserted into the data, is there an easy way
+			//to do this or do I have to write another query to find it
+			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			ps = conn.prepareStatement(findAddressID);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			rs = ps.executeQuery();
+			int addressID = rs.getInt("AddressID");
+			ps.close();
+			rs.close();
+			
+			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
+			ps = conn.prepareStatement(addDayPass);
+			ps.setString(1, productCode);
+			ps.setString(2, startDate);
+			ps.setString(3, endDate);
+			ps.setInt(4, addressID);
+			ps.setDouble(5, pricePerUnit);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtility.closeConnection(conn);
+		
 	}
 
 	/**
 	 * 9. Adds a ParkingPass record to the database with the provided data.
 	 */
-	public static void addParkingPass(String productCode, double parkingFee) {
+	public static void addParkingPass(String productCode, double parkingCost) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+
+		try {
+			
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductCost) VALUES (?, ?, ?, ?)";
+			ps = conn.prepareStatement(addDayPass);
+			ps.setString(1, productCode);
+			ps.setString(2, "P");
+			ps.setDouble(3, parkingCost);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtility.closeConnection(conn);
 	}
 
 	/**
@@ -344,6 +406,25 @@ public class InvoiceData {
 	 */
 	public static void addRental(String productCode, String name, double cost) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+
+		try {
+			
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductName, ProductCost) VALUES (?, ?, ?, ?)";
+			ps = conn.prepareStatement(addDayPass);
+			ps.setString(1, productCode);
+			ps.setString(2, "R");
+			ps.setString(3, name);
+			ps.setDouble(4, cost);
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtility.closeConnection(conn);
 	}
 
 	/**
