@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import entities.Person;
 import entities.Student;
 import product.DayMembership;
+import product.ParkingPass;
 import product.Product;
 import product.RentalEquipment;
 import product.YearMembership;
@@ -26,6 +27,7 @@ public class DBReader {
 
 
 	private Address getAddress(int AddressID){
+
 		String getAddress = "SELECT * FROM Address WHERE AddressID = ?";
 
 		Connection conn = DBUtility.connectMeToDatabase();
@@ -67,8 +69,6 @@ public class DBReader {
 
 
 	private Person getPerson(int PersonID){
-
-
 		String getPerson = "SELECT * FROM Persons WHERE PersonID = ?";
 
 		Person p = null;
@@ -109,6 +109,7 @@ public class DBReader {
 
 	private ArrayList<String> getEmails(int PersonID){
 		ArrayList<String> allEmails = new ArrayList<String>();
+
 		String getEmail = "SELECT * FROM Emails WHERE PersonID = ?";
 
 		Connection conn = DBUtility.connectMeToDatabase();
@@ -146,21 +147,22 @@ public class DBReader {
 
 
 	private Invoice getInvoice(int InvoiceID){
-		String query = "SELECT * FROM Invoices WHERE InvoiceCode = ?";
+		String getInvoice = "SELECT * FROM Invoices WHERE InvoiceCode = ?";
 		Invoice i = null;
 		try {
 			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement(getInvoice);
 			ps.setInt(1, InvoiceID);
 			ResultSet rs = ps.executeQuery();
 
 
 			while(rs.next()){
 				String invoiceCode = rs.getString("InvoiceCode");
-				Member memberCode = getMembers(rs.getString("MemberCode")) ;
-				Person personalTrainer = getPerson(Integer.parseInt(rs.getString("PersonCode")));
+
+				Member memberCode = getMembers(rs.getString("InvoiceMemberID")) ;
+				Person personalTrainer = getPerson(Integer.parseInt(rs.getString("InvoicePersonID")));
 				String invoiceDate = rs.getString("InvoiceDate");
-				ArrayList<InvoiceProducts> invoiceProducts = getinvoiceProducts(InvoiceID);
+				ArrayList<InvoiceProducts> invoiceProducts = getInvoiceProducts(InvoiceID);
 
 				i = new Invoice(invoiceCode, memberCode, personalTrainer, invoiceDate, invoiceProducts);
 			}
@@ -179,7 +181,7 @@ public class DBReader {
 	}
 
 
-	private ArrayList<InvoiceProducts> getinvoiceProducts(int InvoiceID){
+	private ArrayList<InvoiceProducts> getInvoiceProducts(int InvoiceID){
 
 		ArrayList<InvoiceProducts> invoiceProducts = new ArrayList<InvoiceProducts>();
 
@@ -220,24 +222,25 @@ public class DBReader {
 
 	}
 
-	private Member getMembers(String memberCode){
+	private Member getMembers(String memberID){
 
 
-		String query = "SELECT * FROM Members WHERE MemberCode = ?";
+		String getMembers = "SELECT * FROM Members WHERE MemberID = ?";
+		Member m = null;
 
 		try {
 			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, memberCode);
+			PreparedStatement ps = conn.prepareStatement(getMembers);
+			ps.setString(1, memberID);
 			ResultSet rs = ps.executeQuery();
 
-			Member m = null;
 
 			while (rs.next()) {
+				String memberCode = rs.getString("MemberCode");
 				String memberType = rs.getString("MemberType");
-				Person contact = getPerson(rs.getInt("PersonID"));
+				Person contact = getPerson(rs.getInt("MemberPersonID"));
 				String name = rs.getString("MemberName");
-				Address address = getAddress(rs.getInt("AddressID"));
+				Address address = getAddress(rs.getInt("MemberAddressID"));
 
 				if(memberType.equals("G")){
 					m = new General(memberCode, memberType, contact, name, address);
@@ -263,50 +266,50 @@ public class DBReader {
 
 
 
-	private InvoiceProducts getInvoiceProducts(String productCode){
-
-		String query = "SELECT * FROM InvoiceProducts WHERE productCode = ?";
-
-		InvoiceProducts ip = null;
-
-		try {
-			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, productCode);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				//Invoice productInvoice = getInvoice(rs.getString("ProductInvoiceID"));
-				String type = rs.getString("ProductType");
-				int quantity = rs.getInt("ProductQuantity");
-				String personcode = rs.getString("");
-
-				ip = new InvoiceProducts(type, quantity, cost);
-
-			}
-			DBUtility.closeConnection(conn);
-			rs.close();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("SQLException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		return ip;
-
-	}
+	//	private InvoiceProducts getSomething(String invoiceCode){
+	//
+	//		String query = "SELECT * FROM InvoiceProducts WHERE productCode = ?";
+	//
+	//		InvoiceProducts ip = null;
+	//
+	//		try {
+	//			Connection conn = DBUtility.connectMeToDatabase();
+	//			PreparedStatement ps = conn.prepareStatement(query);
+	//			ps.setString(1, productCode);
+	//			ResultSet rs = ps.executeQuery();
+	//
+	//			while (rs.next()) {
+	//				Invoice productInvoice = getInvoice(rs.getInt("ProductInvoiceID"));
+	//				String type = rs.getString("ProductType");
+	//				int quantity = rs.getInt("ProductQuantity");
+	//				String personcode = rs.getString("");
+	//
+	//				ip = new InvoiceProducts(type, quantity, cost);
+	//
+	//			}
+	//			DBUtility.closeConnection(conn);
+	//			rs.close();
+	//			ps.close();
+	//
+	//		} catch (SQLException e) {
+	//			System.out.println("SQLException: ");
+	//			e.printStackTrace();
+	//			throw new RuntimeException(e);
+	//		}
+	//
+	//		return ip;
+	//
+	//	}
 
 
 	private Product getProducts(String ProductCode) {
 
-		String query = "SELECT * FROM Products WHERE ProductCode = ?";
-
+		String getProduct = "SELECT * FROM Products WHERE ProductCode = ?";
 		Product p = null;
+
 		try {
 			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement(getProduct);
 			ps.setString(1, ProductCode);
 			ResultSet rs = ps.executeQuery();
 
@@ -314,36 +317,37 @@ public class DBReader {
 
 				String productCode = rs.getString("ProductCode");
 				String productType = rs.getString("ProductType");
-				//p =  new Product(productCode);
 
 				if(productType.equals("D")){
 					String stringDate = rs.getString("StartDate");
 					DateTime startDate = DateTime.parse(stringDate);
 					Address address = getAddress(rs.getInt("AddressID"));
-					double cost = rs.getDouble("Cost");
-					//String productCode = rs.getString("ProductCode");
-					//String productType = rs.getString("ProductType");
+					double cost = rs.getDouble("ProductCost");
+
 					p = new DayMembership (startDate, address, cost, productCode, productType);
-					
+
 				} else if (productType.equals("Y")) {
 					String StartDate = rs.getString("StartDate");
 					String EndDate = rs.getString("EndDate");
 					DateTime startDate = DateTime.parse(StartDate);
 					DateTime endDate = DateTime.parse(EndDate);
 					Address address = getAddress(rs.getInt("AddressID"));
-					String membershipName = rs.getString("ProductName");
-					double cost = rs.getDouble("Cost");
-					//String productCode = rs.getString("ProductCode");
-					//String productType = rs.getString("ProductType");
-					p = new YearMembership (startDate, endDate, address, membershipName, cost, productCode, productType);		
-					
-				} else if(productType.equals("R")) {
-					String equipment = rs.getString("ProductName");
-					double cost = rs.getDouble("Cost");
+					String productName = rs.getString("ProductName");
+					double cost = rs.getDouble("ProductCost");
 
-					p = new RentalEquipment(equipment, cost, productCode, productType);
+					p = new YearMembership (startDate, endDate, address, productName, cost, productCode, productType);		
+
+				} else if(productType.equals("R")) {
+
+					String equipmentName = rs.getString("ProductName");
+					double cost = rs.getDouble("ProductCost");
+
+					p = new RentalEquipment(equipmentName, cost, productCode, productType);
 
 				} else if (productType.equals("P")) {
+					double cost = rs.getDouble("ProductCost");
+
+					p = new ParkingPass(cost, productCode, productType); 
 
 				}
 
@@ -365,84 +369,84 @@ public class DBReader {
 
 
 
-	private DayMembership getDayMembership(String ProductType) {
-
-		//public DayMembership(DateTime startDate, Address address, double cost, String productCode, String productType) {
-
-		String query = "SELECT Products.StartDate, Products.AdressID, Products.ProductCost, Products.ProductCode, Products.ProductType FROM Products WHERE ProductType = ?";
-
-		DayMembership dm = null;
-
-		try {
-			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, ProductType);
-			ResultSet rs = ps.executeQuery();
-
-			while(rs.next()) {
-
-				String stringDate = rs.getString("StartDate");
-				DateTime startDate = DateTime.parse(stringDate);
-				Address address = getAddress(rs.getInt("AddressID"));
-				double cost = rs.getDouble("Cost");
-				String productCode = rs.getString("ProductCode");
-				String productType = rs.getString("ProductType");
-
-				dm = new DayMembership(startDate, address, cost, productCode, productType);
-			}
-			DBUtility.closeConnection(conn);
-			rs.close();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("SQLException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		return dm;
-
-	}
-
-
-	private YearMembership getYearMembership(String ProductType) {
-
-		String query = "SELECT FROM Products WHERE ProductType = ?";
-
-		YearMembership ym = null;
-
-		try {
-			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, ProductType);
-			ResultSet rs = ps.executeQuery();
-
-			while(rs.next()) {
-				String StartDate = rs.getString("StartDate");
-				String EndDate = rs.getString("EndDate");
-				DateTime startDate = DateTime.parse(StartDate);
-				DateTime endDate = DateTime.parse(EndDate);
-				Address address = getAddress(rs.getInt("AddressID"));
-				String membershipName = rs.getString("ProductName");
-				double cost = rs.getDouble("Cost");
-				String productCode = rs.getString("ProductCode");
-				String productType = rs.getString("ProductType");
-
-				ym = new YearMembership(startDate, endDate, address, membershipName, cost, productCode, productType);
-			}
-			DBUtility.closeConnection(conn);
-			rs.close();
-			ps.close();
-
-		} catch (SQLException e) {
-			System.out.println("SQLException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		return ym;
-
-	}
+	//	private DayMembership getDayMembership(String ProductType) {
+	//
+	//		//public DayMembership(DateTime startDate, Address address, double cost, String productCode, String productType) {
+	//
+	//		String query = "SELECT Products.StartDate, Products.AdressID, Products.ProductCost, Products.ProductCode, Products.ProductType FROM Products WHERE ProductType = ?";
+	//
+	//		DayMembership dm = null;
+	//
+	//		try {
+	//			Connection conn = DBUtility.connectMeToDatabase();
+	//			PreparedStatement ps = conn.prepareStatement(query);
+	//			ps.setString(1, ProductType);
+	//			ResultSet rs = ps.executeQuery();
+	//
+	//			while(rs.next()) {
+	//
+	//				String stringDate = rs.getString("StartDate");
+	//				DateTime startDate = DateTime.parse(stringDate);
+	//				Address address = getAddress(rs.getInt("AddressID"));
+	//				double cost = rs.getDouble("Cost");
+	//				String productCode = rs.getString("ProductCode");
+	//				String productType = rs.getString("ProductType");
+	//
+	//				dm = new DayMembership(startDate, address, cost, productCode, productType);
+	//			}
+	//			DBUtility.closeConnection(conn);
+	//			rs.close();
+	//			ps.close();
+	//
+	//		} catch (SQLException e) {
+	//			System.out.println("SQLException: ");
+	//			e.printStackTrace();
+	//			throw new RuntimeException(e);
+	//		}
+	//
+	//		return dm;
+	//
+	//	}
+	//
+	//
+	//	private YearMembership getYearMembership(String ProductType) {
+	//
+	//		String query = "SELECT FROM Products WHERE ProductType = ?";
+	//
+	//		YearMembership ym = null;
+	//
+	//		try {
+	//			Connection conn = DBUtility.connectMeToDatabase();
+	//			PreparedStatement ps = conn.prepareStatement(query);
+	//			ps.setString(1, ProductType);
+	//			ResultSet rs = ps.executeQuery();
+	//
+	//			while(rs.next()) {
+	//				String StartDate = rs.getString("StartDate");
+	//				String EndDate = rs.getString("EndDate");
+	//				DateTime startDate = DateTime.parse(StartDate);
+	//				DateTime endDate = DateTime.parse(EndDate);
+	//				Address address = getAddress(rs.getInt("AddressID"));
+	//				String membershipName = rs.getString("ProductName");
+	//				double cost = rs.getDouble("Cost");
+	//				String productCode = rs.getString("ProductCode");
+	//				String productType = rs.getString("ProductType");
+	//
+	//				ym = new YearMembership(startDate, endDate, address, membershipName, cost, productCode, productType);
+	//			}
+	//			DBUtility.closeConnection(conn);
+	//			rs.close();
+	//			ps.close();
+	//
+	//		} catch (SQLException e) {
+	//			System.out.println("SQLException: ");
+	//			e.printStackTrace();
+	//			throw new RuntimeException(e);
+	//		}
+	//
+	//		return ym;
+	//
+	//	}
 
 }
 //	private DayMembership getDayMemberships(int productCode){
