@@ -38,7 +38,8 @@ public class InvoiceData {
 		 */
 		Connection conn = DBUtility.connectMeToDatabase();
 
-		try {
+		try { 
+			
 			removeAllMembers();
 
 			String removeAllEmails = "DELETE FROM Emails";
@@ -509,11 +510,30 @@ public class InvoiceData {
 		ResultSet rs;
 		
 		try{
+			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
+			ps = conn.prepareStatement(findInvoiceID);
+			ps.setString(1, invoiceCode);
+			rs = ps.executeQuery();
+			int invoiceID = rs.getInt("InvoiceID");
+			ps.close();
+			rs.close();
+			
+			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findProductID);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			int productID = rs.getInt("ProductID");
+			ps.close();
+			rs.close();
 			
 			
-			String addDayMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Qquantity) VALUES (?, ?, ?)";
+			String addDayMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)";
+	
 			ps = conn.prepareStatement(addDayMembershiptoInvoice);
-
+			ps.setInt(1, invoiceID);
+			ps.setInt(2, productID);
+			ps.setInt(3, quantity);
+			ps.close();
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -522,7 +542,7 @@ public class InvoiceData {
 		DBUtility.closeConnection(conn);
 
 		
-		String findInvoiceID;
+		//String findInvoiceID;
 		
 	}
 
@@ -533,6 +553,41 @@ public class InvoiceData {
 	 */
 	public static void addYearPassToInvoice(String invoiceCode, String productCode, int quantity) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		try{
+			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
+			ps = conn.prepareStatement(findInvoiceID);
+			ps.setString(1, invoiceCode);
+			rs = ps.executeQuery();
+			int invoiceID = rs.getInt("InvoiceID");
+			ps.close();
+			rs.close();
+			
+			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findProductID);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			int productID = rs.getInt("ProductID");
+			ps.close();
+			rs.close();
+			
+			
+			String addYearMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)";
+	
+			ps = conn.prepareStatement(addYearMembershiptoInvoice);
+			ps.setInt(1, invoiceID);
+			ps.setInt(2, productID);
+			ps.setInt(3, quantity);
+			ps.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtility.closeConnection(conn);
 	}
 
 	/**
@@ -543,6 +598,42 @@ public class InvoiceData {
 	 */
 	public static void addParkingPassToInvoice(String invoiceCode, String productCode, int quantity, String membershipCode) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		try{
+			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
+			ps = conn.prepareStatement(findInvoiceID);
+			ps.setString(1, invoiceCode);
+			rs = ps.executeQuery();
+			int invoiceID = rs.getInt("InvoiceID");
+			ps.close();
+			rs.close();
+			
+			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findProductID);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			int productID = rs.getInt("ProductID");
+			ps.close();
+			rs.close();
+			
+			
+			String addParkingPassToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
+	
+			ps = conn.prepareStatement(addParkingPassToInvoice);
+			ps.setInt(1, invoiceID);
+			ps.setInt(2, productID);
+			ps.setInt(3, quantity);
+			ps.setString(4, membershipCode);
+			ps.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtility.closeConnection(conn);
 	}
 
 	/**
@@ -553,6 +644,42 @@ public class InvoiceData {
 	 */
 	public static void addRentalToInvoice(String invoiceCode, String productCode, int quantity, String membershipCode) {
 		/** TODO*/
+		Connection conn = DBUtility.connectMeToDatabase();
+		PreparedStatement ps;
+		ResultSet rs;
+		
+		try{
+			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
+			ps = conn.prepareStatement(findInvoiceID);
+			ps.setString(1, invoiceCode);
+			rs = ps.executeQuery();
+			int invoiceID = rs.getInt("InvoiceID");
+			ps.close();
+			rs.close();
+			
+			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findProductID);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			int productID = rs.getInt("ProductID");
+			ps.close();
+			rs.close();
+			
+			
+			String addRentalToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
+	
+			ps = conn.prepareStatement(addRentalToInvoice);
+			ps.setInt(1, invoiceID);
+			ps.setInt(2, productID);
+			ps.setInt(3, quantity);
+			ps.setString(4, membershipCode);
+			ps.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		DBUtility.closeConnection(conn);
 	}
 
 
