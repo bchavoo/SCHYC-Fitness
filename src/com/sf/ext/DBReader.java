@@ -29,8 +29,8 @@ import entities.Member;
 
 public class DBReader {
 
-
-	private Address getAddress(int AddressID){
+	//Returns a single address object (Do not delete)
+	private static Address getAddress(int AddressID){
 
 		String getAddress = "SELECT * FROM Address WHERE AddressID = ?";
 
@@ -71,8 +71,8 @@ public class DBReader {
 
 
 
-	//Finds and returns a person (Don't delete)
-	private Person getPerson(String personCode){
+	//Finds and returns a single person (Don't delete)
+	private static Person getPerson(String personCode){
 		String getPerson = "SELECT * FROM Persons WHERE PersonCode = ?";
 
 		Person p = null;
@@ -110,8 +110,8 @@ public class DBReader {
 	}
 
 
-
-	private ArrayList<String> getEmails(int PersonID){
+	//Returns an array list of emails of a specific person (Don't delete)
+	private static ArrayList<String> getEmails(int PersonID){
 		ArrayList<String> allEmails = new ArrayList<String>();
 
 		String getEmail = "SELECT * FROM Emails WHERE PersonID = ?";
@@ -226,11 +226,53 @@ public class DBReader {
 
 	}
 	
-	
-	
+	//Returns a list of all persons (Don't delete)
+	public static List<Person> getPersonList() {
+
+		List<Person> personList = null;
+		Person p = null;
+
+
+		String getAllPersons = "SELECT Persons.PersonID, Persons.PersonCode, Persons.FirstName, Persons.LastName, Address.AddressID, Emails.EmailID FROM Persons JOIN Address ON Persons.PersonAddressID = Address.AddressID JOIN Emails ON Emails.EmailPersonID = Persons.PersonID";
+		PreparedStatement ps;
+		ResultSet rs;
+
+		try {
+			Connection conn = DBUtility.connectMeToDatabase();
+			
+			ps = conn.prepareStatement(getAllPersons);
+			rs = ps.executeQuery();
+			
+
+			while (rs.next()) {
+				String personCode = rs.getString("PersonCode");
+				String firstName = rs.getString("FirstName");
+				String lastName = rs.getString("LastName");
+				Address address = getAddress(rs.getInt("AddressID"));
+				ArrayList<String> emailList = getEmails(rs.getInt("PersonID"));
+
+				p = new Person (personCode, firstName, lastName, address, emailList);
+				personList.add(p);
+				
+			}
+
+			DBUtility.closeConnection(conn);
+			rs.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		return personList;
+
+
+	}
 	
 
-	//We fixed/use this method (Don't delete)
+	//Returns a list of all members (Don't delete)
 	private static List<Member> getMemberList(){
 
 		List<Member> memberList = null;
@@ -281,40 +323,6 @@ public class DBReader {
 
 
 
-	//	private InvoiceProducts getSomething(String invoiceCode){
-	//
-	//		String query = "SELECT * FROM InvoiceProducts WHERE productCode = ?";
-	//
-	//		InvoiceProducts ip = null;
-	//
-	//		try {
-	//			Connection conn = DBUtility.connectMeToDatabase();
-	//			PreparedStatement ps = conn.prepareStatement(query);
-	//			ps.setString(1, productCode);
-	//			ResultSet rs = ps.executeQuery();
-	//
-	//			while (rs.next()) {
-	//				Invoice productInvoice = getInvoice(rs.getInt("ProductInvoiceID"));
-	//				String type = rs.getString("ProductType");
-	//				int quantity = rs.getInt("ProductQuantity");
-	//				String personcode = rs.getString("");
-	//
-	//				ip = new InvoiceProducts(type, quantity, cost);
-	//
-	//			}
-	//			DBUtility.closeConnection(conn);
-	//			rs.close();
-	//			ps.close();
-	//
-	//		} catch (SQLException e) {
-	//			System.out.println("SQLException: ");
-	//			e.printStackTrace();
-	//			throw new RuntimeException(e);
-	//		}
-	//
-	//		return ip;
-	//
-	//	}
 
 
 	private Product getProducts(String ProductCode) {
@@ -406,288 +414,17 @@ public class DBReader {
 	
 	
 	public static List<Invoice> createInvoiceList() {
+		List<Invoice> invoiceList = null;
 			/**
 			 * Here we call the member list so that we can access the data
 			 */
 			
 			List<Member> memberList = getMemberList();
 			
-			//Find and store a matching member from the invoice
-			for(int i = 0; i < numberOfMembers; i++) {
-				if(memberList.get(i).memberCode.equals(memberCode)) {
-					m = memberList.get(i);
-				}
-			}
-			
-			String personalTrainerCode = token[2];
-			
-			/**
-			 * Here we call the person list so that we can access it's data
-			 */
-			List<Person> personList = FileReader.createPersonList();
-			
-			//Find and store Person
-			for(int i = 0; i < numberOfPersons; i++) {
-				if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
-					p = personList.get(i);
-				}
-			}
-			
-			String invoiceDate = token[3];
-			String productCode = "";
-			String personCode = "";
-			
-			String tokenProducts[] = token[4].split(",");
-			
-			/**
-			 * Here we create an array list called invoiceProductArray that will contain
-			 * the products in that invoice
-			 */
-			ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
-			
-			/**
-			 * Here we use a for loop to loop the token products length to find if 
-			 * it is 2 or 3 for the last part of the token to decide the if we will have 
-			 * a related membership tied to the product so we can store it or
-			 * if we have no extra data and can ignore it.
-			 * We then store all of it into an Array of InvoiceProducts
-			 */
-			for(int i = 0; i < tokenProducts.length; i++) {
-				int quantity = 0;
-				String tokenType[] = tokenProducts[i].split(":");
-					if(tokenType.length == 2) {
-						productCode = tokenType[0];
-						quantity = Integer.parseInt(tokenType[1]);
-						personCode = "";
-						
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						invoiceProductArray.add(ip);
-						
-					} else if (tokenType.length == 3) {
-						productCode = tokenType[0];
-						quantity = Integer.parseInt(tokenType[1]);
-						personCode = tokenType[2];
-						
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						invoiceProductArray.add(ip);
-					}
-			}
-
-            /**
-             * At the end we create a new invoice with all the
-             * information we gathered from the invoice file into an Invoice object
-             * and add the object to a list of Invoices
-             */
-			Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
-
-			invoiceList.add(v);
-		}
+		
 		return invoiceList;
+
 	}
-	}
-
-
-
-	//	private DayMembership getDayMembership(String ProductType) {
-	//
-	//		//public DayMembership(DateTime startDate, Address address, double cost, String productCode, String productType) {
-	//
-	//		String query = "SELECT Products.StartDate, Products.AdressID, Products.ProductCost, Products.ProductCode, Products.ProductType FROM Products WHERE ProductType = ?";
-	//
-	//		DayMembership dm = null;
-	//
-	//		try {
-	//			Connection conn = DBUtility.connectMeToDatabase();
-	//			PreparedStatement ps = conn.prepareStatement(query);
-	//			ps.setString(1, ProductType);
-	//			ResultSet rs = ps.executeQuery();
-	//
-	//			while(rs.next()) {
-	//
-	//				String stringDate = rs.getString("StartDate");
-	//				DateTime startDate = DateTime.parse(stringDate);
-	//				Address address = getAddress(rs.getInt("AddressID"));
-	//				double cost = rs.getDouble("Cost");
-	//				String productCode = rs.getString("ProductCode");
-	//				String productType = rs.getString("ProductType");
-	//
-	//				dm = new DayMembership(startDate, address, cost, productCode, productType);
-	//			}
-	//			DBUtility.closeConnection(conn);
-	//			rs.close();
-	//			ps.close();
-	//
-	//		} catch (SQLException e) {
-	//			System.out.println("SQLException: ");
-	//			e.printStackTrace();
-	//			throw new RuntimeException(e);
-	//		}
-	//
-	//		return dm;
-	//
-	//	}
-	//
-	//
-	//	private YearMembership getYearMembership(String ProductType) {
-	//
-	//		String query = "SELECT FROM Products WHERE ProductType = ?";
-	//
-	//		YearMembership ym = null;
-	//
-	//		try {
-	//			Connection conn = DBUtility.connectMeToDatabase();
-	//			PreparedStatement ps = conn.prepareStatement(query);
-	//			ps.setString(1, ProductType);
-	//			ResultSet rs = ps.executeQuery();
-	//
-	//			while(rs.next()) {
-	//				String StartDate = rs.getString("StartDate");
-	//				String EndDate = rs.getString("EndDate");
-	//				DateTime startDate = DateTime.parse(StartDate);
-	//				DateTime endDate = DateTime.parse(EndDate);
-	//				Address address = getAddress(rs.getInt("AddressID"));
-	//				String membershipName = rs.getString("ProductName");
-	//				double cost = rs.getDouble("Cost");
-	//				String productCode = rs.getString("ProductCode");
-	//				String productType = rs.getString("ProductType");
-	//
-	//				ym = new YearMembership(startDate, endDate, address, membershipName, cost, productCode, productType);
-	//			}
-	//			DBUtility.closeConnection(conn);
-	//			rs.close();
-	//			ps.close();
-	//
-	//		} catch (SQLException e) {
-	//			System.out.println("SQLException: ");
-	//			e.printStackTrace();
-	//			throw new RuntimeException(e);
-	//		}
-	//
-	//		return ym;
-	//
-	//	}
-
 }
-//	private DayMembership getDayMemberships(int productCode){
-//		
-//		//(DateTime startDate, Address address, double cost, String productCode, String productType) {
-//			
-//		String query = "SELECT DayMemberships.StartDate, Address.Street, Address.City, Address.State, Address";
-//		
-//			DayMembership dm = null;
-//			
-//			try {
-//				Connection conn = DBUtility.connectMeToDatabase();
-//				PreparedStatement ps = conn.prepareStatement(query);
-//				ps.setInt(1, DayMembershipID);
-//				ResultSet rs = ps.executeQuery();
-//				
-//	 
-//				while (rs.next()) {
-//					//Invoice productInvoice = getInvoice(rs.getString("ProductInvoiceID"));
-//					Address address = getAddress(rs.get);
-//				    String productCode = rs.getString("DayMembershipInvoiceProductID");
-//					double cost = rs.getDouble("Cost");
-//					String productType = rs.getString("productType");
-//					dm = new DayMemberships(startDate, address, cost, productCode, productType);
-//				
-//			}
-//
-//			DBUtility.closeConnection(conn);
-//			rs.close();
-//			ps.close();
-//
-//		} catch (SQLException e) {
-//			System.out.println("SQLException: ");
-//			e.printStackTrace();
-//			throw new RuntimeException(e);
-//		}
-//				
-//			return dm;
-//			
-//		}
-//			
-//		
-//private YearMembership getYearMemberships(int YearMembershipID){
-//	
-//	String query = "SELECT * FROM YearMemberships WHERE YearMembershipID = ?";
-//	
-//		YearMembership ym = null;
-//		
-//		try {
-//			Connection conn = DBUtility.connectMeToDatabase();
-//			PreparedStatement ps = conn.prepareStatement(query);
-//			ps.setInt(1, YearMembershipID);
-//			ResultSet rs = ps.executeQuery();
-// 
-//			while (rs.next()) {
-//				//Invoice productInvoice = getInvoice(rs.getString("ProductInvoiceID"));
-//				DateTime startDate = rs.getDate("StartDate");
-//				Address address = getAddress(rs.get);
-//				DateTime endDate = rs.getDate("EndDate");
-//				String memberShipName =
-//				
-//				ym = new YearMembership(startDate, endDate, address);
-//			
-//		}
-//			
-//		DBUtility.closeConnection(conn);
-//		rs.close();
-//		ps.close();
-//
-//	} catch (SQLException e) {
-//		System.out.println("SQLException: ");
-//		e.printStackTrace();
-//		throw new RuntimeException(e);
-//	}
-//			
-//		return ym;
-//		
-//	}
-//		
-//	
-//
-//private RentalEquipment getEquipment(int EquipmentID){
-//	
-//	String query = "SELECT * FROM RentalEquipment WHERE EquipmentID = ?";
-//	
-//		DayMembership ym = null;
-//		
-//		try {
-//			Connection conn = DBUtility.connectMeToDatabase();
-//			PreparedStatement ps = conn.prepareStatement(query);
-//			ps.setInt(1, EquipmentID);
-//			ResultSet rs = ps.executeQuery();
-// 
-//			while (rs.next()) {
-//				//Invoice productInvoice = getInvoice(rs.getString("ProductInvoiceID"));
-//				Date startDate = rs.getDate("StartDate");
-//				Address address = getAddress(rs.get);
-//				Date endDate = rs.getDate("EndDate");
-//				
-//				ym = new InvoiceProducts();
-//			
-//		}
-//			
-//		DBUtility.closeConnection(conn);
-//		rs.close();
-//		ps.close();
-//
-//	} catch (SQLException e) {
-//		System.out.println("SQLException: ");
-//		e.printStackTrace();
-//		throw new RuntimeException(e);
-//	}
-//			
-//		return ym;
-//		
-//	}
-//		
-//	}
-//
-//
-//
-//	
-//	
-//
-//	
+
+
