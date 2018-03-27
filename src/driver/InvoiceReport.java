@@ -15,7 +15,6 @@ public static void main(String[] args) throws IOException {
 		//Creates a FlatFileReader object, this returns a list of invoices
 		
 		List<Invoice> DBInvoiceList = DBReader.createInvoiceList();
-			DBInvoiceList.get(1);
 
 		//This will generate invoice report and display it on the console
 		InvoiceWriter.createInvoiceReport(DBInvoiceList);

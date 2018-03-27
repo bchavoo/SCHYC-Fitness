@@ -256,7 +256,7 @@ public class DBReader {
 					String productType = rs.getString("ProductType");
 					String productName = rs.getString("ProductName");
 					double cost = rs.getDouble("ProductCost");
-					
+
 					Product product = new RentalEquipment(productName, cost, productCode, productType);
 					productList.add(product);
 
@@ -264,10 +264,10 @@ public class DBReader {
 					String productCode = rs.getString("ProductCode");
 					String productType = rs.getString("ProductType");
 					double cost = rs.getDouble("ProductCost");
-					
+
 					Product product = new ParkingPass(cost, productCode, productType);
 					productList.add(product);
-					
+
 				} else if (rs.getString("ProductType").equals("Y")) {
 					String productCode = rs.getString("ProductCode");
 					String productType = rs.getString("ProductType");
@@ -424,18 +424,76 @@ public class DBReader {
 
 
 
-	public static List<Invoice> createInvoiceList() {	
+	public static ArrayList<InvoiceProducts> getInvoiceProductList(String invoiceCode) {
 
 		Connection conn = DBUtility.connectMeToDatabase();
 
-		List<Invoice> invoiceList = new ArrayList<Invoice>();
-
-		String getInvoiceInfo = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate, Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
+		String getInvoiceInfo = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID WHERE Invoices.InvoiceCode = ?";
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
 			ps = conn.prepareStatement(getInvoiceInfo);
+			ps.setString(1, invoiceCode);
+			rs = ps.executeQuery();
+			
+			ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
+
+			while(rs.next()) {
+
+				String productCode = "";
+				String personCode = "";
+
+				List<InvoiceProducts> invoiceProducts = getProductList();
+
+				for(int i = 0; i < invoiceProducts.size(); i++) {
+					int quantity = 0;
+					if(invoiceProducts.get(i).getPersonCode().equals("")) {
+						productCode = invoiceProducts.get(i).getProductCode();
+						quantity = invoiceProducts.get(i).getQuantity();
+						personCode = "";
+
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						productOnInvoiceList.add(ip);
+					} else {
+						productCode = invoiceProducts.get(i).getProductCode();
+						quantity = invoiceProducts.get(i).getQuantity();
+						personCode = invoiceProducts.get(i).getPersonCode();
+
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						productOnInvoiceList.add(ip);
+					}
+				}
+			} 
+			rs.close();
+			ps.close();
+			DBUtility.closeConnection(conn);
+			return productOnInvoiceList;
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} 
+		
+
+	}
+
+
+
+
+	public static List<Invoice> createInvoiceList() {	
+		Connection conn = DBUtility.connectMeToDatabase();
+		
+		String getInvoiceInfoNoRepeat = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID GROUP BY Invoices.InvoiceCode";
+
+		List<Invoice> invoiceList = new ArrayList<Invoice>();
+
+		PreparedStatement ps;
+		ResultSet rs;
+
+		try {
+			ps = conn.prepareStatement(getInvoiceInfoNoRepeat);
 			rs = ps.executeQuery();
 
 			while(rs.next()) {
@@ -464,39 +522,16 @@ public class DBReader {
 				}
 
 				String invoiceDate = rs.getString("InvoiceDate");
-				String productCode = "";
-				String personCode = "";
 
-
-				List<InvoiceProducts> invoiceProducts = getProductList();
-
-				ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
-
-
-				for(int i = 0; i < invoiceProducts.size(); i++) {
-					int quantity = 0;
-					if(invoiceProducts.get(i).getPersonCode().equals("")) {
-						productCode = invoiceProducts.get(i).getProductCode();
-						quantity = invoiceProducts.get(i).getQuantity();
-						personCode = "";
-
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						productOnInvoiceList.add(ip);
-					} else {
-						productCode = invoiceProducts.get(i).getProductCode();
-						quantity = invoiceProducts.get(i).getQuantity();
-						personCode = invoiceProducts.get(i).getPersonCode();
-
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						productOnInvoiceList.add(ip);
-					}
-				}
+				ArrayList<InvoiceProducts> productOnInvoiceList = getInvoiceProductList(invoiceCode);
 
 				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productOnInvoiceList);
-
 				invoiceList.add(v);
+				
 			}
 
+			ps.close();
+			rs.close();
 			DBUtility.closeConnection(conn); 
 
 			return invoiceList;
@@ -507,15 +542,8 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
-
-	}
-
-
-
-
-
-
-
+	} 
 }
+
 
 
