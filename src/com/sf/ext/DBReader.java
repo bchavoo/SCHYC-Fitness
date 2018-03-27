@@ -213,7 +213,7 @@ public class DBReader {
 					String productCode = rs.getString("ProductCode");
 					String productType = rs.getString("ProductType");
 
-					DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd");
+					DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 					DateTime startDate = date.parseDateTime(rs.getString("StartDate"));
 
 					Address a = getAddress(rs.getInt("AddressID"));

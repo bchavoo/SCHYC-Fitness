@@ -267,7 +267,7 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
-							productName = yProduct.membershipName;							
+							productName = yProduct.getMembershipName();							
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
@@ -487,7 +487,7 @@ public class InvoiceWriter {
 								} else if(personCode.equals(YearMembershipFromInvoice)) {
 									//THEY GET A 5% DISCOUNT if the person code is connected to a year membership
 									System.out.printf("%-9s %-16s - %-4s - %-44s $%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, productName, subTotal*0.95, (subTotal*0.95)*0.04, (subTotal*0.95) + ((subTotal*0.95)*0.04));
-									System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit)\n"+ "", "", quantity, costPerUnit);
+									System.out.printf("%10s" + "(" + "%.0f" + " units @ $" + "%5.2f" + "/unit @ 5%% off)\n"+ "", "", quantity, costPerUnit);
 									RESubTotal +=  subTotal*0.95;
 									RETaxes += (subTotal*0.95)*0.04;
 									RETotal += (subTotal*0.95) + ((subTotal*0.95)*0.04);

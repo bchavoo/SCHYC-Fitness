@@ -328,7 +328,7 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
 			ps.setString(2, "D");
@@ -383,7 +383,7 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
 			ps.setString(2, "Y");
