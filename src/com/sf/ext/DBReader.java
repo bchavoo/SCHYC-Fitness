@@ -390,19 +390,21 @@ public class DBReader {
 
 
 			while (rs.next()) {
+				
 				String memberCode = rs.getString("MemberCode");
 				String memberType = rs.getString("MemberType");
 				Person contact = getPerson(rs.getString("PersonCode"));
 				String name = rs.getString("MemberName");
 				Address address = getAddress(rs.getInt("AddressID"));
 
-				if(memberType.equals("G")){
+				if(memberType.equals("General")){
 					m = new General(memberCode, memberType, contact, name, address);
 					memberList.add(m);
 				}
-				else if (memberType.equals("S")){
+				else if (memberType.equals("Student")){
 					m = new Student(memberCode, memberType, contact, name, address);
 					memberList.add(m);
+
 				}
 			}
 
@@ -448,9 +450,7 @@ public class DBReader {
 				List<Product> allProducts = getAllProducts();
 
 				for(int i = 0; i < allProducts.size(); i++) {
-					quantity = 0;
 					if(allProducts.get(i).getProductCode().equals(productCode)) {
-						productCode = allProducts.get(i).getProductCode();
 						String discountCode = "";
 						
 						if(productID != 0) {
@@ -504,9 +504,10 @@ public class DBReader {
 
 				String invoiceCode = rs.getString("InvoiceCode");
 				String memberCode = rs.getString("MemberCode");
-
+				
+				
 				List<Member> memberList = getMemberList();
-
+	
 				for(int i = 0; i < memberList.size(); i++) {
 					if(memberList.get(i).memberCode.equals(memberCode)) {
 						m = memberList.get(i);

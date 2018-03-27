@@ -563,6 +563,7 @@ public class InvoiceData {
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
 			ps.setInt(3, quantity);
+			ps.executeUpdate();
 			ps.close();
 		}
 		catch (SQLException e) {
@@ -617,6 +618,7 @@ public class InvoiceData {
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
 			ps.setInt(3, quantity);
+			ps.executeUpdate();
 			ps.close();
 		}
 		catch (SQLException e) {
@@ -660,6 +662,17 @@ public class InvoiceData {
 			}
 			ps.close();
 			rs.close();
+			
+			String findMembershipID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findMembershipID);
+			ps.setString(1, membershipCode);
+			rs = ps.executeQuery();
+			int membershipID = 0;
+			while(rs.next()) {
+				membershipID = rs.getInt("ProductID");
+			}
+			ps.close();
+			rs.close();
 
 
 			String addParkingPassToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?, ?)";
@@ -668,7 +681,8 @@ public class InvoiceData {
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
 			ps.setInt(3, quantity);
-			ps.setString(4, membershipCode);
+			ps.setInt(4, membershipID);
+			ps.executeUpdate();
 			ps.close();
 		}
 		catch (SQLException e) {
@@ -712,6 +726,18 @@ public class InvoiceData {
 			}
 			ps.close();
 			rs.close();
+			
+			
+			String findMembershipID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
+			ps = conn.prepareStatement(findMembershipID);
+			ps.setString(1, membershipCode);
+			rs = ps.executeQuery();
+			int membershipID = 0;
+			while(rs.next()) {
+				membershipID = rs.getInt("ProductID");
+			}
+			ps.close();
+			rs.close();
 
 
 			String addRentalToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?, ?)";
@@ -720,7 +746,8 @@ public class InvoiceData {
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
 			ps.setInt(3, quantity);
-			ps.setString(4, membershipCode);
+			ps.setInt(4, membershipID);
+			ps.executeUpdate();
 			ps.close();
 		}
 		catch (SQLException e) {
