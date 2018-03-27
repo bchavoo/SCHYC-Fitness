@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.sf.ext.DBReader;
+
 import entities.Address;
 import entities.InvoiceProducts;
 import product.DayMembership;
@@ -22,7 +24,7 @@ public class InvoiceCalculator {
 	//Invoice Total Algorithm
 	public static List<Calculations> calculateTotals(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
 
-		List<Product> productFileList = FileReader.createProductList();
+		List<Product> productFileList = DBReader.createProductList();
 
 
 		/**

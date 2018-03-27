@@ -36,6 +36,7 @@ public class InvoiceWriter {
 
 		while(i < invoiceList.size()) {
 			//This wile loop will have the information needed for the executive report.
+			
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
@@ -60,6 +61,7 @@ public class InvoiceWriter {
 			 * Calculations class to process and calculation all the totals and returns the list of
 			 * totals where we add to our list of lists to be used in the InvoiceWriter
 			 */
+
 			List<Calculations> calcList = InvoiceCalculator.calculateTotals(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 			allCalcTotals.add(calcList);
 
