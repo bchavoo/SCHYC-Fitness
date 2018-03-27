@@ -366,6 +366,14 @@ public class DBReader {
 		return p;
 
 	}
+	
+	
+	public static List<Invoice> createInvoiceList() {
+		
+		
+		
+		return null;
+	}
 
 
 
