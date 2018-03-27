@@ -332,12 +332,33 @@ public class DBReader {
 				}
 				
 				String invoiceDate = rs.getString("InvoiceDate");
-
+				String productCode = "";
+				String personCode = "";
 				
 				
 				ArrayList<InvoiceProducts> invoiceProductArray = getInvoiceProductList();
 				
-				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, invoiceProductArray);
+				for(int i = 0; i < invoiceProductArray.size(); i++) {
+					int quantity = 0;
+					if(invoiceProductArray.get(i).getPersonCode().equals("")) {
+						productCode = invoiceProductArray.get(i).getProductCode();
+						quantity = invoiceProductArray.get(i).getQuantity();
+						personCode = "";
+						
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						System.out.println("I AM HERE PRODUCT IS: " + ip.getProductCode());
+						productList.add(ip);
+					} else {
+						productCode = invoiceProductArray.get(i).getProductCode();
+						quantity = invoiceProductArray.get(i).getQuantity();
+						personCode = invoiceProductArray.get(i).getPersonCode();
+						
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						productList.add(ip);
+					}
+				}
+				
+				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productList);
 				
 				invoiceList.add(v);
 			}
