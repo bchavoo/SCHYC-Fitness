@@ -324,116 +324,107 @@ public class DBReader {
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private static List<Invoice> getInvoiceList() {
+		Connection conn = DBUtility.connectMeToDatabase();
+		
 		List<Invoice> invoiceList = new ArrayList<Invoice>();
+		ArrayList<InvoiceProducts> productList = new ArrayList<InvoiceProducts>();
 		
-		String getInvoiceInfo = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID";
+		String getInvoiceInfo = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate, Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
+		PreparedStatement ps;
+		ResultSet rs;
 		
+		try {			
+			ps = conn.prepareStatement(getInvoiceInfo);
+			rs = ps.executeQuery();
+			
+
+			while (rs.next()) {
+				String invoiceCode = rs.getString("InvoiceCode");
+				String memberCode = rs.getString("MemberCode");
+				String personCode = rs.getString("PersonCode");
+				String stringInvoiceDate = rs.getString("InvoiceDate");
+				DateTime invoiceDate = DateTime.parse(stringInvoiceDate);
+				
+				//Iterate? To get all products in the same invoice??
+				String productCode = rs.getString("ProductCode");
+				int quantity = rs.getInt("Quantity");
+				InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+				productList.add(ip);
+				
+				
+				//After iteration and all products of one invoice are in an array...
+				//Create invoice and added to list of invoices
+				//Invoice iv = new Invoice(invoiceNumber, m, p, invoiceDate, productList);
+				Invoice iv = null;
+				invoiceList.add(iv);
+				
+				
+				
+				
+				}
+
+			rs.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		DBUtility.closeConnection(conn);
 		return invoiceList;
+
 	}
 
 
 
-
-
-//	private Product getProducts(String ProductCode) {
-//
-//		String getProduct = "SELECT * FROM Products WHERE ProductCode = ?";
-//		Product p = null;
-//
-//		try {
-//			Connection conn = DBUtility.connectMeToDatabase();
-//			PreparedStatement ps = conn.prepareStatement(getProduct);
-//			ps.setString(1, ProductCode);
-//			ResultSet rs = ps.executeQuery();
-//
-//			while(rs.next()) {
-//
-//				String productCode = rs.getString("ProductCode");
-//				String productType = rs.getString("ProductType");
-//
-//				if(productType.equals("D")){
-//					String stringDate = rs.getString("StartDate");
-//					DateTime startDate = DateTime.parse(stringDate);
-//					Address address = getAddress(rs.getInt("AddressID"));
-//					double cost = rs.getDouble("ProductCost");
-//
-//					p = new DayMembership (startDate, address, cost, productCode, productType);
-//
-//				} else if (productType.equals("Y")) {
-//					String StartDate = rs.getString("StartDate");
-//					String EndDate = rs.getString("EndDate");
-//					DateTime startDate = DateTime.parse(StartDate);
-//					DateTime endDate = DateTime.parse(EndDate);
-//					Address address = getAddress(rs.getInt("AddressID"));
-//					String productName = rs.getString("ProductName");
-//					double cost = rs.getDouble("ProductCost");
-//
-//					p = new YearMembership (startDate, endDate, address, productName, cost, productCode, productType);		
-//
-//				} else if(productType.equals("R")) {
-//
-//					String equipmentName = rs.getString("ProductName");
-//					double cost = rs.getDouble("ProductCost");
-//
-//					p = new RentalEquipment(equipmentName, cost, productCode, productType);
-//
-//				} else if (productType.equals("P")) {
-//					double cost = rs.getDouble("ProductCost");
-//
-//					p = new ParkingPass(cost, productCode, productType); 
-//
-//				}
-//
-//
-//			}
-//			DBUtility.closeConnection(conn);
-//			rs.close();
-//			ps.close();
-//
-//		} catch (SQLException e) {
-//			System.out.println("SQLException: ");
-//			e.printStackTrace();
-//			throw new RuntimeException(e);
-//		}
-//
-//		return p;
-//
-//	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	SELECT Invoices.InvoiceCode, Invoices.InvoiceDate, Products.ProductCode, Products.ProductType, Products.StartDate, Products.EndDate, Products.AddressID, InvoiceProducts.Quantity, Products.ProductName, Products.ProductCost FROM Invoices JOIN InvoiceProducts ON Invoices.InvoiceID  = InvoiceProducts.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID;
-//	
-//	SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID;
 	
 	
 	
 	
 	public static List<Invoice> createInvoiceList() {
-		
+		//Gets a list of all invoices
+		List<Invoice> invoiceList = getInvoiceList();
+				
+		//Gets a list of all members
 		List<Member> memberList = getMemberList();
 		
 		for(int i = 0; i < memberList.size(); i++) {
 			if(memberList.get(i).memberCode.equals(m))
 		}
 			
+		//Gets a list of all persons
 		List<Person> personList = getPersonList();
 			
+		//Gets a list of all products in an invoice
 		ArrayList<InvoiceProducts> invoiceProductList = getInvoiceProductList();
 			
 		Invoice iv = new Invoice();
