@@ -39,7 +39,7 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		try { 
-			
+
 			removeAllMembers();
 
 			String removeAllEmails = "DELETE FROM Emails";
@@ -51,7 +51,7 @@ public class InvoiceData {
 			String removeAllAddress = "DELETE FROM Address";
 			conn.createStatement().executeUpdate(removeAllAddress);
 
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -95,7 +95,10 @@ public class InvoiceData {
 			ps.setString(2, city);
 			ps.setString(3, state);
 			rs = ps.executeQuery();
-			int addressID = Integer.parseInt(rs.getString("AddressID"));
+			int addressID = 0;
+			while(rs.next()) {
+				addressID = Integer.parseInt(rs.getString("AddressID"));
+			}
 			ps.close();
 			rs.close();
 
@@ -136,7 +139,10 @@ public class InvoiceData {
 			ps = conn.prepareStatement(findPerson);
 			ps.setString(1, personCode);
 			rs = ps.executeQuery();
-			int personID = Integer.parseInt(rs.getString("PersonID"));
+			int personID = 0;
+			while(rs.next()) {
+				personID = Integer.parseInt(rs.getString("PersonID"));
+			}
 			ps.close();
 			rs.close();
 
@@ -174,7 +180,7 @@ public class InvoiceData {
 
 			String removeAllMembers = "DELETE FROM Members";
 			conn.createStatement().executeUpdate(removeAllMembers);
-			
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -206,10 +212,13 @@ public class InvoiceData {
 			ps = conn.prepareStatement(findPersonID);
 			ps.setString(1, primaryContactPersonCode);
 			rs = ps.executeQuery();
-			int personID = Integer.parseInt(rs.getString("PersonID"));
+			int personID = 0;
+			while(rs.next()) {
+				personID = Integer.parseInt(rs.getString("PersonID"));
+			}
 			ps.close();
 			rs.close();
-			
+
 			String addAddress = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addAddress);
 			ps.setString(1, street);
@@ -219,7 +228,7 @@ public class InvoiceData {
 			ps.setString(5, country);
 			ps.executeUpdate();
 			ps.close();
-			
+
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
 			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
@@ -228,13 +237,16 @@ public class InvoiceData {
 			ps.setString(2, city);
 			ps.setString(3, state);
 			rs = ps.executeQuery();
-			int addressID = rs.getInt("AddressID");
+			int addressID = 0;
+			while(rs.next()) {
+				addressID = Integer.parseInt(rs.getString("AddressID"));
+			}
 			ps.close();
 			rs.close();
-			
-			
+
+
 			String addMember = "INSERT INTO Members (MemberPersonID, MemberCode, MemberType, MemberName, MemberAddressID) VALUES (?, ?, ?, ?, ?)";
-			
+
 			ps = conn.prepareStatement(addMember);
 			ps.setInt(1, personID);
 			ps.setString(2, memberCode);
@@ -243,14 +255,14 @@ public class InvoiceData {
 			ps.setInt(5, addressID);
 			ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		DBUtility.closeConnection(conn);
-		
-		
+
+
 	}
 
 	/**
@@ -258,13 +270,13 @@ public class InvoiceData {
 	 */
 	public static void removeAllProducts() {
 		/** TODO*/
-		
+
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		try {
 			String removeAllInvoiceProducts = "DELETE FROM InvoiceProducts";
 			conn.createStatement().executeUpdate(removeAllInvoiceProducts);
-			
+
 			String removeAllProducts = "DELETE FROM Products";
 			conn.createStatement().executeUpdate(removeAllProducts);
 
@@ -272,7 +284,7 @@ public class InvoiceData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		DBUtility.closeConnection(conn);
 	}
 
@@ -281,13 +293,13 @@ public class InvoiceData {
 	 */
 	public static void addDayPass(String productCode, String startDate, String street, String city, String state, String zip, String country, double pricePerUnit) {
 		/** TODO*/
-		
+
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
-			
+
 			String addAddress = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addAddress);
 			ps.setString(1, street);
@@ -297,7 +309,7 @@ public class InvoiceData {
 			ps.setString(5, country);
 			ps.executeUpdate();
 			ps.close();
-			
+
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
 			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
@@ -306,10 +318,13 @@ public class InvoiceData {
 			ps.setString(2, city);
 			ps.setString(3, state);
 			rs = ps.executeQuery();
-			int addressID = rs.getInt("AddressID");
+			int addressID = 0;
+			while(rs.next()) {
+				addressID = Integer.parseInt(rs.getString("AddressID"));
+			}
 			ps.close();
 			rs.close();
-			
+
 			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
@@ -317,14 +332,14 @@ public class InvoiceData {
 			ps.setInt(3, addressID);
 			ps.setDouble(4, pricePerUnit);
 			ps.executeUpdate();
-			
 
-		
+
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		DBUtility.closeConnection(conn);
 	}
 
@@ -338,7 +353,7 @@ public class InvoiceData {
 		ResultSet rs;
 
 		try {
-			
+
 			String addAddress = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addAddress);
 			ps.setString(1, street);
@@ -348,7 +363,7 @@ public class InvoiceData {
 			ps.setString(5, country);
 			ps.executeUpdate();
 			ps.close();
-			
+
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
 			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
@@ -357,10 +372,13 @@ public class InvoiceData {
 			ps.setString(2, city);
 			ps.setString(3, state);
 			rs = ps.executeQuery();
-			int addressID = rs.getInt("AddressID");
+			int addressID = 0;
+			while(rs.next()) {
+				addressID = Integer.parseInt(rs.getString("AddressID"));
+			}
 			ps.close();
 			rs.close();
-			
+
 			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
@@ -373,9 +391,9 @@ public class InvoiceData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		DBUtility.closeConnection(conn);
-		
+
 	}
 
 	/**
@@ -387,7 +405,7 @@ public class InvoiceData {
 		PreparedStatement ps;
 
 		try {
-			
+
 			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
@@ -398,7 +416,7 @@ public class InvoiceData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		DBUtility.closeConnection(conn);
 	}
 
@@ -411,7 +429,7 @@ public class InvoiceData {
 		PreparedStatement ps;
 
 		try {
-			
+
 			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductName, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
@@ -420,11 +438,11 @@ public class InvoiceData {
 			ps.setDouble(4, cost);
 			ps.executeUpdate();
 			ps.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		DBUtility.closeConnection(conn);
 	}
 
@@ -433,11 +451,11 @@ public class InvoiceData {
 	 */
 	public static void removeAllInvoices() {
 		/** TODO*/
-		
+
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		try {
-			
+
 			removeAllProducts();
 
 			String removeAllInvoices = "DELETE FROM Invoices";
@@ -449,7 +467,7 @@ public class InvoiceData {
 
 		DBUtility.closeConnection(conn);
 
-		
+
 	}
 
 	/**
@@ -466,18 +484,27 @@ public class InvoiceData {
 			ps = conn.prepareStatement(findMemberID);
 			ps.setString(1, memberCode);
 			rs = ps.executeQuery();
-			int memberID = Integer.parseInt(rs.getString("MemberID"));
+			int memberID = 0;
+			while(rs.next()) {
+				memberID = Integer.parseInt(rs.getString("MemberID"));
+			}
 			ps.close();
 			rs.close();
-			
+
 			String findPersonID = "SELECT PersonID FROM Persons WHERE PersonCode = ?";
 			ps = conn.prepareStatement(findPersonID);
 			ps.setString(1, personalTrainerCode);
 			rs = ps.executeQuery();
-			int personID = Integer.parseInt(rs.getString("PersonID"));
+			int personID = 0;
+			while(rs.next()) {
+				personID = 0;
+			}
+			while(rs.next()) {
+				personID = Integer.parseInt(rs.getString("PersonID"));
+			}
 			ps.close();
 			rs.close();
-			
+
 			String addInvoice = "INSERT INTO Invoices (InvoiceCode, InvoiceMemberID, InvoicePersonID, InvoiceDate) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addInvoice);
 			ps.setString(1, invoiceCode);
@@ -493,8 +520,8 @@ public class InvoiceData {
 
 		DBUtility.closeConnection(conn);
 
-		
-		
+
+
 	}
 
 	/**
@@ -508,27 +535,33 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
-		
+
 		try{
 			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
 			ps = conn.prepareStatement(findInvoiceID);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
-			int invoiceID = rs.getInt("InvoiceID");
+			int invoiceID = 0;
+			while(rs.next()) {
+				invoiceID = rs.getInt("InvoiceID");
+			}
 			ps.close();
 			rs.close();
-			
+
 			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
 			ps = conn.prepareStatement(findProductID);
 			ps.setString(1, productCode);
 			rs = ps.executeQuery();
-			int productID = rs.getInt("ProductID");
+			int productID = 0;
+			while(rs.next()) {
+				productID = rs.getInt("ProductID");
+			}
 			ps.close();
 			rs.close();
-			
-			
+
+
 			String addDayMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)";
-	
+
 			ps = conn.prepareStatement(addDayMembershiptoInvoice);
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
@@ -541,9 +574,9 @@ public class InvoiceData {
 
 		DBUtility.closeConnection(conn);
 
-		
+
 		//String findInvoiceID;
-		
+
 	}
 
 	/**
@@ -556,27 +589,33 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
-		
+
 		try{
 			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
 			ps = conn.prepareStatement(findInvoiceID);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
-			int invoiceID = rs.getInt("InvoiceID");
+			int invoiceID = 0;
+			while(rs.next()) {
+				invoiceID = rs.getInt("InvoiceID");
+			}
 			ps.close();
 			rs.close();
-			
+
 			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
 			ps = conn.prepareStatement(findProductID);
 			ps.setString(1, productCode);
 			rs = ps.executeQuery();
-			int productID = rs.getInt("ProductID");
+			int productID = 0;
+			while(rs.next()) {
+				productID = rs.getInt("ProductID");
+			}
 			ps.close();
 			rs.close();
-			
-			
+
+
 			String addYearMembershiptoInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity) VALUES (?, ?, ?)";
-	
+
 			ps = conn.prepareStatement(addYearMembershiptoInvoice);
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
@@ -601,27 +640,33 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
-		
+
 		try{
 			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
 			ps = conn.prepareStatement(findInvoiceID);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
-			int invoiceID = rs.getInt("InvoiceID");
+			int invoiceID = 0;
+			while(rs.next()) {
+				invoiceID = rs.getInt("InvoiceID");
+			}
 			ps.close();
 			rs.close();
-			
+
 			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
 			ps = conn.prepareStatement(findProductID);
 			ps.setString(1, productCode);
 			rs = ps.executeQuery();
-			int productID = rs.getInt("ProductID");
+			int productID = 0;
+			while(rs.next()) {
+				productID = rs.getInt("ProductID");
+			}
 			ps.close();
 			rs.close();
-			
-			
+
+
 			String addParkingPassToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
-	
+
 			ps = conn.prepareStatement(addParkingPassToInvoice);
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
@@ -647,27 +692,33 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
-		
+
 		try{
 			String findInvoiceID = "SELECT InvoiceID FROM Invoices WHERE InvoiceCode = ?";
 			ps = conn.prepareStatement(findInvoiceID);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
-			int invoiceID = rs.getInt("InvoiceID");
+			int invoiceID = 0;
+			while(rs.next()) {
+				invoiceID = rs.getInt("InvoiceID");
+			}
 			ps.close();
 			rs.close();
-			
+
 			String findProductID = "SELECT ProductID FROM Products WHERE ProductCode = ?";
 			ps = conn.prepareStatement(findProductID);
 			ps.setString(1, productCode);
 			rs = ps.executeQuery();
-			int productID = rs.getInt("ProductID");
+			int productID = 0;
+			while(rs.next()) {
+				productID = rs.getInt("ProductID");
+			}
 			ps.close();
 			rs.close();
-			
-			
+
+
 			String addRentalToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
-	
+
 			ps = conn.prepareStatement(addRentalToInvoice);
 			ps.setInt(1, invoiceID);
 			ps.setInt(2, productID);
