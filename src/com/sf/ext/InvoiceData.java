@@ -206,6 +206,7 @@ public class InvoiceData {
 		Connection conn = DBUtility.connectMeToDatabase();
 		PreparedStatement ps;
 		ResultSet rs;
+		
 
 		try {
 			String findPersonID = "SELECT PersonID FROM Persons WHERE PersonCode = ?";
@@ -231,11 +232,13 @@ public class InvoiceData {
 
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
-			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
 			ps.setString(2, city);
 			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
 			rs = ps.executeQuery();
 			int addressID = 0;
 			while(rs.next()) {

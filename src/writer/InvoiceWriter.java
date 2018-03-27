@@ -39,7 +39,6 @@ public class InvoiceWriter {
 			
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			
-			System.out.println("Name " + invoiceList.get(i).getPersonalTrainerCode().getLastName());
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 			Member temp = invoiceList.get(i).getMemberCode();
