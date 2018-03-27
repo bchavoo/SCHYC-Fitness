@@ -328,12 +328,13 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
-			ps.setString(2, startDate);
-			ps.setInt(3, addressID);
-			ps.setDouble(4, pricePerUnit);
+			ps.setString(2, "D");
+			ps.setString(3, startDate);
+			ps.setInt(4, addressID);
+			ps.setDouble(5, pricePerUnit);
 			ps.executeUpdate();
 
 
@@ -382,13 +383,14 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
-			ps.setString(2, startDate);
-			ps.setString(3, endDate);
-			ps.setInt(4, addressID);
-			ps.setDouble(5, pricePerUnit);
+			ps.setString(2, "Y");
+			ps.setString(3, startDate);
+			ps.setString(4, endDate);
+			ps.setInt(5, addressID);
+			ps.setDouble(6, pricePerUnit);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
