@@ -6,7 +6,6 @@ import java.util.List;
 import com.sf.ext.DBReader;
 
 import entities.Invoice;
-import reader.FileReader;
 import writer.InvoiceWriter;
 
 public class InvoiceReport {
@@ -19,7 +18,7 @@ public static void main(String[] args) throws IOException {
 
 
 		//This will generate invoice report and display it on the console
-		DBReader.createInvoiceReport(DBinvoiceList);
+		InvoiceWriter.createInvoiceReport(DBinvoiceList);
 
 
 	}
