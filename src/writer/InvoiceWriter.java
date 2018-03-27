@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.sf.ext.DBReader;
+
 import entities.Address;
 import entities.Invoice;
 import entities.InvoiceProducts;
@@ -197,7 +199,7 @@ public class InvoiceWriter {
 		System.out.println("Code      Item                                                                      SubTotal        Tax       Total");
 
 		//Here we call the ProductList from FileReader to access its data
-		List<Product> productFileList = FileReader.createProductList();
+		List<Product> productFileList = DBReader.createProductList();
 
 		String productCode = "";
 		String productType = "";
