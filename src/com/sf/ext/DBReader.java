@@ -341,6 +341,7 @@ public class DBReader {
 				
 				invoiceList.add(v);
 			}
+			
 			DBUtility.closeConnection(conn); 
 
 			return invoiceList;
