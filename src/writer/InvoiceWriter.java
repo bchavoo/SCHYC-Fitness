@@ -40,7 +40,15 @@ public class InvoiceWriter {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			Member temp = invoiceList.get(i).getMemberCode();
+			
+			Member temp = null;
+			if(invoiceList.get(i).getMemberCode().equals(null)) {
+				temp = null;
+			} else {
+				temp = invoiceList.get(i).getMemberCode();
+			}
+			
+			//Member temp = invoiceList.get(i).getMemberCode();
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
