@@ -95,8 +95,8 @@ public class InvoiceWriter {
 			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 			}
-			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
-			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+			String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
+			String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 
 			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 
