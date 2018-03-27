@@ -157,7 +157,7 @@ public class DBReader {
 
 
 	//Returns a list of all products on an invoice
-	private static List<InvoiceProducts> getProductList() {
+	private static List<InvoiceProducts> getProductListOfAnInvoice() {
 
 		Connection conn = DBUtility.connectMeToDatabase();
 		counter++;
@@ -233,7 +233,7 @@ public class DBReader {
 	}
 
 
-	public static List<Product> createProductList() {
+	public static List<Product> getAllProducts() {
 		Connection conn = DBUtility.connectMeToDatabase();
 
 
@@ -436,38 +436,40 @@ public class DBReader {
 			ps = conn.prepareStatement(getInvoiceInfo);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
-			
+
 			ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
 
 			while(rs.next()) {
 
-				String productCode = "";
-				String personCode = "";
+				String productCode = rs.getString("ProductCode");
+				int quantity = rs.getInt("Quantity");
+				int productID = rs.getInt("MembershipID");
 
-				List<InvoiceProducts> invoiceProducts = getProductList();
+				List<Product> allProducts = getAllProducts();
 
-				for(int i = 0; i < invoiceProducts.size(); i++) {
-					int quantity = 0;
-					if(invoiceProducts.get(i).getPersonCode().equals("")) {
-						productCode = invoiceProducts.get(i).getProductCode();
-						quantity = invoiceProducts.get(i).getQuantity();
-						personCode = "";
+				for(int i = 0; i < allProducts.size(); i++) {
+					quantity = 0;
+					if(allProducts.get(i).getProductCode().equals(productCode)) {
+						productCode = allProducts.get(i).getProductCode();
+						String discountCode = "";
+						
+						if(productID != 0) {
+							discountCode = allProducts.get(i).getProductCode();
+						} else {
+							discountCode = "";
+						}
 
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						productOnInvoiceList.add(ip);
-					} else {
-						productCode = invoiceProducts.get(i).getProductCode();
-						quantity = invoiceProducts.get(i).getQuantity();
-						personCode = invoiceProducts.get(i).getPersonCode();
 
-						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
 						productOnInvoiceList.add(ip);
 					}
 				}
 			} 
+
 			rs.close();
 			ps.close();
 			DBUtility.closeConnection(conn);
+
 			return productOnInvoiceList;
 
 		} catch (SQLException e) {
@@ -475,7 +477,7 @@ public class DBReader {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		} 
-		
+
 
 	}
 
@@ -484,7 +486,7 @@ public class DBReader {
 
 	public static List<Invoice> createInvoiceList() {	
 		Connection conn = DBUtility.connectMeToDatabase();
-		
+
 		String getInvoiceInfoNoRepeat = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID GROUP BY Invoices.InvoiceCode";
 
 		List<Invoice> invoiceList = new ArrayList<Invoice>();
@@ -527,7 +529,7 @@ public class DBReader {
 
 				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productOnInvoiceList);
 				invoiceList.add(v);
-				
+
 			}
 
 			ps.close();

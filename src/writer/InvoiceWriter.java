@@ -40,15 +40,7 @@ public class InvoiceWriter {
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			
-			Member temp = null;
-			if(invoiceList.get(i).getMemberCode().equals(null)) {
-				temp = null;
-			} else {
-				temp = invoiceList.get(i).getMemberCode();
-			}
-			
-			//Member temp = invoiceList.get(i).getMemberCode();
+			Member temp = invoiceList.get(i).getMemberCode();
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
@@ -209,7 +201,7 @@ public class InvoiceWriter {
 		System.out.println("Code      Item                                                                      SubTotal        Tax       Total");
 
 		//Here we call the ProductList from FileReader to access its data
-		List<Product> productFileList = DBReader.createProductList();
+		List<Product> productFileList = DBReader.getAllProducts();
 
 		String productCode = "";
 		String productType = "";

@@ -24,7 +24,7 @@ public class InvoiceCalculator {
 	//Invoice Total Algorithm
 	public static List<Calculations> calculateTotals(String invoiceNumber, String trainerLastName, String trainerFirstName, String memberName, String memberCode, String memberType, String personLastName, String personFirstName, Address memberAddress, List<InvoiceProducts> productList) {
 
-		List<Product> productFileList = DBReader.createProductList();
+		List<Product> productFileList = DBReader.getAllProducts();
 
 
 		/**
