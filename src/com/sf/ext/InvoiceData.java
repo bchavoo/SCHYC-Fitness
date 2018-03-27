@@ -97,7 +97,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int addressID = 0;
 			while(rs.next()) {
-				addressID = Integer.parseInt(rs.getString("AddressID"));
+				addressID = rs.getInt("AddressID");
 			}
 			ps.close();
 			rs.close();
@@ -141,7 +141,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int personID = 0;
 			while(rs.next()) {
-				personID = Integer.parseInt(rs.getString("PersonID"));
+				personID = rs.getInt("PersonID");
 			}
 			ps.close();
 			rs.close();
@@ -214,7 +214,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int personID = 0;
 			while(rs.next()) {
-				personID = Integer.parseInt(rs.getString("PersonID"));
+				personID = rs.getInt("PersonID");
 			}
 			ps.close();
 			rs.close();
@@ -239,7 +239,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int addressID = 0;
 			while(rs.next()) {
-				addressID = Integer.parseInt(rs.getString("AddressID"));
+				addressID = rs.getInt("AddressID");
 			}
 			ps.close();
 			rs.close();
@@ -320,7 +320,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int addressID = 0;
 			while(rs.next()) {
-				addressID = Integer.parseInt(rs.getString("AddressID"));
+				addressID = rs.getInt("AddressID");
 			}
 			ps.close();
 			rs.close();
@@ -374,7 +374,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int addressID = 0;
 			while(rs.next()) {
-				addressID = Integer.parseInt(rs.getString("AddressID"));
+				addressID = rs.getInt("AddressID");
 			}
 			ps.close();
 			rs.close();
