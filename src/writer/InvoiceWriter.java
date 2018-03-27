@@ -45,9 +45,9 @@ public class InvoiceWriter {
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
-			if(memberType.equals("G")) {
+			if(memberType.equals("General")) {
 				memberType = "General";
-			} else if (memberType.equals("S")) {
+			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 			}
 			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
@@ -90,9 +90,9 @@ public class InvoiceWriter {
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
-			if(memberType.equals("G")) {
+			if(memberType.equals("General")) {
 				memberType = "General";
-			} else if (memberType.equals("S")) {
+			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 			}
 			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
@@ -164,10 +164,10 @@ public class InvoiceWriter {
 			 * If the type is G then we set it to General but 
 			 * if the type is S then we set to Student
 			 */
-			if(memberType.equals("G")) {
+			if(memberType.equals("General")) {
 				memberType = "General";
 				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
-			} else if (memberType.equals("S")) {
+			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
 			}

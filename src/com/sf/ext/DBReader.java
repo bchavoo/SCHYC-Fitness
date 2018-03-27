@@ -563,7 +563,7 @@ public class DBReader {
 				String invoiceDate = rs.getString("InvoiceDate");
 
 				ArrayList<InvoiceProducts> productOnInvoiceList = getInvoiceProductList(invoiceCode);
-
+				
 				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productOnInvoiceList);
 				invoiceList.add(v);
 
