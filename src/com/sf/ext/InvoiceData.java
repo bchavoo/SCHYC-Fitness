@@ -89,7 +89,7 @@ public class InvoiceData {
 			ps.executeUpdate();
 			ps.close();
 
-			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
 			ps.setString(2, city);
@@ -231,7 +231,7 @@ public class InvoiceData {
 
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
-			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
 			ps.setString(2, city);
@@ -312,7 +312,7 @@ public class InvoiceData {
 
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
-			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
 			ps.setString(2, city);
@@ -366,7 +366,7 @@ public class InvoiceData {
 
 			//Find the AddressID from the address just inserted into the data, is there an easy way
 			//to do this or do I have to write another query to find it
-			String findAddressID = "SELECT AdressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
+			String findAddressID = "SELECT AddressID FROM Address WHERE Street = ? AND City = ? AND State = ?";
 			ps = conn.prepareStatement(findAddressID);
 			ps.setString(1, street);
 			ps.setString(2, city);
@@ -379,7 +379,7 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
 			ps.setString(2, startDate);
@@ -406,7 +406,7 @@ public class InvoiceData {
 
 		try {
 
-			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductCost) VALUES (?, ?, ?, ?)";
+			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, ProductCost) VALUES (?, ?, ?)";
 			ps = conn.prepareStatement(addDayPass);
 			ps.setString(1, productCode);
 			ps.setString(2, "P");
@@ -486,7 +486,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int memberID = 0;
 			while(rs.next()) {
-				memberID = Integer.parseInt(rs.getString("MemberID"));
+				memberID = rs.getInt("MemberID");
 			}
 			ps.close();
 			rs.close();
@@ -497,10 +497,7 @@ public class InvoiceData {
 			rs = ps.executeQuery();
 			int personID = 0;
 			while(rs.next()) {
-				personID = 0;
-			}
-			while(rs.next()) {
-				personID = Integer.parseInt(rs.getString("PersonID"));
+				personID = rs.getInt("PersonID");
 			}
 			ps.close();
 			rs.close();
@@ -665,7 +662,7 @@ public class InvoiceData {
 			rs.close();
 
 
-			String addParkingPassToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
+			String addParkingPassToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?, ?)";
 
 			ps = conn.prepareStatement(addParkingPassToInvoice);
 			ps.setInt(1, invoiceID);
@@ -717,7 +714,7 @@ public class InvoiceData {
 			rs.close();
 
 
-			String addRentalToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?)";
+			String addRentalToInvoice = "INSERT INTO InvoiceProducts (InvoiceID, ProductID, Quantity, MembershipID) VALUES (?, ?, ?, ?)";
 
 			ps = conn.prepareStatement(addRentalToInvoice);
 			ps.setInt(1, invoiceID);
