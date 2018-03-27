@@ -38,6 +38,8 @@ public class InvoiceWriter {
 			//This wile loop will have the information needed for the executive report.
 			
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			
+			System.out.println("Name " + invoiceList.get(i).getPersonalTrainerCode().getLastName());
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
 			Member temp = invoiceList.get(i).getMemberCode();

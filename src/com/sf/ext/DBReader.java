@@ -348,6 +348,8 @@ public class DBReader {
 				String firstName = rs.getString("FirstName");
 				String lastName = rs.getString("LastName");
 				Address address = getAddress(rs.getInt("AddressID"));
+				
+				//Need to account for more than 1 email
 				ArrayList<String> emailList = getEmails(rs.getInt("PersonID"));
 
 				p = new Person (personCode, firstName, lastName, address, emailList);
