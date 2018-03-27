@@ -256,6 +256,7 @@ public class DBReader {
 					String productType = rs.getString("ProductType");
 					String productName = rs.getString("ProductName");
 					double cost = rs.getDouble("ProductCost");
+					
 					Product product = new RentalEquipment(productName, cost, productCode, productType);
 					productList.add(product);
 
@@ -263,10 +264,10 @@ public class DBReader {
 					String productCode = rs.getString("ProductCode");
 					String productType = rs.getString("ProductType");
 					double cost = rs.getDouble("ProductCost");
+					
 					Product product = new ParkingPass(cost, productCode, productType);
 					productList.add(product);
-
-
+					
 				} else if (rs.getString("ProductType").equals("Y")) {
 					String productCode = rs.getString("ProductCode");
 					String productType = rs.getString("ProductType");
@@ -275,7 +276,7 @@ public class DBReader {
 					DateTime startDate = date.parseDateTime(rs.getString("StartDate"));
 					DateTime endDate = date.parseDateTime(rs.getString("EndDate"));
 
-					Address a = getAddress(rs.getInt(rs.getInt("AddressID")));
+					Address a = getAddress(rs.getInt("AddressID"));
 					String street = a.getStreet();
 					String city = a.getCity();
 					String state = a.getState();
@@ -296,7 +297,7 @@ public class DBReader {
 					DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd");
 					DateTime startDate = date.parseDateTime(rs.getString("StartDate"));
 
-					Address a = getAddress(rs.getInt(rs.getInt("AddressID")));
+					Address a = getAddress(rs.getInt("AddressID"));
 					String street = a.getStreet();
 					String city = a.getCity();
 					String state = a.getState();
@@ -468,13 +469,6 @@ public class DBReader {
 
 
 				List<InvoiceProducts> invoiceProducts = getProductList();
-
-				for(int i = 0; i < invoiceProducts.size(); i++) {
-					System.out.println("Code: " + invoiceProducts.get(i).getProductCode());
-					System.out.println("Quantity: " + invoiceProducts.get(i).getQuantity());
-					System.out.println("Person: " + invoiceProducts.get(i).getPersonCode());
-
-				}
 
 				ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
 
