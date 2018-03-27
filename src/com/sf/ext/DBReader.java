@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import entities.Person;
 import entities.Student;
@@ -29,6 +31,9 @@ import entities.Member;
 
 public class DBReader {
 
+	public static int counter = 0;
+
+	
 	//Returns a single address object (Do not delete)
 	private static Address getAddress(int AddressID){
 		Connection conn = DBUtility.connectMeToDatabase();
@@ -152,32 +157,66 @@ public class DBReader {
 
 
 	//Returns a list of all products on an invoice
-	private static ArrayList<InvoiceProducts> getInvoiceProductList() {
+	private static List<InvoiceProducts> getProductList() {
+		
 		Connection conn = DBUtility.connectMeToDatabase();
+		counter++;
 
 
-		ArrayList<InvoiceProducts> invoiceProducts = new ArrayList<InvoiceProducts>();
-		InvoiceProducts ip = null;
-
-		String getAllInvoiceProducts = "SELECT Products.ProductCode, InvoiceProducts.Quantity, Persons.PersonCode FROM Products JOIN InvoiceProducts ON InvoiceProducts.ProductID = Products.ProductID JOIN Invoices ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID";   
+		List<InvoiceProducts> productList = new ArrayList<InvoiceProducts>();
+  
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
-			ps = conn.prepareStatement(getAllInvoiceProducts);
+			String getAllInvoiceProductsWithMemberships = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID JOIN Invoices ON Invoices.InvoiceID = InvoiceProducts.InvoiceID AND Invoices.InvoiceID = ? AND MembershipID IS NOT NULL";
+			ps = conn.prepareStatement(getAllInvoiceProductsWithMemberships);
+			ps.setInt(1, counter);
 			rs = ps.executeQuery();
-
-			while(rs.next()){
+			
+			while (rs.next()) {
 				String productCode = rs.getString("ProductCode");
 				int quantity = rs.getInt("Quantity");
-				String personCode = rs.getString("PersonCode");
-
-				ip = new InvoiceProducts (productCode, quantity, personCode);
-				invoiceProducts.add(ip);
+				int MembershipID = rs.getInt("MembershipID");
+				
+				PreparedStatement ps1;
+				ResultSet rs1;
+				String findDiscountCode = "SELECT Products.ProductCode FROM Products WHERE Products.ProductID = ?";
+				ps1 = conn.prepareStatement(findDiscountCode);
+				ps1.setInt(1, MembershipID);
+				rs1 = ps1.executeQuery();
+				
+				while(rs1.next()) {
+					String discountCode = rs1.getString("ProductCode");
+					InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
+					productList.add(ip);
+				}
+				
+				rs1.close();
+				ps1.close();
 			}
-
 			rs.close();
 			ps.close();
+			
+			
+			String getAllInvoiceProductsNoMemberships = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID JOIN Invoices ON Invoices.InvoiceID = InvoiceProducts.InvoiceID AND Invoices.InvoiceID = ? AND MembershipID IS NULL";
+			ps = conn.prepareStatement(getAllInvoiceProductsNoMemberships);
+			ps.setInt(1, counter);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				String productCode = rs.getString("ProductCode");
+				int quantity = rs.getInt("Quantity");
+				String discountCode = "";
+				
+				InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
+				productList.add(ip);
+			}
+			rs.close();
+			ps.close();
+			
+			
+			
 		}
 		catch (SQLException e) {
 			System.out.println("SQLException: ");
@@ -187,7 +226,123 @@ public class DBReader {
 
 		DBUtility.closeConnection(conn);
 
-		return invoiceProducts;
+		return productList;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		Connection conn = DBUtility.connectMeToDatabase();
+//
+//
+//		List<Product> productList = new ArrayList<Product>();
+//  
+//		PreparedStatement ps;
+//		ResultSet rs;
+//
+//		try {
+//			//ps = conn.prepareStatement(getAllInvoiceProducts);
+//			//rs = ps.executeQuery();
+//			
+//			String getAllInformation = "SELECT * FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
+//			ps = conn.prepareStatement(getAllInformation);
+//			rs = ps.executeQuery();
+//			
+//			while (rs.next()) {
+//				if (rs.getString("ProductType").equals("R")) {
+//					String productCode = rs.getString("ProductCode");
+//					String productType = rs.getString("ProductType");
+//					String productName = rs.getString("ProductName");
+//					double cost = rs.getDouble("ProductCost");
+//					Product product = new RentalEquipment(productName, cost, productCode, productType);
+//					productList.add(product);
+//					
+//				} else if (rs.getString("ProductType").equals("P")) {
+//					String productCode = rs.getString("ProductCode");
+//					String productType = rs.getString("ProductType");
+//					double cost = rs.getDouble("ProductCost");
+//					Product product = new ParkingPass(cost, productCode, productType);
+//					productList.add(product);
+//
+//					
+//				} else if (rs.getString("ProductType").equals("Y")) {
+//					String productCode = rs.getString("ProductCode");
+//					String productType = rs.getString("ProductType");
+//					
+//					DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd");
+//					DateTime startDate = date.parseDateTime(rs.getString("StartDate"));
+//					DateTime endDate = date.parseDateTime(rs.getString("EndDate"));
+//					
+//					Address a = getAddress(rs.getInt(rs.getInt("AddressID")));
+//					String street = a.getStreet();
+//					String city = a.getCity();
+//					String state = a.getState();
+//					String zip = a.getZip();
+//					String country = a.getCountry();
+//					Address address = new Address (street, city, state, zip, country);
+//					
+//					String productName = rs.getString("ProductName");
+//					Double cost = rs.getDouble("ProductCost");
+//					
+//					Product product = new YearMembership(startDate, endDate, address, productName, cost, productCode, productType);
+//					productList.add(product);
+//					
+//				} else if (rs.getString("ProductType").equals("D")) {
+//					String productCode = rs.getString("ProductCode");
+//					String productType = rs.getString("ProductType");
+//					
+//					DateTimeFormatter date = DateTimeFormat.forPattern("yyyy-MM-dd");
+//					DateTime startDate = date.parseDateTime(rs.getString("StartDate"));
+//					
+//					Address a = getAddress(rs.getInt(rs.getInt("AddressID")));
+//					String street = a.getStreet();
+//					String city = a.getCity();
+//					String state = a.getState();
+//					String zip = a.getZip();
+//					String country = a.getCountry();
+//					Address address = new Address (street, city, state, zip, country);
+//					
+//					double cost = rs.getDouble("ProductCost");
+//					Product product = new DayMembership(startDate, address, cost, productCode, productType);
+//					productList.add(product);
+//				}
+//			}
+//
+//			rs.close();
+//			ps.close();
+//		}
+//		catch (SQLException e) {
+//			System.out.println("SQLException: ");
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
+//
+//		DBUtility.closeConnection(conn);
+//
+//		return productList;
 
 
 
@@ -292,11 +447,11 @@ public class DBReader {
 
 
 
-	public static List<Invoice> createInvoiceList() {
+	public static List<Invoice> createInvoiceList() {	
+		
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		List<Invoice> invoiceList = new ArrayList<Invoice>();
-		ArrayList<InvoiceProducts> productList = new ArrayList<InvoiceProducts>();
 
 		String getInvoiceInfo = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate, Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
 		PreparedStatement ps;
@@ -336,29 +491,31 @@ public class DBReader {
 				String personCode = "";
 				
 				
-				ArrayList<InvoiceProducts> invoiceProductArray = getInvoiceProductList();
+				List<InvoiceProducts> invoiceProducts = getProductList();
 				
-				for(int i = 0; i < invoiceProductArray.size(); i++) {
+				ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
+				
+				
+				for(int i = 0; i < invoiceProducts.size(); i++) {
 					int quantity = 0;
-					if(invoiceProductArray.get(i).getPersonCode().equals("")) {
-						productCode = invoiceProductArray.get(i).getProductCode();
-						quantity = invoiceProductArray.get(i).getQuantity();
+					if(invoiceProducts.get(i).getPersonCode().equals("")) {
+						productCode = invoiceProducts.get(i).getProductCode();
+						quantity = invoiceProducts.get(i).getQuantity();
 						personCode = "";
 						
 						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						System.out.println("I AM HERE PRODUCT IS: " + ip.getProductCode());
-						productList.add(ip);
+						productOnInvoiceList.add(ip);
 					} else {
-						productCode = invoiceProductArray.get(i).getProductCode();
-						quantity = invoiceProductArray.get(i).getQuantity();
-						personCode = invoiceProductArray.get(i).getPersonCode();
+						productCode = invoiceProducts.get(i).getProductCode();
+						quantity = invoiceProducts.get(i).getQuantity();
+						personCode = invoiceProducts.get(i).getPersonCode();
 						
 						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
-						productList.add(ip);
+						productOnInvoiceList.add(ip);
 					}
 				}
 				
-				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productList);
+				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productOnInvoiceList);
 				
 				invoiceList.add(v);
 			}
