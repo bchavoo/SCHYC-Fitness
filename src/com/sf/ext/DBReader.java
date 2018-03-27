@@ -1,5 +1,7 @@
 package com.sf.ext;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.joda.time.DateTime;
 
@@ -17,6 +20,7 @@ import product.ParkingPass;
 import product.Product;
 import product.RentalEquipment;
 import product.YearMembership;
+import reader.FileReader;
 import entities.Address;
 import entities.General;
 import entities.Invoice;
@@ -67,24 +71,24 @@ public class DBReader {
 
 
 
-
-	private Person getPerson(int PersonID){
-		String getPerson = "SELECT * FROM Persons WHERE PersonID = ?";
+	//Finds and returns a person (Don't delete)
+	private Person getPerson(String personCode){
+		String getPerson = "SELECT * FROM Persons WHERE PersonCode = ?";
 
 		Person p = null;
 
 		try {
 			Connection conn = DBUtility.connectMeToDatabase();
 			PreparedStatement ps = conn.prepareStatement(getPerson);
-			ps.setInt(1, PersonID);
+			ps.setString(1, personCode);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String personCode = rs.getString("PersonCode");
+				int personID = rs.getInt("PersonID");
 				String firstName = rs.getString("FirstName");
 				String lastName = rs.getString("LastName");
 				Address address = getAddress(rs.getInt("AddressID"));
-				ArrayList<String> email = getEmails(PersonID);
+				ArrayList<String> email = getEmails(personID);
 
 				p = new Person(personCode, firstName, lastName, address, email);
 
@@ -221,32 +225,43 @@ public class DBReader {
 
 
 	}
+	
+	
+	
+	
 
-	private Member getMembers(String memberID){
+	//We fixed/use this method (Don't delete)
+	private static List<Member> getMemberList(){
 
-
-		String getMembers = "SELECT * FROM Members WHERE MemberID = ?";
+		List<Member> memberList = null;
 		Member m = null;
+
+
+		String getAllMembers = "SELECT Members.MemberCode, Members.MemberType, Persons.PersonCode, Members.MemberName, Address.AddressID FROM Members JOIN Persons ON MemberPersonID = Persons.PersonID JOIN Address ON MemberAddressID = Address.AddressID";
+		PreparedStatement ps;
+		ResultSet rs;
 
 		try {
 			Connection conn = DBUtility.connectMeToDatabase();
-			PreparedStatement ps = conn.prepareStatement(getMembers);
-			ps.setString(1, memberID);
-			ResultSet rs = ps.executeQuery();
-
+			
+			ps = conn.prepareStatement(getAllMembers);
+			rs = ps.executeQuery();
+			
 
 			while (rs.next()) {
 				String memberCode = rs.getString("MemberCode");
 				String memberType = rs.getString("MemberType");
-				Person contact = getPerson(rs.getInt("MemberPersonID"));
+				Person contact = getPerson(rs.getString("PersonCode"));
 				String name = rs.getString("MemberName");
 				Address address = getAddress(rs.getInt("MemberAddressID"));
 
 				if(memberType.equals("G")){
 					m = new General(memberCode, memberType, contact, name, address);
+					memberList.add(m);
 				}
 				else if (memberType.equals("S")){
 					m = new Student(memberCode, memberType, contact, name, address);
+					memberList.add(m);
 				}
 			}
 
@@ -260,7 +275,7 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
-		return m;
+		return memberList;
 
 	}
 
@@ -368,11 +383,107 @@ public class DBReader {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static List<Invoice> createInvoiceList() {
-		
-		
-		
-		return null;
+			/**
+			 * Here we call the member list so that we can access the data
+			 */
+			
+			List<Member> memberList = getMemberList();
+			
+			//Find and store a matching member from the invoice
+			for(int i = 0; i < numberOfMembers; i++) {
+				if(memberList.get(i).memberCode.equals(memberCode)) {
+					m = memberList.get(i);
+				}
+			}
+			
+			String personalTrainerCode = token[2];
+			
+			/**
+			 * Here we call the person list so that we can access it's data
+			 */
+			List<Person> personList = FileReader.createPersonList();
+			
+			//Find and store Person
+			for(int i = 0; i < numberOfPersons; i++) {
+				if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
+					p = personList.get(i);
+				}
+			}
+			
+			String invoiceDate = token[3];
+			String productCode = "";
+			String personCode = "";
+			
+			String tokenProducts[] = token[4].split(",");
+			
+			/**
+			 * Here we create an array list called invoiceProductArray that will contain
+			 * the products in that invoice
+			 */
+			ArrayList<InvoiceProducts> invoiceProductArray = new ArrayList<InvoiceProducts>();
+			
+			/**
+			 * Here we use a for loop to loop the token products length to find if 
+			 * it is 2 or 3 for the last part of the token to decide the if we will have 
+			 * a related membership tied to the product so we can store it or
+			 * if we have no extra data and can ignore it.
+			 * We then store all of it into an Array of InvoiceProducts
+			 */
+			for(int i = 0; i < tokenProducts.length; i++) {
+				int quantity = 0;
+				String tokenType[] = tokenProducts[i].split(":");
+					if(tokenType.length == 2) {
+						productCode = tokenType[0];
+						quantity = Integer.parseInt(tokenType[1]);
+						personCode = "";
+						
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						invoiceProductArray.add(ip);
+						
+					} else if (tokenType.length == 3) {
+						productCode = tokenType[0];
+						quantity = Integer.parseInt(tokenType[1]);
+						personCode = tokenType[2];
+						
+						InvoiceProducts ip = new InvoiceProducts(productCode, quantity, personCode);
+						invoiceProductArray.add(ip);
+					}
+			}
+
+            /**
+             * At the end we create a new invoice with all the
+             * information we gathered from the invoice file into an Invoice object
+             * and add the object to a list of Invoices
+             */
+			Invoice v = new Invoice(invoiceNumber, m, p, invoiceDate, invoiceProductArray);
+
+			invoiceList.add(v);
+		}
+		return invoiceList;
+	}
 	}
 
 
