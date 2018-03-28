@@ -31,8 +31,6 @@ import entities.Member;
 
 public class DBReader {
 
-	public static int counter = 0;
-
 	//Returns a list of all persons (Don't delete)
 	public static List<Person> getPersonList() {
 		Connection conn = DBUtility.connectMeToDatabase();
@@ -40,7 +38,7 @@ public class DBReader {
 		List<Person> personList = new ArrayList<Person>();
 
 
-		String getAllPersons = "SELECT Persons.PersonID, Persons.PersonCode, Persons.FirstName, Persons.LastName, Address.AddressID, Emails.EmailID FROM Persons JOIN Address ON Persons.PersonAddressID = Address.AddressID JOIN Emails ON Emails.EmailPersonID = Persons.PersonID";
+		String getAllPersons = "SELECT Persons.PersonID, Persons.PersonCode, Persons.FirstName, Persons.LastName, Address.AddressID FROM Persons JOIN Address ON Persons.PersonAddressID = Address.AddressID GROUP BY PersonID";
 		PreparedStatement ps;
 		ResultSet rs;
 
@@ -51,13 +49,13 @@ public class DBReader {
 
 
 			while (rs.next()) {
+				int personEmailID = rs.getInt("PersonID");
 				String personCode = rs.getString("PersonCode");
 				String firstName = rs.getString("FirstName");
 				String lastName = rs.getString("LastName");
 				int addressID = rs.getInt("AddressID");
 				Address address = getAddress(addressID);
 
-				int personEmailID = rs.getInt("PersonID");
 				ArrayList<String> emailList = getEmails(personEmailID);
 
 				Person p = new Person (personCode, firstName, lastName, address, emailList);
@@ -110,16 +108,7 @@ public class DBReader {
 				int addressID = rs.getInt("AddressID");
 				Address address = getAddress(addressID);
 
-				Person match = null;
-				List<Person> personList = getPersonList();
-
-				for(int i = 0; i < personList.size(); i++) {
-					if (personList.get(i).getPersonCode().equals(personCode)) {
-						match = personList.get(i);
-					}
-				}
-
-
+				Person match = getPerson(personCode);
 
 				if(memberType.equals("General")){
 					Member m = new General(memberCode, memberType, match, memberName, address);

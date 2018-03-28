@@ -41,7 +41,6 @@ public class InvoiceWriter {
 			
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			System.out.println("HERE Name: " + trainerFirstName + " " + trainerLastName);
 			
 			Member temp = invoiceList.get(i).getMemberCode();
 			String memberName = temp.getName();
@@ -52,8 +51,8 @@ public class InvoiceWriter {
 			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 			}
-			String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-			String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
 
 			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 
@@ -99,8 +98,8 @@ public class InvoiceWriter {
 			} else if (memberType.equals("Student")) {
 				memberType = "Student";
 			}
-			String personLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-			String personFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
+			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
 
 			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
 
@@ -251,8 +250,6 @@ public class InvoiceWriter {
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
 				
-				System.out.println("The product code is: " + productFileList.get(i).getProductCode());
-
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 					personCode = "";
 					productType = "";
@@ -273,11 +270,7 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
-							
-							//Check DB it doesn't store the ProductName it is NULL it should be something like Labor Day Deal or something like that
 							productName = yProduct.getMembershipName();
-							System.out.println("I am HERE: " + productName);
-							
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
