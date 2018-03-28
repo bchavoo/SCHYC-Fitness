@@ -198,7 +198,7 @@ public class InvoiceWriter {
 		System.out.println("Member Info:");
 		System.out.println("  " + memberName + "  (" + memberCode + ")");
 		System.out.println("  [" + memberType + "]");
-		System.out.println("  " + personLastName + "," + personFirstName);
+		System.out.println("  " + personLastName + ", " + personFirstName);
 		System.out.println("  " + memberAddress.getStreet());
 		System.out.println("  " + memberAddress.getCity() + " " + memberAddress.getState() + " " + memberAddress.getZip() + " "  + memberAddress.getCountry());
 		System.out.println("------------------------------------------");
