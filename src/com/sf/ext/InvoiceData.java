@@ -383,14 +383,15 @@ public class InvoiceData {
 			ps.close();
 			rs.close();
 
-			String addDayPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, EndDate, AddressID, ProductCost) VALUES (?, ?, ?, ?, ?, ?)";
-			ps = conn.prepareStatement(addDayPass);
+			String addYearPass = "INSERT INTO Products (ProductCode, ProductType, StartDate, EndDate, AddressID, ProductName, ProductCost) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			ps = conn.prepareStatement(addYearPass);
 			ps.setString(1, productCode);
 			ps.setString(2, "Y");
 			ps.setString(3, startDate);
 			ps.setString(4, endDate);
 			ps.setInt(5, addressID);
-			ps.setDouble(6, pricePerUnit);
+			ps.setString(6, name);
+			ps.setDouble(7, pricePerUnit);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

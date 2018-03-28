@@ -41,6 +41,8 @@ public class InvoiceWriter {
 			
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			System.out.println("HERE Name: " + trainerFirstName + " " + trainerLastName);
+			
 			Member temp = invoiceList.get(i).getMemberCode();
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
@@ -84,8 +86,10 @@ public class InvoiceWriter {
 		while(i < invoiceList.size()) {
 			//Here we initialize what is needed for the single invoices which contains information from the invoice class and other super classes
 			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			
 			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
 			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+			
 			Member temp = invoiceList.get(i).getMemberCode();
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
@@ -246,6 +250,8 @@ public class InvoiceWriter {
 
 		for(int i = 0; i < productList.size(); i++) {
 			for(int j = 0; j < productFileList.size(); j++) {
+				
+				System.out.println("The product code is: " + productFileList.get(i).getProductCode());
 
 				if(productList.get(i).getProductCode().equals(productFileList.get(j).getProductCode())) {
 					personCode = "";
@@ -267,7 +273,11 @@ public class InvoiceWriter {
 						if(yProduct.getProductType().equals("Y")) {
 							productCode = yProduct.getProductCode();
 							productType = "Year-long membership";
-							productName = yProduct.getMembershipName();							
+							
+							//Check DB it doesn't store the ProductName it is NULL it should be something like Labor Day Deal or something like that
+							productName = yProduct.getMembershipName();
+							System.out.println("I am HERE: " + productName);
+							
 							startDate = yProduct.getStartDate();
 							endDate = yProduct.getEndDate();
 							address = yProduct.getAddress().getStreet();
