@@ -352,7 +352,7 @@ public class InvoiceWriter {
 								totalCost = dProduct.getTotal(subTotal, tax);
 								//They get a 50% discount if it falls in the month of January
 								System.out.printf("%-9s %-20s" + " @ " + "%-48s" + "$%10.2f $%9.2f $%10.2f\n", productCode, productType, address, subTotal, tax, totalCost);
-								System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + " w/ %%50 off)\n", "", sDate, quantity, costPerUnit);
+								System.out.printf("%9s %8s " + "(" + "%.0f" + " units @ $" + "%5.2f" + " w/ %%50 off)\n", "", sDate, quantity, costPerUnit/dProduct.getDiscount());
 								DMSubTotal += subTotal;
 								DMTaxes += tax;
 								DMTotal += totalCost;
