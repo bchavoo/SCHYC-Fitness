@@ -413,7 +413,7 @@ public class InvoiceWriter {
 								 * parking passes 
 								 */
 								//THEY GET NO FREE PARKING PASSES
-								System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%.32f" + ")" + "%36s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
+								System.out.printf("%-9s %-12s " + "(" + "%-2.0f"+ " units @ " + "$" + "%3.2f" + ")" + "%36s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, quantity, costPerUnit, "", subTotal, tax, totalCost);
 								PPSubTotal += subTotal;
 								PPTaxes += tax;
 								PPTotal += totalCost;
@@ -444,7 +444,7 @@ public class InvoiceWriter {
 								subTotal = pProduct.getSubTotal(costPerUnit, quantity);
 								tax = pProduct.getTax(subTotal);
 								totalCost = pProduct.getTotal(subTotal, tax);
-								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%5.2f" + " w/ %-2.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity+1, costPerUnit, 1.00, "", subTotal, tax, totalCost);
+								System.out.printf("%-9s %-12s %-4s (" + "%-2.0f"+ " units @ " + "$" + "%5.2f" + " w/ %-1s.0f free)" + "%23s"+ "$%10.2f $%9.2f $%10.2f\n", productCode, productType, personCode, quantity+1, costPerUnit, 1.00, "", subTotal, tax, totalCost);
 								PPSubTotal += subTotal;
 								PPTaxes += tax;
 								PPTotal += totalCost;
