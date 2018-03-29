@@ -31,23 +31,30 @@ import entities.Member;
 
 public class DBReader {
 
-	//Returns a list of all persons (Don't delete)
+	//Method to get a list of all persons in database
 	public static List<Person> getPersonList() {
+		//Connect to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		
+		/**
+		 * We than create a type list of persons so that we can put the person info into 
+		 * an object and eventually add it to the personlist.
+		 */
+		
 		List<Person> personList = new ArrayList<Person>();
 
-
+		//Query to find all Persons in database
 		String getAllPersons = "SELECT Persons.PersonID, Persons.PersonCode, Persons.FirstName, Persons.LastName, Address.AddressID FROM Persons JOIN Address ON Persons.PersonAddressID = Address.AddressID GROUP BY PersonID";
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
-
+			//Create and execute query
 			ps = conn.prepareStatement(getAllPersons);
 			rs = ps.executeQuery();
 
-
+			//While the query returns information we will store the values
 			while (rs.next()) {
 				int personEmailID = rs.getInt("PersonID");
 				String personCode = rs.getString("PersonCode");
@@ -57,12 +64,14 @@ public class DBReader {
 				Address address = getAddress(addressID);
 
 				ArrayList<String> emailList = getEmails(personEmailID);
-
+				
+				//Using the values we get we create a person object, and add to a list
 				Person p = new Person (personCode, firstName, lastName, address, emailList);
 				personList.add(p);
 
 			}
-
+			
+			//After we are done we close the prepared statement and result set
 			rs.close();
 			ps.close();
 
@@ -71,9 +80,10 @@ public class DBReader {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-
+		//Close the connection to the database
 		DBUtility.closeConnection(conn);
-
+		
+		//Return the list of persons
 		return personList;
 
 
@@ -84,21 +94,30 @@ public class DBReader {
 
 
 
-	//Returns a list of all members (Don't delete)
+	//Method to get a list of all Members in database
 	private static List<Member> getMemberList(){
+		//Connect to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		/**
+		 * Here we create a memberlist of type member and list so that we can store 
+		 * a member object that will have the information we need to add to the list 
+		 * and eventually use
+		 */
+		
 		List<Member> memberList = new ArrayList<Member>();
 
+		//Query to find all Members in the database
 		String getAllMembers = "SELECT Members.MemberCode, Members.MemberType, Persons.PersonCode, Members.MemberName, Address.AddressID FROM Members JOIN Persons ON MemberPersonID = Persons.PersonID JOIN Address ON Members.MemberAddressID = Address.AddressID";
 		PreparedStatement ps;
 		ResultSet rs;
 
-		try {			
+		try {	
+			//Create and execute query
 			ps = conn.prepareStatement(getAllMembers);
 			rs = ps.executeQuery();
 
-
+			//While the query returns something, we get information and store it
 			while (rs.next()) {
 
 				String memberCode = rs.getString("MemberCode");
@@ -108,8 +127,10 @@ public class DBReader {
 				int addressID = rs.getInt("AddressID");
 				Address address = getAddress(addressID);
 
+				//Using the personCode from the query, we find and get a person object with that code
 				Person match = getPerson(personCode);
 
+				//Create an appropriate type of Member and add to a list of Members
 				if(memberType.equals("General")){
 					Member m = new General(memberCode, memberType, match, memberName, address);
 					memberList.add(m);
@@ -121,6 +142,7 @@ public class DBReader {
 				}
 			}
 
+			//After we're done close the prepared statement and result set
 			rs.close();
 			ps.close();
 
@@ -130,34 +152,41 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
+		//Close connection to database
 		DBUtility.closeConnection(conn);
 
+		//Return the list of members created
 		return memberList;
-
 	}
 
 
 
 
 
-
+	//Method to get a list of all the Products(sold/offered) in database
 	public static List<Product> getAllProducts() {
+		//Connect to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		/** 
+		 * Create a product list that will include objects created to receive
+		 * the info from each product
+		 */
 
 		List<Product> productList = new ArrayList<Product>();
-
+		
+		//Query to get all the products(not invoice products) in the database
+		String getAllInformation = "SELECT * FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
-			//ps = conn.prepareStatement(getAllInvoiceProducts);
-			//rs = ps.executeQuery();
-
-			String getAllInformation = "SELECT * FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID";
+			//Create and execute query
 			ps = conn.prepareStatement(getAllInformation);
 			rs = ps.executeQuery();
 
+			//While the database returns something we will determine the specific product
+			//and create an object of that product type and then add to a list of Products
 			while (rs.next()) {
 				if (rs.getString("ProductType").equals("R")) {
 					String productCode = rs.getString("ProductCode");
@@ -219,6 +248,7 @@ public class DBReader {
 				}
 			}
 
+			//After we are done, close the prepared statement and result set
 			rs.close();
 			ps.close();
 		}
@@ -228,16 +258,20 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
+		//Close connection to database
 		DBUtility.closeConnection(conn);
-
+		
+		//Return the list of all the products created
 		return productList;
 	}
 
 
-	//Returns a single address object (Do not delete)
+	//Method to get an address object of a specified AddressID
 	private static Address getAddress(int AddressID){
+		//Open connection to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		//Query to find an address at a specific AddressID
 		String getAddress = "SELECT * FROM Address WHERE AddressID = ?";
 
 		PreparedStatement ps;
@@ -245,10 +279,12 @@ public class DBReader {
 		Address a = null;
 
 		try {
+			//Create and execute query
 			ps = conn.prepareStatement(getAddress);
 			ps.setInt(1, AddressID);
 			rs = ps.executeQuery();
 
+			//Gather the data needed and create an address object
 			while (rs.next()) {
 				String street = rs.getString("Street");
 				String city = rs.getString("City");
@@ -260,6 +296,7 @@ public class DBReader {
 
 			}
 
+			//Close the prepared statement and result set
 			rs.close();
 			ps.close();
 
@@ -269,20 +306,23 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
+		//Close connection to database
 		DBUtility.closeConnection(conn);
 
+		//Return the address object we created
 		return a;
 
 	}
 
 
 
-	//Returns an array list of emails of a specific person (Don't delete)
+	//Method that returns an array list of emails of a specific PersonID
 	private static ArrayList<String> getEmails(int PersonID){
 		Connection conn = DBUtility.connectMeToDatabase();
 
 		ArrayList<String> allEmails = new ArrayList<String>();
 
+		//Query to find all the emails of a specific Person
 		String getEmail = "SELECT * FROM Emails WHERE EmailPersonID = ?";
 
 		PreparedStatement ps;
@@ -290,6 +330,7 @@ public class DBReader {
 
 
 		try {
+			//Prepare and execute query
 			ps = conn.prepareStatement(getEmail);
 			ps.setInt(1, PersonID);
 			rs = ps.executeQuery();
@@ -300,7 +341,10 @@ public class DBReader {
 				allEmails.add(email);
 			}
 
+			//Close connection to database
 			DBUtility.closeConnection(conn);
+			
+			//Close prepared statement and result set
 			rs.close();
 			ps.close();
 		}
@@ -311,23 +355,28 @@ public class DBReader {
 		}
 
 
+		//Return the list of emails
 		return allEmails;
 	}
 
 
-	//Finds and returns a single person (Don't delete)
+	//Method that finds and returns a person object of specificed personCode
 	private static Person getPerson(String personCode){
+		//Open connection to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		//Query to find a specific Person
 		String getPerson = "SELECT * FROM Persons WHERE PersonCode = ?";
 
 		Person p = null;
 
 		try {
+			//Prepare and execute query
 			PreparedStatement ps = conn.prepareStatement(getPerson);
 			ps.setString(1, personCode);
 			ResultSet rs = ps.executeQuery();
 
+			//While the query returns something, we get the information we need and create a Person object
 			while (rs.next()) {
 				int personID = rs.getInt("PersonID");
 				String firstName = rs.getString("FirstName");
@@ -341,6 +390,7 @@ public class DBReader {
 
 			}
 
+			//Close prepared statement and result set
 			rs.close();
 			ps.close();
 
@@ -350,112 +400,33 @@ public class DBReader {
 			throw new RuntimeException(e);
 		}
 
+		//Close connection to database
 		DBUtility.closeConnection(conn);
 
+		//Return the person object created and found
 		return p;
 	}
 
-
-
-	//	//Returns a list of all products on an invoice
-	//	private static List<InvoiceProducts> getProductListOfAnInvoice() {
-	//
-	//		Connection conn = DBUtility.connectMeToDatabase();
-	//		counter++;
-	//
-	//
-	//		List<InvoiceProducts> productList = new ArrayList<InvoiceProducts>();
-	//
-	//		PreparedStatement ps;
-	//		ResultSet rs;
-	//
-	//		try {
-	//			String getAllInvoiceProductsWithMemberships = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID JOIN Invoices ON Invoices.InvoiceID = InvoiceProducts.InvoiceID AND Invoices.InvoiceID = ? AND MembershipID IS NOT NULL";
-	//			ps = conn.prepareStatement(getAllInvoiceProductsWithMemberships);
-	//			ps.setInt(1, counter);
-	//			rs = ps.executeQuery();
-	//
-	//			while (rs.next()) {
-	//				String productCode = rs.getString("ProductCode");
-	//				int quantity = rs.getInt("Quantity");
-	//				int MembershipID = rs.getInt("MembershipID");
-	//
-	//				PreparedStatement ps1;
-	//				ResultSet rs1;
-	//				String findDiscountCode = "SELECT Products.ProductCode FROM Products WHERE Products.ProductID = ?";
-	//				ps1 = conn.prepareStatement(findDiscountCode);
-	//				ps1.setInt(1, MembershipID);
-	//				rs1 = ps1.executeQuery();
-	//
-	//				while(rs1.next()) {
-	//					String discountCode = rs1.getString("ProductCode");
-	//					InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
-	//					productList.add(ip);
-	//
-	//				}
-	//
-	//				rs1.close();
-	//				ps1.close();
-	//			}
-	//			rs.close();
-	//			ps.close();
-	//
-	//
-	//			String getAllInvoiceProductsNoMemberships = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM InvoiceProducts JOIN Products ON InvoiceProducts.ProductID = Products.ProductID JOIN Invoices ON Invoices.InvoiceID = InvoiceProducts.InvoiceID AND Invoices.InvoiceID = ? AND MembershipID IS NULL";
-	//			ps = conn.prepareStatement(getAllInvoiceProductsNoMemberships);
-	//			ps.setInt(1, counter);
-	//			rs = ps.executeQuery();
-	//
-	//			while(rs.next()) {
-	//				String productCode = rs.getString("ProductCode");
-	//				int quantity = rs.getInt("Quantity");
-	//				String discountCode = "";
-	//
-	//				InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
-	//				productList.add(ip);
-	//
-	//			}
-	//			rs.close();
-	//			ps.close();
-	//
-	//
-	//
-	//		}
-	//		catch (SQLException e) {
-	//			System.out.println("SQLException: ");
-	//			e.printStackTrace();
-	//			throw new RuntimeException(e);
-	//		}
-	//
-	//		DBUtility.closeConnection(conn);
-	//
-	//		return productList;
-	//
-	//	}
-
-
-
-
-
-
-
-
-
+	//Method that gets all the products that are in a specific invoice
 	public static ArrayList<InvoiceProducts> getInvoiceProductList(String invoiceCode) {
 
+		//Open connection to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
+		//Query to get information on products on a specific invoice
 		String getInvoiceInfo = "SELECT Products.ProductCode, InvoiceProducts.Quantity, InvoiceProducts.MembershipID FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID WHERE Invoices.InvoiceCode = ?";
 		PreparedStatement ps;
 		ResultSet rs;
 
 		try {
+			//Prepare and execute query
 			ps = conn.prepareStatement(getInvoiceInfo);
 			ps.setString(1, invoiceCode);
 			rs = ps.executeQuery();
 
 			ArrayList<InvoiceProducts> productOnInvoiceList = new ArrayList<InvoiceProducts>();
 
+			//While the query returns information, we will store and create objects
 			while(rs.next()) {
 
 				String productCode = rs.getString("ProductCode");
@@ -463,7 +434,8 @@ public class DBReader {
 				int productID = rs.getInt("MembershipID");
 				String discountCode = "";
 
-
+				//If the productID which holds a productID of a ParkingPass or RentalEquipment
+				//is not 0, then there is a productID which will entitle the product to a discount
 				if(productID != 0) {
 					String findDiscountID = "SELECT ProductCode FROM Products WHERE ProductID = ?";
 					PreparedStatement ps1 = conn.prepareStatement(findDiscountID);
@@ -478,16 +450,21 @@ public class DBReader {
 					discountCode = "";
 				}
 
+				//Create an InvoiceProduct object and add to list
 				InvoiceProducts ip = new InvoiceProducts(productCode, quantity, discountCode);
 				productOnInvoiceList.add(ip);
 
 				
 
 			} 
+			//Close prepared statement and result set
 			rs.close();
 			ps.close();
+			
+			//Close connection to database
 			DBUtility.closeConnection(conn);
 
+			//Return the list of InvoiceProducts (products on an invoice)
 			return productOnInvoiceList;
 
 		} catch (SQLException e) {
@@ -499,20 +476,13 @@ public class DBReader {
 
 	}
 
-
-
-
-
-
-
-
-
-
-
+	//Method that creates and returns a list of invoices from given data
 	public static List<Invoice> createInvoiceList() {	
+		//Open connection to database
 		Connection conn = DBUtility.connectMeToDatabase();
 
-		String getInvoiceInfoNoRepeat = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID GROUP BY Invoices.InvoiceCode";
+		//Query to get information of all the invoices
+		String getInvoiceInfo = "SELECT Invoices.InvoiceCode, Members.MemberCode, Persons.PersonCode, Invoices.InvoiceDate FROM Invoices JOIN Members ON Invoices.InvoiceMemberID = Members.MemberID JOIN Persons ON Invoices.InvoicePersonID = Persons.PersonID JOIN InvoiceProducts ON InvoiceProducts.InvoiceID = Invoices.InvoiceID JOIN Products ON InvoiceProducts.ProductID = Products.ProductID GROUP BY Invoices.InvoiceCode";
 
 		List<Invoice> invoiceList = new ArrayList<Invoice>();
 
@@ -520,9 +490,11 @@ public class DBReader {
 		ResultSet rs;
 
 		try {
-			ps = conn.prepareStatement(getInvoiceInfoNoRepeat);
+			//Prepare and execute query
+			ps = conn.prepareStatement(getInvoiceInfo);
 			rs = ps.executeQuery();
 
+			//While the query has information, we will store and create invoices
 			while(rs.next()) {
 				Member m = null;
 				Person p = null;
@@ -530,9 +502,10 @@ public class DBReader {
 				String invoiceCode = rs.getString("InvoiceCode");
 				String memberCode = rs.getString("MemberCode");
 
-
+				//Get the list of Members by calling the respective method
 				List<Member> memberList = getMemberList();
-
+				
+				//Search and find a member of specific MemberCode and store that Member
 				for(int i = 0; i < memberList.size(); i++) {
 					if(memberList.get(i).memberCode.equals(memberCode)) {
 						m = memberList.get(i);
@@ -541,8 +514,10 @@ public class DBReader {
 
 				String personalTrainerCode = rs.getString("PersonCode");
 
+				//Get the list of Persons by calling the respective method
 				List<Person> personList = getPersonList();
 
+				//Search and find a Person of specific PersonCode and store that Person
 				for(int i = 0; i < personList.size(); i++) {
 					if(personList.get(i).getPersonCode().equals(personalTrainerCode)) {
 						p = personList.get(i);
@@ -551,17 +526,23 @@ public class DBReader {
 
 				String invoiceDate = rs.getString("InvoiceDate");
 
+				//Get the list of products on an invoice by called the specific method
 				ArrayList<InvoiceProducts> productOnInvoiceList = getInvoiceProductList(invoiceCode);
 				
+				//Create an invoce object of all the information found and add to a list of invoices
 				Invoice v = new Invoice(invoiceCode, m, p, invoiceDate, productOnInvoiceList);
 				invoiceList.add(v);
 
 			}
 
+			//Close the prepared statement and result set
 			ps.close();
 			rs.close();
+			
+			//Close connection to database
 			DBUtility.closeConnection(conn); 
 
+			//Return the list of invoices
 			return invoiceList;
 
 		} catch (SQLException e) {

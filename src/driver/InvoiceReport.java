@@ -12,12 +12,11 @@ public class InvoiceReport {
 	
 public static void main(String[] args) throws IOException {
 		
-		//Creates a FlatFileReader object, this returns a list of invoices
-		
+		//Calls a method to get a list of invoices
 		List<Invoice> DBInvoiceList = DBReader.createInvoiceList();
 		
 		
-		//This will generate invoice report and display it on the console
+		//This will generate invoice report, with a given list of invoices and display it on the console
 		InvoiceWriter.createInvoiceReport(DBInvoiceList);
 
 
