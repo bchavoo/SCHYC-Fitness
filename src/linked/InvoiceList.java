@@ -19,11 +19,11 @@ public class InvoiceList {
 		
 	}
 	
-	public void addToStart(Invoice o) {
+	public void addToStart(Invoice i) {
 		
 	}
 	
-	public void addToEnd(Invoice o) {
+	public void addToEnd(Invoice i) {
 		
 	}
 	
@@ -31,7 +31,7 @@ public class InvoiceList {
 		
 	}
 	
-	private InvoiceListNode getInvoiceListNode(int position) {
+	private <T> InvoiceListNode getInvoiceListNode(int position) {
 	
 		return null;
 	}
