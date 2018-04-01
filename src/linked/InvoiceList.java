@@ -2,12 +2,32 @@ package linked;
 
 import entities.Invoice;
 
-public class InvoiceList {
+public class InvoiceList<T> {
 	
-	private InvoiceListNode start;
-	private InvoiceListNode end;
+	private InvoiceListNode<T> start;
+	private InvoiceListNode<T> end;
 	private int size = 0;
 	
+	public InvoiceListNode<T> getStart() {
+		return start;
+	}
+
+	public void setStart(InvoiceListNode<T> start) {
+		this.start = start;
+	}
+
+	public InvoiceListNode<T> getEnd() {
+		return end;
+	}
+
+	public void setEnd(InvoiceListNode<T> end) {
+		this.end = end;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public int getSize() {
 		return size;
 	}
@@ -20,12 +40,40 @@ public class InvoiceList {
 	}
 	
 	public void addToStart(Invoice i) {
+		// Add the to the start of the linked list that will be created
+		InvoiceListNode<T> node = new InvoiceListNode<T>(i);
+		
+		size++;
+		
+		if(start == null){
+			start = node;
+			end = start;
+		}
+		else{
+			start.setNext(node);
+			node = start;
+		}
+		
 		
 	}
 	
+	
 	public void addToEnd(Invoice i) {
+		InvoiceListNode<T> node = new InvoiceListNode<T>(i);
+		
+		
+		if(start == null){
+			start = node;
+			end = start;
+		}
+		else{
+			start.setNext(node);
+			node = start;
+		}
+		
 		
 	}
+	
 	
 	public void remove(int position) {
 		
