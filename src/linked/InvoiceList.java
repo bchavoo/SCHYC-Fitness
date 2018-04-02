@@ -104,9 +104,9 @@ public class InvoiceList<T> {
 		
 	}
 	
-	private <T> InvoiceListNode getInvoiceListNode(int position) {
+	private InvoiceListNode getInvoiceListNode(int position) {
 	
-		InvoiceListNode<T> s = (InvoiceListNode<T>) start;
+		InvoiceListNode<T> s =  start;
 		
 		
 		if(position<0 || position>size){
