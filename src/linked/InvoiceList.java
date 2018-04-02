@@ -106,16 +106,36 @@ public class InvoiceList<T> {
 	
 	private <T> InvoiceListNode getInvoiceListNode(int position) {
 	
-		return null;
+		InvoiceListNode<T> s = (InvoiceListNode<T>) start;
+		
+		
+		if(position<0 || position>size){
+    		throw new IndexOutOfBoundsException();
+		}
+		
+		for(int i = 0; i< position; i++){
+			
+			if(s.getNext() == null){
+    		throw new IndexOutOfBoundsException();
+			}
+
+			s = s.getNext();
+		}
+		
+		return s;
 	}
 	
 	public Invoice getInvoice(int position) {
 		
-		return null;
+		return getInvoiceListNode(position).getInvoice();
 	}
 	
 	public void print() {
 		
+		while(start != null){
+			
+			start = start.getNext();
+		}
 		
 	}
  
