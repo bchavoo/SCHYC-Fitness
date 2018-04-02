@@ -76,6 +76,31 @@ public class InvoiceList<T> {
 	
 	
 	public void remove(int position) {
+		// remove from the list at a specefic position
+		
+		if(position == 0){
+			start = start.getNext();
+			return;
+		}
+		
+		for(int i = 0; i < position-1; i++){
+			
+			start = start.getNext();
+			
+		}
+		
+		InvoiceListNode<T> removedNode = start.getNext();
+		
+		InvoiceListNode<T> nextNode = removedNode.getNext();
+		
+		start.setNext(nextNode);
+		
+		end = nextNode;
+		size --;
+		
+		
+		
+		
 		
 	}
 	
@@ -90,6 +115,7 @@ public class InvoiceList<T> {
 	}
 	
 	public void print() {
+		
 		
 	}
  
