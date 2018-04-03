@@ -221,9 +221,4 @@ public class InvoiceList implements Iterable<Invoice> {
 //			start = start.getNext();
 //		}
 //		
-//	}
-
-	
-	
-	//---------------------------------------------------------
-	
+//	}	
