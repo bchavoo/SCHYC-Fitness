@@ -14,7 +14,7 @@ public static void main(String[] args) throws IOException {
 		
 		//Calls a method to get a list of invoices
 		List<Invoice> DBInvoiceList = DBReader.createInvoiceList();
-			
+		
 		
 		//This will generate invoice report, with a given list of invoices and display it on the console
 		InvoiceWriter.createInvoiceReport(DBInvoiceList);
