@@ -2,12 +2,12 @@ package linked;
 
 import entities.Invoice;
 
-public class InvoiceListNode<T> {
+public class InvoiceNode<Invoice> {
 	
-	private InvoiceListNode<T> next;
+	private InvoiceNode<Invoice> next;
 	private Invoice item;
 	
-	public InvoiceListNode(Invoice item) {
+	public InvoiceNode(Invoice item) {
 		this.item = item;
 		this.next = null;
 	}
@@ -16,11 +16,11 @@ public class InvoiceListNode<T> {
 		return item;
 	}
 	
-	public InvoiceListNode<T> getNext() {
+	public InvoiceNode<Invoice> getNext() {
 		return next;
 	}
 	
-	public void setNext(InvoiceListNode<T> next) {
+	public void setNext(InvoiceNode<Invoice> next) {
 		this.next = next;
 	}
 	

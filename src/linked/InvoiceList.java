@@ -1,26 +1,36 @@
 package linked;
 
+import java.util.Comparator;
+import java.util.Iterator;
+
 import entities.Invoice;
 
-public class InvoiceList<T> {
+public class InvoiceList implements Iterable<Invoice> {
 	
-	private InvoiceListNode<T> start;
-	private InvoiceListNode<T> end;
+	private InvoiceNode<Invoice> start;
+	private InvoiceNode<Invoice> end;
 	private int size = 0;
+	private Comparator<Invoice> comp;
 	
-	public InvoiceListNode<T> getStart() {
+	public InvoiceList(Comparator<Invoice> comp) {
+		this.start = null;
+		this.size = 0;
+		this.comp = comp;
+	}
+	
+	public InvoiceNode<Invoice> getStart() {
 		return start;
 	}
 
-	public void setStart(InvoiceListNode<T> start) {
+	public void setStart(InvoiceNode<Invoice> start) {
 		this.start = start;
 	}
 
-	public InvoiceListNode<T> getEnd() {
+	public InvoiceNode<Invoice> getEnd() {
 		return end;
 	}
 
-	public void setEnd(InvoiceListNode<T> end) {
+	public void setEnd(InvoiceNode<Invoice> end) {
 		this.end = end;
 	}
 
@@ -41,7 +51,7 @@ public class InvoiceList<T> {
 	
 	public void addToStart(Invoice i) {
 		// Add the to the start of the linked list that will be created
-		InvoiceListNode<T> node = new InvoiceListNode<T>(i);
+		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
 		
 		size++;
 		
@@ -59,7 +69,7 @@ public class InvoiceList<T> {
 	
 	
 	public void addToEnd(Invoice i) {
-		InvoiceListNode<T> node = new InvoiceListNode<T>(i);
+		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
 		
 		
 		if(start == null){
@@ -89,9 +99,9 @@ public class InvoiceList<T> {
 			
 		}
 		
-		InvoiceListNode<T> removedNode = start.getNext();
+		InvoiceNode<Invoice> removedNode = start.getNext();
 		
-		InvoiceListNode<T> nextNode = removedNode.getNext();
+		InvoiceNode<Invoice> nextNode = removedNode.getNext();
 		
 		start.setNext(nextNode);
 		
@@ -104,9 +114,9 @@ public class InvoiceList<T> {
 		
 	}
 	
-	private InvoiceListNode<T> getInvoiceListNode(int position) {
+	private InvoiceNode<Invoice> getInvoiceListNode(int position) {
 	
-		InvoiceListNode<T> s =  start;
+		InvoiceNode<Invoice> s =  start;
 		
 		
 		if(position<0 || position>size){
@@ -137,6 +147,15 @@ public class InvoiceList<T> {
 			start = start.getNext();
 		}
 		
+	}
+
+	
+	
+	//-----------------------------------------------------------ITERATOR?
+	@Override
+	public Iterator<Invoice> iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
  
 }
