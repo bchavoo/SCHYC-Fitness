@@ -49,109 +49,43 @@ public class InvoiceList implements Iterable<Invoice> {
 		
 	}
 	
-	public void addToStart(Invoice i) {
-		// Add the to the start of the linked list that will be created
-		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
-		
-		size++;
+	public Comparator<Invoice> getCompe(){
+		return comp;
+	}
+	
+	
+	public void add(Invoice item){
+		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
 		
 		if(start == null){
-			start = node;
-			end = start;
-		}
-		else{
-			start.setNext(node);
-			node = start;
+			start = newInvoiceNode;
 		}
 		
-		
-	}
-	
-	
-	public void addToEnd(Invoice i) {
-		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
-		
-		
-		if(start == null){
-			start = node;
-			end = start;
-		}
-		else{
-			start.setNext(node);
-			node = start;
-		}
-		
-		
-	}
-	
-	
-	public void remove(int position) {
-		// remove from the list at a specefic position
-		
-		if(position == 0){
-			start = start.getNext();
-			return;
-		}
-		
-		for(int i = 0; i < position-1; i++){
+		else if(size == 1){
 			
-			start = start.getNext();
 			
-		}
-		
-		InvoiceNode<Invoice> removedNode = start.getNext();
-		
-		InvoiceNode<Invoice> nextNode = removedNode.getNext();
-		
-		start.setNext(nextNode);
-		
-		end = nextNode;
-		size --;
-		
-		
-		
-		
-		
-	}
-	
-	private InvoiceNode<Invoice> getInvoiceListNode(int position) {
-	
-		InvoiceNode<Invoice> s =  start;
-		
-		
-		if(position<0 || position>size){
-    		throw new IndexOutOfBoundsException();
-		}
-		
-		for(int i = 0; i< position; i++){
-			
-			if(s.getNext() == null){
-    		throw new IndexOutOfBoundsException();
+			if(){
+				
+				size++;
 			}
-
-			s = s.getNext();
-		}
-		
-		return s;
-	}
-	
-	public Invoice getInvoice(int position) {
-		
-		return getInvoiceListNode(position).getInvoice();
-	}
-	
-	public void print() {
-		
-		while(start != null){
 			
-			start = start.getNext();
+			else{
+				
+				size++;
+			}
+			
 		}
-		
 	}
-
 	
 	
-	//---------------------------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Iterator<Invoice> iterator() {
 		return new IteratorInvoice();
@@ -180,3 +114,116 @@ public class InvoiceList implements Iterable<Invoice> {
 	}
  
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+//	public void addToStart(Invoice i) {
+//		// Add the to the start of the linked list that will be created
+//		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
+//		
+//		size++;
+//		
+//		if(start == null){
+//			start = node;
+//			end = start;
+//		}
+//		else{
+//			start.setNext(node);
+//			node = start;
+//		}
+//		
+//		
+//	}
+//	
+//	
+//	public void addToEnd(Invoice i) {
+//		InvoiceNode<Invoice> node = new InvoiceNode<Invoice>(i);
+//		
+//		
+//		if(start == null){
+//			start = node;
+//			end = start;
+//		}
+//		else{
+//			start.setNext(node);
+//			node = start;
+//		}
+//		
+//		
+//	}
+//	
+//	
+//	public void remove(int position) {
+//		// remove from the list at a specefic position
+//		
+//		if(position == 0){
+//			start = start.getNext();
+//			return;
+//		}
+//		
+//		for(int i = 0; i < position-1; i++){
+//			
+//			start = start.getNext();
+//			
+//		}
+//		
+//		InvoiceNode<Invoice> removedNode = start.getNext();
+//		
+//		InvoiceNode<Invoice> nextNode = removedNode.getNext();
+//		
+//		start.setNext(nextNode);
+//		
+//		end = nextNode;
+//		size --;
+//		
+//		
+//		
+//		
+//		
+//	}
+//	
+//	private InvoiceNode<Invoice> getInvoiceListNode(int position) {
+//	
+//		InvoiceNode<Invoice> s =  start;
+//		
+//		
+//		if(position<0 || position>size){
+//    		throw new IndexOutOfBoundsException();
+//		}
+//		
+//		for(int i = 0; i< position; i++){
+//			
+//			if(s.getNext() == null){
+//    		throw new IndexOutOfBoundsException();
+//			}
+//
+//			s = s.getNext();
+//		}
+//		
+//		return s;
+//	}
+//	
+//	public Invoice getInvoice(int position) {
+//		
+//		return getInvoiceListNode(position).getInvoice();
+//	}
+//	
+//	public void print() {
+//		
+//		while(start != null){
+//			
+//			start = start.getNext();
+//		}
+//		
+//	}
+
+	
+	
+	//---------------------------------------------------------
+	
