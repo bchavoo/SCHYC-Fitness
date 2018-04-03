@@ -151,11 +151,32 @@ public class InvoiceList implements Iterable<Invoice> {
 
 	
 	
-	//-----------------------------------------------------------ITERATOR?
+	//---------------------------------------------------------
 	@Override
 	public Iterator<Invoice> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new IteratorInvoice();
+	}
+	
+	class IteratorInvoice implements Iterator<Invoice> {
+		int index = 0;
+		
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Invoice next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public void remove() {
+			
+		}
+		
 	}
  
 }
