@@ -64,7 +64,7 @@ public class InvoiceList implements Iterable<Invoice> {
 		else if(size == 1){
 			
 			
-			if(){
+			//if(){
 				
 				size++;
 			}
@@ -75,7 +75,7 @@ public class InvoiceList implements Iterable<Invoice> {
 			}
 			
 		}
-	}
+	//}
 	
 	
 	

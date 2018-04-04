@@ -2,6 +2,8 @@ package entities;
 
 import java.util.ArrayList;
 
+import writer.InvoiceCalculator;
+
 public class Invoice {
 
 	/**
@@ -14,6 +16,9 @@ public class Invoice {
 	private Person personalTrainerCode;
 	private String invoiceDate;
 	private ArrayList<InvoiceProducts> invoiceProducts;
+	private double subTotal;
+	private double tax;
+	private double allTotal;
 
 	//Here we create constructor for this class
 	public Invoice(String invoiceCode, Member memberCode, Person personalTrainerCode, String invoiceDate, ArrayList<InvoiceProducts> invoiceProducts) {
@@ -55,6 +60,18 @@ public class Invoice {
 	}
 	public void setProductsList(ArrayList<InvoiceProducts> invoiceProducts) {
 		this.invoiceProducts = invoiceProducts;
+	}
+	public double getSubTotal() {
+		this.subTotal = InvoiceCalculator.calculateSubTotal(this.memberCode.getMemberType(), this.getProductsList());
+		return this.subTotal;
+	}
+	public double getTaxes() {
+		this.tax = InvoiceCalculator.calculateTax(this.memberCode.getMemberType(), this.getProductsList());
+		return this.tax;
+	}
+	public double getTotal() {
+		this.allTotal = InvoiceCalculator.calculateTotal(this.memberCode.getMemberType(), this.getProductsList());
+		return this.allTotal;
 	}
 
 
