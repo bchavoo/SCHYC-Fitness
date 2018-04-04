@@ -49,7 +49,7 @@ public class InvoiceList implements Iterable<Invoice> {
 		
 	}
 	
-	public Comparator<Invoice> getCompe(){
+	public Comparator<Invoice> getComp(){
 		return comp;
 	}
 	
@@ -64,24 +64,67 @@ public class InvoiceList implements Iterable<Invoice> {
 		else if(size == 1){
 			
 			
-			//if(){
+			if(this.comp.compare(newInvoiceNode., start)){
+				start.setNext(newInvoiceNode);
+				start = newInvoiceNode;
 				
 				size++;
 			}
 			
 			else{
+				end.setNext(newInvoiceNode);
+				end = newInvoiceNode;
 				
 				size++;
 			}
 			
 		}
-	//}
-	
-	
-	
-	
-	
-	
+		
+		else{
+			
+			
+			if(){
+				start.setNext(newInvoiceNode);
+				start = newInvoiceNode;
+				size++;
+			}
+			
+			
+			else if (){
+				for(int i =0; i < size; i++){
+					start = start.getNext();
+				}
+				
+				 InvoiceNode<Invoice> neighbor1;
+
+				 start.setNext(newInvoiceNode);
+				 
+				 neighbor1 = start.getNext();
+				 				 
+				 newInvoiceNode.setNext(neighbor1);
+			
+				
+				size++;
+			}
+			
+			else {
+				
+				for(int i = 0; i > size; i++){
+					start = start.getNext();
+				}
+				
+				 InvoiceNode<Invoice> currentNode;
+
+				currentNode = start.getNext();
+				
+				currentNode.setNext(newInvoiceNode);
+				
+				
+				
+				size++;
+			}
+		}
+	}
 	
 	
 	
@@ -221,4 +264,9 @@ public class InvoiceList implements Iterable<Invoice> {
 //			start = start.getNext();
 //		}
 //		
-//	}	
+//	}
+
+	
+	
+	//---------------------------------------------------------
+	//	}	
