@@ -19,4 +19,16 @@ public class TotalComparator implements Comparator<Invoice> {
 		}
 	}
 
+	@Override
+	public boolean equals(Object inv) {
+		// TODO Auto-generated method stub
+		return super.equals(inv);
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
 }
