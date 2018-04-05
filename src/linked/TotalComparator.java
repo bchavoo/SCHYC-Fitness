@@ -11,14 +11,13 @@ public class TotalComparator implements Comparator<Invoice> {
 		// TODO Auto-generated method stub
 		double id1 = inv1.getTotal();
 		double id2 = inv2.getTotal();
-		
-		if(id1 == id2){
+
+		if(id1 == id2) {
 			return 0;
-		}else if(id1>id2){
+		} else if (id1 > id2) {
 			return 1;
+		} else
+			return -1;
 		}
-		else
-		return -1;
-	}
 
 }
