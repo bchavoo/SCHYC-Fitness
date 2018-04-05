@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import entities.Invoice;
 
-public class InvoiceList implements Iterable<Invoice> {
+public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	private InvoiceNode<Invoice> start;
 	private InvoiceNode<Invoice> end;
