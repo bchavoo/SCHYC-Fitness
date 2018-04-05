@@ -64,7 +64,7 @@ public class InvoiceList implements Iterable<Invoice> {
 		else if(size == 1){
 			
 			
-			if(this.comp.compare(newInvoiceNode., start)){
+			if(this.comp.compare(){
 				start.setNext(newInvoiceNode);
 				start = newInvoiceNode;
 				
