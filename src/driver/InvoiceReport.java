@@ -17,10 +17,10 @@ public static void main(String[] args) throws IOException {
 		//Calls a method to get a list of invoices
 		List<Invoice> DBInvoiceList = DBReader.createInvoiceList();		
 		
-		List<Invoice> invoiceOrderedList = new List<Invoice>(new TotalComparator());
+		InvoiceList invoiceOrderedList = new InvoiceList(new TotalComparator());
 		
 		//This will generate invoice report, with a given list of invoices and display it on the console
-		InvoiceWriter.createInvoiceReport(invoiceOrderedList);
+		InvoiceWriter.createInvoiceReport((List<Invoice>) invoiceOrderedList);
 
 
 	}
