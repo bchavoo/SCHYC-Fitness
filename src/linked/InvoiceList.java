@@ -18,6 +18,10 @@ public class InvoiceList implements Iterable<Invoice> {
 		this.comp = comp;
 	}
 
+	public Comparator<Invoice> getComp(){
+		return comp;
+	}
+	
 	public InvoiceNode<Invoice> getStart() {
 		return start;
 	}
@@ -47,10 +51,6 @@ public class InvoiceList implements Iterable<Invoice> {
 		end = null;
 		size = 0;
 
-	}
-
-	public Comparator<Invoice> getComp(){
-		return comp;
 	}
 
 
