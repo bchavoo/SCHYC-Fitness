@@ -167,6 +167,7 @@ public class InvoiceWriter {
 		List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
 		allCalcTotals.add(calcList);
 
+		System.out.println("Creating ivoice... " + currentInvoice.getInvoiceCode());
 		//Creates a single invoice, processing one invoice at a time as it reads the data
 		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 		
@@ -226,7 +227,7 @@ public class InvoiceWriter {
 
 
 			//Here we format and display the information we have
-			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", currentInvoice.getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(),  fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(0).get(i).getDiscount(), fullArray.get(0).get(i).getFinalTotal());
+			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", currentInvoice.getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
 			i++;
 		}
 		System.out.println("=====================================================================================================================================================");

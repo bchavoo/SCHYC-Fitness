@@ -23,8 +23,14 @@ public class InvoiceReport {
 		
 		for(int i = 0; i < DBInvoiceList.size(); i++) {
 			invoiceOrderedList.add(DBInvoiceList.get(i));
-			System.out.println(i);
+			System.out.println(invoiceOrderedList.getStart().getInvoice());
 		}
+		
+		System.out.println(invoiceOrderedList.getStart().getInvoice().getInvoiceCode());
+		System.out.println(invoiceOrderedList.getStart().getNext().getInvoice().getInvoiceCode());
+		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getInvoice().getInvoiceCode());
+		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getInvoiceCode());
+		//System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getInvoiceCode());
 
 
 		//This will generate invoice report, with a given list of invoices and display it on the console
