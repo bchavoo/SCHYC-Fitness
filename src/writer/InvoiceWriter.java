@@ -13,6 +13,7 @@ import entities.Address;
 import entities.Invoice;
 import entities.InvoiceProducts;
 import entities.Member;
+import linked.InvoiceList;
 import product.DayMembership;
 import product.RentalEquipment;
 import product.ParkingPass;
@@ -24,7 +25,7 @@ import reader.FileReader;
 public class InvoiceWriter {
 
 
-	public static void createInvoiceReport(List<Invoice> invoiceList)  {
+	public static void createInvoiceReport(InvoiceList<Invoice> invoiceOrderedList)  {
 		//Do all calculations and formatting here
 		int i = 0;
 		ArrayList<List<Calculations>> allCalcTotals = new ArrayList<List<Calculations>>();
@@ -34,24 +35,62 @@ public class InvoiceWriter {
 		 * Variables to initialize parts of the invoice
 		 */
 
-		while(i < invoiceList.size()) {
+//		while(i < invoiceOrderedList.size()) {
+//			//This wile loop will have the information needed for the executive report.
+//			
+//			String invoiceNumber = invoiceOrderedList.get(i).getInvoiceCode();
+//			
+//			String trainerLastName = invoiceOrderedList.get(i).getPersonalTrainerCode().getLastName();
+//			String trainerFirstName = invoiceOrderedList.get(i).getPersonalTrainerCode().getFirstName();
+//			
+//			Member temp = invoiceOrderedList.get(i).getMemberCode();
+//			String memberName = temp.getName();
+//			String memberCode = temp.getMemberCode();
+//			String memberType = temp.getMemberType();
+//			String personLastName = invoiceOrderedList.get(i).getMemberCode().contact.getLastName();
+//			String personFirstName = invoiceOrderedList.get(i).getMemberCode().contact.getFirstName();
+//
+//			Address memberAddress = invoiceOrderedList.get(i).getMemberCode().getAddress();
+//
+//			List<InvoiceProducts> productList = invoiceOrderedList.get(i).getProductsList();
+//
+//			/**
+//			 * Here we use the information of the invoice we find and pass through the
+//			 * Calculations class to process and calculation all the totals and returns the list of
+//			 * totals where we add to our list of lists to be used in the InvoiceWriter
+//			 */
+//
+//			List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
+//			allCalcTotals.add(calcList);
+//
+//
+//			i++;
+//		}
+
+		
+		
+		
+		
+		//int c = 0;
+		for(Invoice currentInvoice: invoiceOrderedList) {
 			//This wile loop will have the information needed for the executive report.
+			//c++;
+			//System.out.println(c);
+			String invoiceNumber = currentInvoice.getInvoiceCode();
 			
-			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
+			String trainerLastName = currentInvoice.getPersonalTrainerCode().getLastName();
+			String trainerFirstName = currentInvoice.getPersonalTrainerCode().getFirstName();
 			
-			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			
-			Member temp = invoiceList.get(i).getMemberCode();
+			Member temp = currentInvoice.getMemberCode();
 			String memberName = temp.getName();
 			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
-			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
-			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+			String personLastName = currentInvoice.getMemberCode().contact.getLastName();
+			String personFirstName = currentInvoice.getMemberCode().contact.getFirstName();
 
-			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+			Address memberAddress = currentInvoice.getMemberCode().getAddress();
 
-			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+			List<InvoiceProducts> productList = currentInvoice.getProductsList();
 
 			/**
 			 * Here we use the information of the invoice we find and pass through the
@@ -63,11 +102,11 @@ public class InvoiceWriter {
 			allCalcTotals.add(calcList);
 
 
-			i++;
-		}
 
+		}
+		
 		//Use the list of invoices and calculations to create the overall executive report
-		InvoiceWriter.createExcutiveReport(invoiceList, allCalcTotals);
+		InvoiceWriter.createExcutiveReport(invoiceOrderedList, allCalcTotals);
 		allCalcTotals.clear();
 
 
@@ -77,36 +116,64 @@ public class InvoiceWriter {
 		 * Executive Report we will process one invoice at a time and pass through
 		 * the InvoiceWriter to create a single invoice and will repeat until no more invoices are left
 		 */
-		while(i < invoiceList.size()) {
-			//Here we initialize what is needed for the single invoices which contains information from the invoice class and other super classes
-			String invoiceNumber = invoiceList.get(i).getInvoiceCode();
-			
-			String trainerLastName = invoiceList.get(i).getPersonalTrainerCode().getLastName();
-			String trainerFirstName = invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			
-			Member temp = invoiceList.get(i).getMemberCode();
-			String memberName = temp.getName();
-			String memberCode = temp.getMemberCode();
-			String memberType = temp.getMemberType();
-			String personLastName = invoiceList.get(i).getMemberCode().contact.getLastName();
-			String personFirstName = invoiceList.get(i).getMemberCode().contact.getFirstName();
+//		while(i < invoiceOrderedList.size()) {
+//			//Here we initialize what is needed for the single invoices which contains information from the invoice class and other super classes
+//			String invoiceNumber = invoiceOrderedList.get(i).getInvoiceCode();
+//			
+//			String trainerLastName = invoiceOrderedList.get(i).getPersonalTrainerCode().getLastName();
+//			String trainerFirstName = invoiceOrderedList.get(i).getPersonalTrainerCode().getFirstName();
+//			
+//			Member temp = invoiceOrderedList.get(i).getMemberCode();
+//			String memberName = temp.getName();
+//			String memberCode = temp.getMemberCode();
+//			String memberType = temp.getMemberType();
+//			String personLastName = invoiceOrderedList.get(i).getMemberCode().contact.getLastName();
+//			String personFirstName = invoiceOrderedList.get(i).getMemberCode().contact.getFirstName();
+//
+//			Address memberAddress = invoiceOrderedList.get(i).getMemberCode().getAddress();
+//
+//			List<InvoiceProducts> productList = invoiceOrderedList.get(i).getProductsList();
+//
+//
+//			List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
+//			allCalcTotals.add(calcList);
+//
+//			//Creates a single invoice, processing one invoice at a time as it reads the data
+//			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+//			i++;
+//		}
+//
+//	}
 
-			Address memberAddress = invoiceList.get(i).getMemberCode().getAddress();
+	for(Invoice currentInvoice : invoiceOrderedList) {
+		//Here we initialize what is needed for the single invoices which contains information from the invoice class and other super classes
+		String invoiceNumber = currentInvoice.getInvoiceCode();
+		
+		String trainerLastName = currentInvoice.getPersonalTrainerCode().getLastName();
+		String trainerFirstName = currentInvoice.getPersonalTrainerCode().getFirstName();
+		
+		Member temp = currentInvoice.getMemberCode();
+		String memberName = temp.getName();
+		String memberCode = temp.getMemberCode();
+		String memberType = temp.getMemberType();
+		String personLastName = currentInvoice.getMemberCode().contact.getLastName();
+		String personFirstName = currentInvoice.getMemberCode().contact.getFirstName();
 
-			List<InvoiceProducts> productList = invoiceList.get(i).getProductsList();
+		Address memberAddress = currentInvoice.getMemberCode().getAddress();
+
+		List<InvoiceProducts> productList = currentInvoice.getProductsList();
 
 
-			List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
-			allCalcTotals.add(calcList);
+		List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
+		allCalcTotals.add(calcList);
 
-			//Creates a single invoice, processing one invoice at a time as it reads the data
-			InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
-			i++;
-		}
-
+		//Creates a single invoice, processing one invoice at a time as it reads the data
+		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
+		
 	}
 
-	public static void createExcutiveReport(List<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
+}
+	public static void createExcutiveReport(InvoiceList<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
 
 		System.out.println("Executive Summary Report");
 		System.out.println("=========================");
@@ -148,23 +215,44 @@ public class InvoiceWriter {
 		 * Here we create a for loop to loop  the invoice list and we use variables
 		 * and initialize it to the information we need
 		 */
-		for(int i = 0; i < invoiceList.size(); i++){
-			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
-			String memberType = invoiceList.get(i).getMemberCode().getMemberType();
+		int i = 0;
+		for(Invoice currentInvoice : invoiceList){
+			String fullName = currentInvoice.getPersonalTrainerCode().getLastName() + ", " + currentInvoice.getPersonalTrainerCode().getFirstName();
+			String memberType = currentInvoice.getMemberCode().getMemberType();
 			String memberNameType = "";
 
 
-				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
+				memberNameType = currentInvoice.getMemberCode().getName() + " [" + memberType + "] ";
 
 
 			//Here we format and display the information we have
-			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
+			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", currentInvoice.getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(),  fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(0).get(i).getDiscount(), fullArray.get(0).get(i).getFinalTotal());
+			i++;
 		}
 		System.out.println("=====================================================================================================================================================");
 		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
 		System.out.println("\nIndividual Invoice Detail Reports");
 
 	}
+	
+	
+//		for(int i = 0; i < invoiceList.size(); i++){
+//			String fullName = invoiceList.get(i).getPersonalTrainerCode().getLastName() + ", " + invoiceList.get(i).getPersonalTrainerCode().getFirstName();
+//			String memberType = invoiceList.get(i).getMemberCode().getMemberType();
+//			String memberNameType = "";
+//
+//
+//				memberNameType = invoiceList.get(i).getMemberCode().getName() + " [" + memberType + "] ";
+//
+//
+//			//Here we format and display the information we have
+//			System.out.printf("%-9s %-49s %-29s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", invoiceList.get(i).getInvoiceCode(), memberNameType, fullName, fullArray.get(i).get(0).getSubTotal(), fullArray.get(i).get(0).getStudentFees(), fullArray.get(i).get(0).getTaxes(), fullArray.get(i).get(0).getDiscount(), fullArray.get(i).get(0).getFinalTotal());
+//		}
+//		System.out.println("=====================================================================================================================================================");
+//		System.out.printf("%-89s $%10.2f $%10.2f $%10.2f $%9.2f $%10.2f\n", "TOTALS", finalTotalSubTotal, finalTotalFees, finalTotalTaxes, finalTotalDiscount, finalTotalTotal);
+//		System.out.println("\nIndividual Invoice Detail Reports");
+//
+//	}
 
 
 

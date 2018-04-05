@@ -2,13 +2,13 @@ package linked;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 import entities.Invoice;
 
 public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	private InvoiceNode<Invoice> start;
-	private InvoiceNode<Invoice> end;
 	private int size = 0;
 	private Comparator<Invoice> comp;
 //	private IteratorInvoice iterator;
@@ -32,13 +32,8 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		this.start = start;
 	}
 
-	public InvoiceNode<Invoice> getEnd() {
-		return end;
-	}
+	
 
-	public void setEnd(InvoiceNode<Invoice> end) {
-		this.end = end;
-	}
 
 	public void setSize(int size) {
 		this.size = size;
@@ -50,7 +45,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	public void clear() {
 		start = null;
-		end = null;
+		
 		size = 0;
 
 	}
@@ -65,18 +60,16 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 		else if(size == 1){
 
-
+			//new start
 			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
-				start.setNext(newInvoiceNode);
+				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 
 				size++;
 			}
 
 			else{
-				end.setNext(newInvoiceNode);
-				end = newInvoiceNode;
-
+				start.setNext(newInvoiceNode);
 				size++;
 			}
 
@@ -86,23 +79,24 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 
 			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
-				start.setNext(newInvoiceNode);
+				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 				size++;
 			}else{
 
-
+				InvoiceNode<Invoice> current = start;
 				boolean inList = false;
 				for(int i =0; i < size; i++){
-					start = start.getNext();
-//					if (newNode belongs before current node && not added){
-//						inList = true;
-//						//add node
-//					}
-//				
-					if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == -1 && !inList){
+				if (current.getNext() != null){
+					if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && !inList){
 						inList = true;
+						newInvoiceNode.setNext(current.getNext());
+						current.setNext(newInvoiceNode);
+					
 					}
+				
+					current = current.getNext();	
+				}
 				}
 				
 				if(!inList){
@@ -112,10 +106,10 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				//start = old end
 				//InvoiceNode<Invoice> neighbor1;
 				//new end = newnode
-				start.setNext(newInvoiceNode);
+				current.setNext(newInvoiceNode);
 				//neighbor1 =  newnode
 				//neighbor1 = start.getNext();
-				end = newInvoiceNode;
+			
 				//newnode.next = newnode (infinite loop)
 				//newInvoiceNode.setNext(neighbor1);
 /*
@@ -160,7 +154,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comp == null) ? 0 : comp.hashCode());
-		result = prime * result + ((end == null) ? 0 : end.hashCode());
+	//	result = prime * result + ((end == null) ? 0 : end.hashCode());
 		result = prime * result + size;
 		result = prime * result + ((start == null) ? 0 : start.hashCode());
 		return result;
@@ -180,11 +174,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				return false;
 		} else if (!comp.equals(other.comp))
 			return false;
-		if (end == null) {
-			if (other.end != null)
-				return false;
-		} else if (!end.equals(other.end))
-			return false;
+	
 		if (size != other.size)
 			return false;
 		if (start == null) {
@@ -197,7 +187,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	@Override
 	public Iterator<Invoice> iterator() {
-		return new IteratorInvoice(this.start);
+		return new IteratorInvoice();
 	}
 	/*
 	 * a b c d e f
@@ -211,16 +201,18 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	 * 		}
 	 * }
 	 */
-	public class IteratorInvoice implements Iterator<Invoice> {
+	 class IteratorInvoice implements Iterator<Invoice> {
 		int index = 0;
 		InvoiceNode<Invoice> current;
-		public IteratorInvoice(InvoiceNode<Invoice> start){
-			this.current = start;
+		public IteratorInvoice(){
+			this.current = InvoiceList.this.start;
 		}
 		@Override
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			//check if node at [position] list.get(i).getNext == null return false, else return true;
+			
+			
 			if (current.getNext()==null){
 				return false;
 			}else{

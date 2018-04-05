@@ -23,11 +23,12 @@ public class InvoiceReport {
 		
 		for(int i = 0; i < DBInvoiceList.size(); i++) {
 			invoiceOrderedList.add(DBInvoiceList.get(i));
+			System.out.println(i);
 		}
 
 
 		//This will generate invoice report, with a given list of invoices and display it on the console
-		InvoiceWriter.createInvoiceReport((List<Invoice>) invoiceOrderedList);
+		InvoiceWriter.createInvoiceReport(invoiceOrderedList);
 		
 		
 
