@@ -56,7 +56,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	public void add(Invoice item){
 		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
-
+		
 		if(start == null){
 			start = newInvoiceNode;
 		}

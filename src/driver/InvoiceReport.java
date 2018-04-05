@@ -25,8 +25,11 @@ public class InvoiceReport {
 			invoiceOrderedList.add(DBInvoiceList.get(i));
 		}
 
+
 		//This will generate invoice report, with a given list of invoices and display it on the console
 		InvoiceWriter.createInvoiceReport((List<Invoice>) invoiceOrderedList);
+		
+		
 
 
 	}
