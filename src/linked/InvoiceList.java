@@ -11,8 +11,8 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	private InvoiceNode<Invoice> start;
 	private int size = 0;
 	private Comparator<Invoice> comp;
-//	private IteratorInvoice iterator;
-	
+	//	private IteratorInvoice iterator;
+
 	public InvoiceList(Comparator<Invoice> comp) {
 		this.start = null;
 		this.size = 0;
@@ -23,7 +23,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	public Comparator<Invoice> getComp(){
 		return comp;
 	}
-	
+
 	public InvoiceNode<Invoice> getStart() {
 		return start;
 	}
@@ -32,7 +32,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		this.start = start;
 	}
 
-	
+
 
 
 	public void setSize(int size) {
@@ -45,7 +45,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	public void clear() {
 		start = null;
-		
+
 		size = 0;
 
 	}
@@ -53,7 +53,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	public void add(Invoice item){
 		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
-		
+
 		if(start == null){
 			start = newInvoiceNode;
 		}
@@ -85,73 +85,40 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				InvoiceNode<Invoice> current = start;
 				// boolean to check if nodes are in the list 
 				boolean inList = false;
-				for(int i =0; i < size; i++){
+				for(int i = 0; i < size; i++){
 					// if the current nodes neigbors are not null
-				if (current.getNext() != null){
-					// compare the new node with the current node
-					if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && !inList){
-						inList = true;
-						newInvoiceNode.setNext(current.getNext());
-						current.setNext(newInvoiceNode);
-						
-						System.out.println("uh suh dude");
-					
-						
+					while (current.getNext() != null){
+						// compare the new node with the current node
+						if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && inList == false){
+							inList = true;
+							newInvoiceNode.setNext(current.getNext());
+							current.setNext(newInvoiceNode);
+
+
+						}
+						current = current.getNext();
+
 					}
-					current = current.getNext();
 
 				}
 
+				if(inList == false){
+					//if not added
+					//add as new end
+
+					current.setNext(newInvoiceNode);
+
 				}
-				
-				if(!inList){
-				//if not added
-				//add as new end
-				
-				//start = old end
-				//InvoiceNode<Invoice> neighbor1;
-				//new end = newnode
-				current.setNext(newInvoiceNode);
-				//neighbor1 =  newnode
-				//neighbor1 = start.getNext();
-			
-				//newnode.next = newnode (infinite loop)
-				//newInvoiceNode.setNext(neighbor1);
-/*
-				c
-				
-				a b d e f
-				
-				
-				
-				
-*/				
-				}
-			
+
 			}
-//			else {
-//
-//				for(int i = 0; i > size; i++){
-//					start = start.getNext();
-//				}
-//
-//				InvoiceNode<Invoice> currentNode;
-//
-//				currentNode = start.getNext();
-//
-//				currentNode.setNext(newInvoiceNode);
-//
-//
-//
-//				size++;
-//			}
+
 		}
 		size++;
 	}
 
 
-	
-	
+
+
 
 
 	@Override
@@ -178,7 +145,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				return false;
 		} else if (!comp.equals(other.comp))
 			return false;
-	
+
 		if (size != other.size)
 			return false;
 		if (start == null) {
@@ -205,7 +172,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	 * 		}
 	 * }
 	 */
-	 class IteratorInvoice implements Iterator<Invoice> {
+	class IteratorInvoice implements Iterator<Invoice> {
 		int index = 0;
 		InvoiceNode<Invoice> current;
 		public IteratorInvoice(){
@@ -215,8 +182,8 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			//check if node at [position] list.get(i).getNext == null return false, else return true;
-			
-			
+
+
 			if (current==null){
 				return false;
 			}else{
@@ -235,7 +202,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 			}else{
 				return null;
 			}
-			
+
 		}
 
 
