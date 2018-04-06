@@ -61,18 +61,18 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		else if(size == 1){
 
 			//new start if the new node is smaller than the start than the new node will be placed in front and the new node will be the new start
-			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
+			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == -1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 
-			}
-
-			else{
+			} else {
 				// the start remains at the start and the new node is the neighbor of it
 				start.setNext(newInvoiceNode);
 			}
 
 		}
+		
+		//------------------------------------------ Everything is good up to here
 
 		else{
 
