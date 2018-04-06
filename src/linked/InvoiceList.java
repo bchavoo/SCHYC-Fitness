@@ -87,7 +87,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				boolean inList = false;
 				for(int i = 0; i < size; i++){
 					// if the current nodes neigbors are not null
-					while (current.getNext() != null){
+					if (current.getNext() != null){
 						// compare the new node with the current node
 						if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && inList == false){
 							inList = true;
