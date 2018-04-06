@@ -60,43 +60,48 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 		else if(size == 1){
 
-			//new start
+			//new start if the new node is smaller than the start than the new node will be placed in front and the new node will be the new start
 			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 
-				size++;
 			}
 
 			else{
+				// the start remains at the start and the new node is the neighbor of it
 				start.setNext(newInvoiceNode);
-				size++;
 			}
 
 		}
 
 		else{
 
-
+			//start is the now the new node with more than two nodes in the list
 			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
-				size++;
 			}else{
-
+				// store start in a new invoice node called curretn
 				InvoiceNode<Invoice> current = start;
+				// boolean to check if nodes are in the list 
 				boolean inList = false;
 				for(int i =0; i < size; i++){
+					// if the current nodes neigbors are not null
 				if (current.getNext() != null){
+					// compare the new node with the current node
 					if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && !inList){
 						inList = true;
 						newInvoiceNode.setNext(current.getNext());
 						current.setNext(newInvoiceNode);
+						
+						System.out.println("uh suh dude");
 					
+						
 					}
-				
-					current = current.getNext();	
+					current = current.getNext();
+
 				}
+
 				}
 				
 				if(!inList){
@@ -121,7 +126,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				
 				
 */				
-				size++;
 				}
 			
 			}
@@ -142,6 +146,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 //				size++;
 //			}
 		}
+		size++;
 	}
 
 
@@ -154,7 +159,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comp == null) ? 0 : comp.hashCode());
-	//	result = prime * result + ((end == null) ? 0 : end.hashCode());
 		result = prime * result + size;
 		result = prime * result + ((start == null) ? 0 : start.hashCode());
 		return result;
@@ -213,7 +217,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 			//check if node at [position] list.get(i).getNext == null return false, else return true;
 			
 			
-			if (current.getNext()==null){
+			if (current==null){
 				return false;
 			}else{
 				return true;
@@ -224,9 +228,10 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		public Invoice next() {
 			// TODO Auto-generated method stub
 			if (hasNext()){
+				InvoiceNode<Invoice> result = current;
 				current = current.getNext();
 				index++;
-				return current.getInvoice();
+				return result.getInvoice();
 			}else{
 				return null;
 			}

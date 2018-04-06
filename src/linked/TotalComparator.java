@@ -12,7 +12,7 @@ public class TotalComparator implements Comparator<Invoice> {
 
 		if(inv1.getTotal() == inv2.getTotal()) {
 			return 0;
-		} else if (inv1.getTotal() > inv2.getTotal()) {
+		} else if (inv1.getTotal() < inv2.getTotal()) {
 			return 1;
 		} else {
 			return -1;

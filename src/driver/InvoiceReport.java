@@ -25,12 +25,12 @@ public class InvoiceReport {
 			invoiceOrderedList.add(DBInvoiceList.get(i));
 			System.out.println(invoiceOrderedList.getStart().getInvoice());
 		}
-		
-		System.out.println(invoiceOrderedList.getStart().getInvoice().getInvoiceCode());
-		System.out.println(invoiceOrderedList.getStart().getNext().getInvoice().getInvoiceCode());
-		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getInvoice().getInvoiceCode());
-		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getInvoiceCode());
-		//System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getInvoiceCode());
+//		
+//		System.out.println(invoiceOrderedList.getStart().getInvoice().getInvoiceCode());
+//		System.out.println(invoiceOrderedList.getStart().getNext().getInvoice().getInvoiceCode());
+//		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getInvoice().getInvoiceCode());
+//		System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getInvoiceCode());
+//		//System.out.println(invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getInvoiceCode());
 
 
 		//This will generate invoice report, with a given list of invoices and display it on the console
