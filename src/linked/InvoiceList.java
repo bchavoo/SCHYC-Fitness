@@ -22,7 +22,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		return comp;
 	}
 
-	// setters and getter for the initalized variables
+	//Setters and getter for the initalized variables
 	public InvoiceNode<Invoice> getStart() {
 		return start;
 	}
@@ -60,7 +60,10 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 		else if(size == 1){
 
-			//new start if the new node is smaller than the start than the new node will be placed in front and the new node will be the new start
+			/**
+			 * New start if the new node is bigger than the start, the new node will be placed in front
+			 * and the new node point to the old start and then will become the new start
+			 */
 			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
@@ -77,7 +80,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 		else {
 
-			//start is the now the new node with more than two nodes in the list
 			if(this.comp.compare(newInvoiceNode.getInvoice(), start.getInvoice()) == 1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
@@ -90,25 +92,27 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 
 			} else {
-
-
+				//Start is the now the current node with more than two nodes in the list
 				InvoiceNode<Invoice> current = start;
-				// boolean to check if nodes are in the list 
+
+				//Boolean to check if nodes are in the list 
 				boolean inList = false;
 
 				for(int i = 0; i < size; i++){
 
 
-					// if the current nodes neigbors are not null
+					//If the current nodes neigbors are not null
 					if (current.getNext() != null){
 
-						// compare the new node with the current node
+						//Compare the new node with the current node
 						if(this.comp.compare(newInvoiceNode.getInvoice(), current.getInvoice()) == -1 && this.comp.compare(newInvoiceNode.getInvoice(), current.getNext().getInvoice()) == 1 && inList == false){
 							inList = true;
 							newInvoiceNode.setNext(current.getNext());
 							current.setNext(newInvoiceNode);
+							break;
 						}
 
+						//At the end of the loop, set the current to the next node to search through list
 						current = current.getNext();
 
 					}
@@ -116,24 +120,19 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 				}
 
 				if(inList == false){
-					//if not added
-					//add as new end
+					//If invoice is not added
+					//Add to the end
 
 					current.setNext(newInvoiceNode);
 				}
 			}
-			
-			
-			
-			
-			
 		}
 	}
 
 
 
 
-// Here we override the hashcode and equals methods so that it would give us the right output
+	//Here we override the hashcode and equals methods so that it would give us the right output
 
 	@Override
 	public int hashCode() {
@@ -147,26 +146,33 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		} if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		} if (getClass() != obj.getClass()) {
 			return false;
-		InvoiceList other = (InvoiceList) obj;
-		if (comp == null) {
-			if (other.comp != null)
-				return false;
-		} else if (!comp.equals(other.comp))
-			return false;
+		}
 
-		if (size != other.size)
+		InvoiceList other = (InvoiceList) obj;
+
+		if (comp == null) {
+			if (other.comp != null) {
+				return false;
+			}
+		} else if (!comp.equals(other.comp)) {
 			return false;
-		if (start == null) {
+		}
+
+
+		if (size != other.size) {
+			return false;
+		} if (start == null) {
 			if (other.start != null)
 				return false;
-		} else if (!start.equals(other.start))
+		} else if (!start.equals(other.start)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -174,36 +180,36 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	public Iterator<Invoice> iterator() {
 		return new IteratorInvoice();
 	}
-	
+
 	class IteratorInvoice implements Iterator<Invoice> {
 		int index = 0;
 		InvoiceNode<Invoice> current;
 		public IteratorInvoice(){
 			this.current = InvoiceList.this.start;
 		}
+
 		@Override
 		public boolean hasNext() {
-			//check if node at [position] list.get(i).getNext == null return false, else return true;
+			//Check if node at [position] list.get(i).getNext == null return false, else return true;
 
 
-			if (current==null){
+			if (current == null){
 				return false;
-			}else{
+			} else {
 				return true;
 			}
 		}
 
 		@Override
 		public Invoice next() {
-			// TODO Auto-generated method stub
 			//Stores the current node in a new result node which is returned when getting the invoice info
-			if (hasNext()){
+			if (hasNext()) {
 				InvoiceNode<Invoice> result = current;
-				// current is now its own neighbor
+				//Current is now its own neighbor
 				current = current.getNext();
 				index++;
 				return result.getInvoice();
-			}else{
+			} else {
 				return null;
 			}
 

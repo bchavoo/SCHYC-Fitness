@@ -19,11 +19,10 @@ public class InvoiceReport {
 
 		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
 		
+		//Adds each invoice in a new list that maintains order
 		for(int i = 0; i < DBInvoiceList.size(); i++) {
 			invoiceOrderedList.add(DBInvoiceList.get(i));
 		}
-		
-
 
 
 		//This will generate invoice report, with a given list of invoices and display it on the console
