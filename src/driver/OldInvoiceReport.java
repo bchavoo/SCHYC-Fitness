@@ -14,7 +14,7 @@ public class OldInvoiceReport {
 		List<Invoice> invoiceList = FileReader.createInvoiceList();
 
 		//This will generate invoice report and display it on the console
-		InvoiceWriter.createInvoiceReport(invoiceList);
+		//InvoiceWriter.createInvoiceReport(invoiceList);
 
 
 	}
