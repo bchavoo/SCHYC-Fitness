@@ -10,6 +10,7 @@ public class TotalComparator implements Comparator<Invoice> {
 	public int compare(Invoice inv1, Invoice inv2) {
 		// TODO Auto-generated method stub
 
+		// we check with conditional by checking the new node with the others in the list
 		if(inv1.getTotal() == inv2.getTotal()) {
 			return 0;
 		} else if (inv1.getTotal() > inv2.getTotal()) {
