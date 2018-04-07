@@ -32,12 +32,12 @@ public class InvoiceReport {
 			System.out.println("Adding invoice... " + DBInvoiceList.get(i).getInvoiceCode());
 		}
 		
-//		System.out.println("\nOrdered List: ");
-//		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getInvoice().getTotal());
-//		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getInvoice().getTotal());
-//		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getInvoice().getTotal());
-//		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getTotal());
-//		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getTotal() + "\n\n");
+		System.out.println("\nOrdered List: ");
+		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getInvoice().getTotal());
+		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getInvoice().getTotal());
+		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getInvoice().getTotal());
+		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getInvoice().getTotal());
+		System.out.println("Invoice Code: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getInvoiceCode() + " Total: " + invoiceOrderedList.getStart().getNext().getNext().getNext().getNext().getInvoice().getTotal() + "\n\n");
 
 
 
