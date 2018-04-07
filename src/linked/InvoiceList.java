@@ -74,10 +74,10 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		
 		//------------------------------------------ Everything is good up to here
 
-		else{
+		else {
 
 			//start is the now the new node with more than two nodes in the list
-			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
+			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == -1){
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 			}else{
@@ -89,7 +89,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 					// if the current nodes neigbors are not null
 					if (current.getNext() != null){
 						// compare the new node with the current node
-						if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == -1 && inList == false){
+						if(this.comp.compare(newInvoiceNode.getInvoice(),current.getNext().getInvoice()) == 1 && inList == false){
 							inList = true;
 							newInvoiceNode.setNext(current.getNext());
 							current.setNext(newInvoiceNode);

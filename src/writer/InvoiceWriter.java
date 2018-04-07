@@ -174,7 +174,7 @@ public class InvoiceWriter {
 	}
 
 }
-	public static void createExcutiveReport(InvoiceList<Invoice> invoiceList, ArrayList<List<Calculations>> fullArray) {
+	public static void createExcutiveReport(InvoiceList<Invoice> invoiceOrderedList, ArrayList<List<Calculations>> fullArray) {
 
 		System.out.println("Executive Summary Report");
 		System.out.println("=========================");
@@ -217,7 +217,7 @@ public class InvoiceWriter {
 		 * and initialize it to the information we need
 		 */
 		int i = 0;
-		for(Invoice currentInvoice : invoiceList){
+		for(Invoice currentInvoice : invoiceOrderedList){
 			String fullName = currentInvoice.getPersonalTrainerCode().getLastName() + ", " + currentInvoice.getPersonalTrainerCode().getFirstName();
 			String memberType = currentInvoice.getMemberCode().getMemberType();
 			String memberNameType = "";
