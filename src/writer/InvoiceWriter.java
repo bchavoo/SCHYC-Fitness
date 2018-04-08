@@ -20,14 +20,12 @@ import product.ParkingPass;
 import product.Product;
 import product.YearMembership;
 import reader.Calculations;
-import reader.FileReader;
 
 public class InvoiceWriter {
 
 
 	public static void createInvoiceReport(InvoiceList<Invoice> invoiceOrderedList)  {
 		//Do all calculations and formatting here
-		int i = 0;
 		ArrayList<List<Calculations>> allCalcTotals = new ArrayList<List<Calculations>>();
 
 		/**
@@ -40,19 +38,9 @@ public class InvoiceWriter {
 		
 		for(Invoice currentInvoice: invoiceOrderedList) {
 			//This wile loop will have the information needed for the executive report.
-			String invoiceNumber = currentInvoice.getInvoiceCode();
-			
-			String trainerLastName = currentInvoice.getPersonalTrainerCode().getLastName();
-			String trainerFirstName = currentInvoice.getPersonalTrainerCode().getFirstName();
-			
 			Member temp = currentInvoice.getMemberCode();
-			String memberName = temp.getName();
-			String memberCode = temp.getMemberCode();
 			String memberType = temp.getMemberType();
-			String personLastName = currentInvoice.getMemberCode().contact.getLastName();
-			String personFirstName = currentInvoice.getMemberCode().contact.getFirstName();
 
-			Address memberAddress = currentInvoice.getMemberCode().getAddress();
 
 			List<InvoiceProducts> productList = currentInvoice.getProductsList();
 
@@ -74,7 +62,6 @@ public class InvoiceWriter {
 		allCalcTotals.clear();
 
 
-		i =0;
 		/**
 		 * Here we repeat the while loop through the invoice but instead of getting the overall
 		 * Executive Report we will process one invoice at a time and pass through
@@ -104,7 +91,6 @@ public class InvoiceWriter {
 		List<Calculations> calcList = InvoiceCalculator.calculateTotals(memberType, productList);
 		allCalcTotals.add(calcList);
 
-		System.out.println("Creating ivoice... " + currentInvoice.getInvoiceCode());
 		//Creates a single invoice, processing one invoice at a time as it reads the data
 		InvoiceWriter.createSingleInvoiceReport(invoiceNumber, trainerLastName, trainerFirstName, memberName, memberCode, memberType, personLastName, personFirstName, memberAddress, productList);
 		

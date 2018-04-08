@@ -5,10 +5,10 @@ import java.util.Comparator;
 import entities.Invoice;
 
 public class TotalComparator implements Comparator<Invoice> {
-
+	
+	//Compare the new invoice with the other invoices in the list using conditionals
 	@Override
 	public int compare(Invoice inv1, Invoice inv2) {
-		//We check with conditionals to compare the new invoice with the others in the list
 		if(inv1.getTotal() == inv2.getTotal()) {
 			return 0;
 		} else if (inv1.getTotal() > inv2.getTotal()) {

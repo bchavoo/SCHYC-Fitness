@@ -2,8 +2,6 @@ package linked;
 
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
-
 import entities.Invoice;
 
 public class InvoiceList<Invoice> implements Iterable<Invoice> {
@@ -11,6 +9,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	private InvoiceNode<Invoice> start;
 	private int size = 0;
 	private Comparator<Invoice> comp;
+	//The comparator will be used to compare two Invoice objects before adding to the list
 
 	public InvoiceList(Comparator<Invoice> comp) {
 		this.start = null;
@@ -31,9 +30,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		this.start = start;
 	}
 
-
-
-
 	public void setSize(int size) {
 		this.size = size;
 	}
@@ -44,7 +40,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 	public void clear() {
 		start = null;
-
 		size = 0;
 
 	}
@@ -53,24 +48,35 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	public void add(Invoice item){
 		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
 
-		if(start == null){
+		/**
+		 * If the list is empty, the new node will become the start
+		 */
+		if (start == null) {
 			start = newInvoiceNode;
 			size++;
 		}
 
-		else if(size == 1){
+		/**
+		 * If the list has only one node, compare the new node with the start node
+		 * and add to the appropriate position in the list
+		 */
+		else if (size == 1) {
 
 			/**
-			 * New start if the new node is bigger than the start, the new node will be placed in front
-			 * and the new node point to the old start and then will become the new start
+			 * If the new node is bigger than the start, the new node will be placed in front
+			 * and the new node will point to the old start and then will become the new start
 			 */
-			if(this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1){
+			if (this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1) {
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 				size++;
 
+			/**
+			 * If the new node is not bigger, then it is smaller and we simply 
+			 * tell the start to point to the new node
+			 */
 			} else {
-				// the start remains at the start and the new node is the neighbor of it
+				//The start remains at the start and the new node is the neighbor of it
 				start.setNext(newInvoiceNode);
 				size++;
 			}
@@ -78,51 +84,68 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		}
 
 
+		/**
+		 * If the start is not null, and it's size is not 1 then the list
+		 * contains more than one element
+		 */
 		else {
 
-			if(this.comp.compare(newInvoiceNode.getInvoice(), start.getInvoice()) == 1){
+			/**
+			 * If the new Invoice is bigger than the start, we have the new Invoice
+			 * point to the old start and set it as the new start
+			 */
+			if (this.comp.compare(newInvoiceNode.getInvoice(), start.getInvoice()) == 1) {
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 				size++;
-
+				
+			/**
+			 * If the new Invoice is bigger than the neighbor of start, we have the new Invoice
+			 * point to the neighbor of start and start will now point to the new Invoice
+			 */	
 			} else if (this.comp.compare(newInvoiceNode.getInvoice(), start.getNext().getInvoice()) == 1) {
 				newInvoiceNode.setNext(start.getNext());
 				start.setNext(newInvoiceNode);
 				size++;
 
-
+			/**
+			 * If the new Invoice is not bigger than the start or the neighbor of start
+			 * then we have to crawl throught the list to find it's place
+			 */
 			} else {
 				//Start is the now the current node with more than two nodes in the list
+				//This is used to jump and check each position of the list
 				InvoiceNode<Invoice> current = start;
 
 				//Boolean to check if nodes are in the list 
-				boolean inList = false;
+				boolean addList = false;
 
+				//For loop to loop through the size of the list
 				for(int i = 0; i < size; i++){
-
-
-					//If the current nodes neigbors are not null
+					
+					//If the current nodes point are not null then we compare
 					if (current.getNext() != null){
 
-						//Compare the new node with the current node
-						if(this.comp.compare(newInvoiceNode.getInvoice(), current.getInvoice()) == -1 && this.comp.compare(newInvoiceNode.getInvoice(), current.getNext().getInvoice()) == 1 && inList == false){
-							inList = true;
+						//Compare the new node with the current node and see if it is smaller than the current node
+						//And also check that it is bigger than the next node so we know it fits directly in place
+						//If it satisfies these conditions then we will add into the list
+						if (this.comp.compare(newInvoiceNode.getInvoice(), current.getInvoice()) == -1 && this.comp.compare(newInvoiceNode.getInvoice(), current.getNext().getInvoice()) == 1 && addList == false) {
+							addList = true;
+							//New node points to the current's pointer, and current points to the new node
 							newInvoiceNode.setNext(current.getNext());
 							current.setNext(newInvoiceNode);
 							break;
 						}
 
-						//At the end of the loop, set the current to the next node to search through list
+						//At the end of the loop, set the current to the next node to move and search through list
 						current = current.getNext();
 
 					}
-
 				}
 
-				if(inList == false){
-					//If invoice is not added
+				//If nothing was ever added to the list
+				if(addList == false) {
 					//Add to the end
-
 					current.setNext(newInvoiceNode);
 				}
 			}
@@ -133,7 +156,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 
 	//Here we override the hashcode and equals methods so that it would give us the right output
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -191,8 +213,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 		@Override
 		public boolean hasNext() {
 			//Check if node at [position] list.get(i).getNext == null return false, else return true;
-
-
 			if (current == null){
 				return false;
 			} else {
@@ -212,10 +232,6 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 			} else {
 				return null;
 			}
-
 		}
-
-
 	}
-
 }
