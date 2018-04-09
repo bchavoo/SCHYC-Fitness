@@ -206,7 +206,7 @@ public class InvoiceList<T> implements Iterable<T> {
 	class IteratorInvoice implements Iterator<T> {
 		int index = 0;
 		InvoiceNode<T> current;
-		public IteratorInvoice(){
+		public IteratorInvoice() {
 			this.current = InvoiceList.this.start;
 		}
 
