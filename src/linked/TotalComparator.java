@@ -4,14 +4,14 @@ import java.util.Comparator;
 
 import entities.Invoice;
 
-public class TotalComparator implements Comparator<Invoice> {
+public class TotalComparator<T> implements Comparator<T> {
 	
 	//Compare the new invoice with the other invoices in the list using conditionals
 	@Override
-	public int compare(Invoice inv1, Invoice inv2) {
-		if(inv1.getTotal() == inv2.getTotal()) {
+	public int compare(T inv1, T inv2) {
+		if(((Invoice) inv1).getTotal() == ((Invoice) inv2).getTotal()) {
 			return 0;
-		} else if (inv1.getTotal() > inv2.getTotal()) {
+		} else if (((Invoice) inv1).getTotal() > ((Invoice) inv2).getTotal()) {
 			return 1;
 		} else {
 			return -1;

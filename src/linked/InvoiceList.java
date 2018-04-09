@@ -4,29 +4,29 @@ import java.util.Comparator;
 import java.util.Iterator;
 import entities.Invoice;
 
-public class InvoiceList<Invoice> implements Iterable<Invoice> {
+public class InvoiceList<T> implements Iterable<T> {
 
-	private InvoiceNode<Invoice> start;
+	private InvoiceNode<T> start;
 	private int size = 0;
-	private Comparator<Invoice> comp;
+	private Comparator<T> comp;
 	//The comparator will be used to compare two Invoice objects before adding to the list
 
-	public InvoiceList(Comparator<Invoice> comp) {
+	public InvoiceList(Comparator<T> comp) {
 		this.start = null;
 		this.size = 0;
 		this.comp = comp;
 	}
 
-	public Comparator<Invoice> getComp(){
+	public Comparator<T> getComp(){
 		return comp;
 	}
 
 	//Setters and getter for the initalized variables
-	public InvoiceNode<Invoice> getStart() {
+	public InvoiceNode<T> getStart() {
 		return start;
 	}
 
-	public void setStart(InvoiceNode<Invoice> start) {
+	public void setStart(InvoiceNode<T> start) {
 		this.start = start;
 	}
 
@@ -46,7 +46,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 
 
 	public void add(Invoice item){
-		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
+		InvoiceNode<T> newInvoiceNode = new InvoiceNode<T>((T) item);
 
 		/**
 		 * If the list is empty, the new node will become the start
@@ -115,7 +115,7 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 			} else {
 				//Start is the now the current node with more than two nodes in the list
 				//This is used to jump and check each position of the list
-				InvoiceNode<Invoice> current = start;
+				InvoiceNode<T> current = start;
 
 				//Boolean to check if nodes are in the list 
 				boolean addList = false;
@@ -199,15 +199,15 @@ public class InvoiceList<Invoice> implements Iterable<Invoice> {
 	}
 
 	@Override
-	public Iterator<Invoice> iterator() {
-		return new IteratorInvoice();
+	public Iterator<T> iterator() {
+		return (Iterator<T>) new IteratorInvoice();
 	}
 
 	class IteratorInvoice implements Iterator<Invoice> {
 		int index = 0;
 		InvoiceNode<Invoice> current;
 		public IteratorInvoice(){
-			this.current = InvoiceList.this.start;
+			this.current = (InvoiceNode<Invoice>) InvoiceList.this.start;
 		}
 
 		@Override
