@@ -46,13 +46,13 @@ public class InvoiceList<T> implements Iterable<T> {
 
 
 	public void add(Invoice item){
-		InvoiceNode<T> newInvoiceNode = new InvoiceNode<T>((T) item);
+		InvoiceNode<T> newInvoiceNode = new InvoiceNode<T>(item);
 
 		/**
 		 * If the list is empty, the new node will become the start
 		 */
 		if (start == null) {
-			start = newInvoiceNode;
+			start = (InvoiceNode<T>) newInvoiceNode;
 			size++;
 		}
 
@@ -66,9 +66,9 @@ public class InvoiceList<T> implements Iterable<T> {
 			 * If the new node is bigger than the start, the new node will be placed in front
 			 * and the new node will point to the old start and then will become the new start
 			 */
-			if (this.comp.compare(newInvoiceNode.getInvoice(),start.getInvoice()) == 1) {
-				newInvoiceNode.setNext(start);
-				start = newInvoiceNode;
+			if (this.comp.compare((T) newInvoiceNode.getInvoice(),(T) start.getInvoice()) == 1) {
+				newInvoiceNode.setNext((InvoiceNode<T>) start);
+				start = (InvoiceNode<T>) newInvoiceNode;
 				size++;
 
 			/**
@@ -77,7 +77,7 @@ public class InvoiceList<T> implements Iterable<T> {
 			 */
 			} else {
 				//The start remains at the start and the new node is the neighbor of it
-				start.setNext(newInvoiceNode);
+				start.setNext((InvoiceNode<T>) newInvoiceNode);
 				size++;
 			}
 
@@ -94,18 +94,18 @@ public class InvoiceList<T> implements Iterable<T> {
 			 * If the new Invoice is bigger than the start, we have the new Invoice
 			 * point to the old start and set it as the new start
 			 */
-			if (this.comp.compare(newInvoiceNode.getInvoice(), start.getInvoice()) == 1) {
-				newInvoiceNode.setNext(start);
-				start = newInvoiceNode;
+			if (this.comp.compare((T) newInvoiceNode.getInvoice(), (T) start.getInvoice()) == 1) {
+				newInvoiceNode.setNext((InvoiceNode<T>) start);
+				start = (InvoiceNode<T>) newInvoiceNode;
 				size++;
 				
 			/**
 			 * If the new Invoice is bigger than the neighbor of start, we have the new Invoice
 			 * point to the neighbor of start and start will now point to the new Invoice
 			 */	
-			} else if (this.comp.compare(newInvoiceNode.getInvoice(), start.getNext().getInvoice()) == 1) {
-				newInvoiceNode.setNext(start.getNext());
-				start.setNext(newInvoiceNode);
+			} else if (this.comp.compare((T) newInvoiceNode.getInvoice(), (T) start.getNext().getInvoice()) == 1) {
+				newInvoiceNode.setNext((InvoiceNode<T>) start.getNext());
+				start.setNext((InvoiceNode<T>) newInvoiceNode);
 				size++;
 
 			/**
@@ -129,11 +129,11 @@ public class InvoiceList<T> implements Iterable<T> {
 						//Compare the new node with the current node and see if it is smaller than the current node
 						//And also check that it is bigger than the next node so we know it fits directly in place
 						//If it satisfies these conditions then we will add into the list
-						if (this.comp.compare(newInvoiceNode.getInvoice(), current.getInvoice()) == -1 && this.comp.compare(newInvoiceNode.getInvoice(), current.getNext().getInvoice()) == 1 && addList == false) {
+						if (this.comp.compare((T) newInvoiceNode.getInvoice(), (T) current.getInvoice()) == -1 && this.comp.compare((T) newInvoiceNode.getInvoice(), (T) current.getNext().getInvoice()) == 1 && addList == false) {
 							addList = true;
 							//New node points to the current's pointer, and current points to the new node
-							newInvoiceNode.setNext(current.getNext());
-							current.setNext(newInvoiceNode);
+							newInvoiceNode.setNext((InvoiceNode<T>) current.getNext());
+							current.setNext((InvoiceNode<T>) newInvoiceNode);
 							break;
 						}
 
@@ -146,7 +146,7 @@ public class InvoiceList<T> implements Iterable<T> {
 				//If nothing was ever added to the list
 				if(addList == false) {
 					//Add to the end
-					current.setNext(newInvoiceNode);
+					current.setNext((InvoiceNode<T>) newInvoiceNode);
 				}
 			}
 		}
@@ -203,11 +203,11 @@ public class InvoiceList<T> implements Iterable<T> {
 		return (Iterator<T>) new IteratorInvoice();
 	}
 
-	class IteratorInvoice implements Iterator<Invoice> {
+	class IteratorInvoice implements Iterator<T> {
 		int index = 0;
-		InvoiceNode<Invoice> current;
+		InvoiceNode<T> current;
 		public IteratorInvoice(){
-			this.current = (InvoiceNode<Invoice>) InvoiceList.this.start;
+			this.current = InvoiceList.this.start;
 		}
 
 		@Override
@@ -221,14 +221,14 @@ public class InvoiceList<T> implements Iterable<T> {
 		}
 
 		@Override
-		public Invoice next() {
+		public T next() {
 			//Stores the current node in a new result node which is returned when getting the invoice info
 			if (hasNext()) {
-				InvoiceNode<Invoice> result = current;
+				InvoiceNode<T> result = current;
 				//Current is now its own neighbor
 				current = current.getNext();
 				index++;
-				return result.getInvoice();
+				return (T) result.getInvoice();
 			} else {
 				return null;
 			}
