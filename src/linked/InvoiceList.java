@@ -134,6 +134,7 @@ public class InvoiceList<T> implements Iterable<T> {
 							//New node points to the current's pointer, and current points to the new node
 							newInvoiceNode.setNext((InvoiceNode<T>) current.getNext());
 							current.setNext((InvoiceNode<T>) newInvoiceNode);
+							size++;
 							break;
 						}
 
