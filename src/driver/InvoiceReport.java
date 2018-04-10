@@ -17,7 +17,7 @@ public class InvoiceReport {
 		//Calls a method to get a list of invoices
 		List<Invoice> DBInvoiceList = DBReader.createInvoiceList();		
 
-		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
+		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator<Invoice>());
 		
 		//Adds each invoice in a new list that maintains order
 		for(int i = 0; i < DBInvoiceList.size(); i++) {

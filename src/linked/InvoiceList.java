@@ -38,6 +38,7 @@ public class InvoiceList<T> implements Iterable<T> {
 		return size;
 	}
 
+	//Method to clear list if needed
 	public void clear() {
 		start = null;
 		size = 0;
@@ -45,6 +46,7 @@ public class InvoiceList<T> implements Iterable<T> {
 	}
 
 
+	//Method to add and maintain order in the linked list
 	public void add(Invoice item){
 		InvoiceNode<T> newInvoiceNode = new InvoiceNode<T>(item);
 
@@ -177,7 +179,7 @@ public class InvoiceList<T> implements Iterable<T> {
 			return false;
 		}
 
-		InvoiceList other = (InvoiceList) obj;
+		InvoiceList<T> other = (InvoiceList) obj;
 
 		if (comp == null) {
 			if (other.comp != null) {
